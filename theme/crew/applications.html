@@ -1,0 +1,9 @@
+{% block content %}
+{% csrf_token %}
+    {% if user.
+        {% for ap in apps %}
+
+            <p>{{ ap.user.first_name }}  {{ ap.user.last_name }}  {{ ap.get_crew_display }}  {{ ap.date }}</p>
+        {% endfor %}
+
+{% endblock content%}
