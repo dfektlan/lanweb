@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'logistic',
     'userprofile',
+    'crew',
 )
 
 AUTH_USER_MODEL = 'userprofile.SiteUser'

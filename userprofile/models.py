@@ -11,4 +11,9 @@ class SiteUser(AbstractUser):
     town = models.CharField(max_length=200)
     zip_code = models.CharField(max_length=200)
     country = models.CharField(max_length=200)
+    cheif = models.BooleanField(null=False, default=False)
+    position = models.CharField(max_length=200)
     objects = UserManager()
+
+    def get_user():
+        return self 
