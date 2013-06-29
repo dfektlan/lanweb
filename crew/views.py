@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 #def index(request):
 
 @login_required
-@user_passes_test(lambda u: u.groups.filter(name='crew').count() == 1)
+@user_passes_test(lambda u: u.groups.filter(name='Crew').count() == 1)
 def applications(request):
     groups = request.user.groups.all()
     print groups

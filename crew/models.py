@@ -22,7 +22,7 @@ class Application(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, editable=False)
     about = models.TextField()
     why = models.TextField()
-    licens = models.CharField(max_length=200)
+    license = models.CharField(max_length=200)
     status = models.SmallIntegerField(choices=stat, default=0)
     date = models.DateTimeField(editable=False, auto_now_add=True)
     crew = models.SmallIntegerField(choices=crews)
