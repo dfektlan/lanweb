@@ -54,20 +54,8 @@ def look(request, application_id=None):
 
 @login_required
 def user_overview(request):
-    application = check_for_application(request.user)
-    if request.method == "POST":
-        form = ApplicationForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            app = Application()
-            app.user = request.user
-            app.save()
-            
-        else:
-            return HttpResponse('Invalid input')
-    else:
-        form = ApplicationForm(instance=application)
-    return render(request, 'crew/user_overview.html', {'form' : form})
+    apps = request.user.application_set.all() 
+    return render(request, 'crew/user_overview.html', {'apps' : apps})
 
 def change_group(aid):
     u = Application.objects.get(pk=aid).user 
