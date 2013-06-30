@@ -26,6 +26,7 @@ class Application(models.Model):
     status = models.SmallIntegerField(choices=stat, default=0)
     date = models.DateTimeField(editable=False, auto_now_add=True)
     crew = models.SmallIntegerField(choices=crews)
-
+    cv = models.URLField(max_length=200)
+    
     class Meta:
         get_latest_by = 'date'
