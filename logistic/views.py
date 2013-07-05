@@ -8,12 +8,15 @@ from logistic.forms import ItemForm
 def index(request):
     items = Item.objects.all()
     forms = []
-    if request.method == "POST":
-        for i in items:
-            form = ItemForm(request.POST, instance=i)
-            forms.append(form)
-            if form.is_valid():
-                form.save()
+    if request.POST:
+        print request.POST
+        print request.POST["id"]
+        print Item.objects.get(id=request.POST["id"])
+        form = ItemForm(request.POST, instance=Item.objects.get(id=request.POST["id"][0]))
+        forms.append(form)
+        if form.is_valid():
+           form.save()
+        return redirect('/logistic')
     else: 
         for i in items:
             forms.append(ItemForm(instance=i))
