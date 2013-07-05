@@ -10,19 +10,19 @@ dfektLAN - Logistikk
         <h4>Sortiment</h4>
         <table class="table table-striped table-bordered">
         <tr><th>Gruppe</th><th>Merke</th><th>Modell</th><th>Beskrivelse</th><th>Innehaver</th></tr>
+        <form action="" method="post">
+        {% csrf_token %}
         {% for item, form in both %}
         <tr><td>{{ item.itemgroup.name }}</td><td>{{ item.brand }}</td><td>{{ item.product_model }}</td><td>{{ item.description }} {{item.id }}</td>
         <td>
-        <form action="" method="post">
-            {% csrf_token %}
             {{ form.holder }}
             <input type="hidden" name="id" value="{{ item.id }}">
-            <button class="btn btn-primary" type="submit">Lagre</button>
-        </form>
         </td></tr>
         {% empty %}
         <tr><td>Det er ingen gjenstander i ditt sortiment</td><td></td><td></td><td></td><td></td></tr>
         {% endfor %}
         </table>
+        <button class="btn btn-primary" type="submit">Lagre</button>
+        </form>
     </div>
 {% endblock content%}

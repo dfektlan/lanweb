@@ -2,8 +2,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from logistic.models import ItemGroup, Item
 from logistic.forms import ItemForm
-from userprofile.models import SiteUser
-
 
 @login_required
 @user_passes_test(lambda u: u.groups.filter(name='Core').count() == 1)
@@ -16,12 +14,14 @@ def index(request):
         post = zip(request.POST.getlist("id"),request.POST.getlist("holder"))
         print post
         for idd,holder in post:
-            item = Item.objects.get(id=idd)
-            try:
-                item.holder = SiteUser.objects.get(id=holder)
-            except ValueError:
-                item.holder = None
-            item.save()
+            print idd,holder
+            form = ItemForm(request.POST, instance=Item.objects.get(id=idd))
+            print dir(form)
+            form.data.holder = holder
+            print form.data.holder
+            print form
+            if form.is_valid():
+               form.save()
         return redirect('/logistic')
     else: 
         for i in items:
@@ -29,4 +29,3 @@ def index(request):
         
     both = zip(items, forms)
     return render(request, 'logistic/index.html', {'items':items, 'forms':forms, 'both':both})
-
