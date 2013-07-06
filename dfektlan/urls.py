@@ -17,4 +17,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^crew/',   include('crew.urls')),
     url(r'^logistic/',   include('logistic.urls')),
+    url(r'^userprofile/',   include('userprofile.urls')),
+    
 )

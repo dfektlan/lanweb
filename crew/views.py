@@ -3,8 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import Group
 from forms import ApplicationAdminForm, ApplicationForm
-
-#def index(request):
+from django.contrib import messages
 
 @login_required
 @user_passes_test(lambda u: u.groups.filter(name='Crew').count() == 1)
@@ -13,15 +12,15 @@ def overview(request):
     groups = request.user.groups.all()
     user = request.user
     if user in users_in_group:
-        pending = Application.objects.filter(status=0)
-        approved = Application.objects.filter(status=1)
-        declined = Application.objects.filter(status=2)
+        pending = Application.objects.filter(status=0).order_by('-date')
+        approved = Application.objects.filter(status=1).order_by('-date')
+        declined = Application.objects.filter(status=2).order_by('-date')
     else:
         pending = []
         approved = []
         declined = []
         for i in groups:
-            for j in Application.objects.all():
+            for j in Application.objects.all().order_by('-date'):
                 if j.get_crew_display() == i.name:
                     if j.status == 0:
                         pending.append(j)
@@ -43,8 +42,8 @@ def look(request, application_id=None):
             form.user = request.user
             if form.has_changed:
                 change_group(application_id)
-            #return validate_request(request, form)
-            print dir(form)
+            messages.success(request, u'The application was successfully saved')
+            return redirect(overview)
         else:
             return HttpResponse('Invalid input')
     else:
@@ -54,8 +53,26 @@ def look(request, application_id=None):
 
 @login_required
 def user_overview(request):
-    apps = request.user.application_set.all() 
+    apps = request.user.application_set.all().order_by('-date') 
     return render(request, 'crew/user_overview.html', {'apps' : apps})
+
+@login_required
+def new_application(request, application_id=None):
+    if application_id == None:
+        application = Application()
+    else:
+        application = get_object_or_404(Application, pk=application_id)
+
+    if request.POST:
+        form = ApplicationForm(request.POST, instance=application)
+        if form.is_valid():
+            application.user_id = request.user.id
+            form.save()
+            messages.success(request, u'Your application was succesfully submitted')
+        return redirect(user_overview)
+    else:
+        form = ApplicationForm(instance=application)
+    return render(request, 'crew/new_application.html', {'form':form,})
 
 def change_group(aid):
     u = Application.objects.get(pk=aid).user 

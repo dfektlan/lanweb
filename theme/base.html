@@ -9,6 +9,7 @@
 
     <!-- Le styles -->
     <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/bootstrap-rowlink.min.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -53,7 +54,18 @@
               {% include "sidebar.html" %}
           </div><!--/.well -->
         </div><!--/span-->
-      
+
+            {% if messages %}
+                {% for message in messages %}
+                        <div class="span9">
+                            <div class="alert alert-block fade in alert-{{ message.tags }}">
+                                <a class="close" data-dismiss="alert" href="#">×</a>
+                                <p>{{ message }}</p>
+                            </div>
+                        </div>
+                {% endfor %}
+            {% endif %}     
+ 
         {% block content %}
         {% endblock content %}
 
@@ -68,19 +80,10 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{ STATIC_URL }}js/jquery.js"></script>
-    <script src="{{ STATIC_URL }}js/bootstrap-transition.js"></script>
-    <script src="{{ STATIC_URL }}js/bootstrap-alert.js"></script>
-    <script src="{{ STATIC_URL }}js/bootstrap-modal.js"></script>
-    <script src="{{ STATIC_URL }}js/bootstrap-dropdown.js"></script>
-    <script src="{{ STATIC_URL }}js/bootstrap-scrollspy.js"></script>
-    <script src="{{ STATIC_URL }}js/bootstrap-tab.js"></script>
-    <script src="{{ STATIC_URL }}js/bootstrap-tooltip.js"></script>
-    <script src="{{ STATIC_URL }}js/bootstrap-popover.js"></script>
-    <script src="{{ STATIC_URL }}js/bootstrap-button.js"></script>
-    <script src="{{ STATIC_URL }}js/bootstrap-collapse.js"></script>
-    <script src="{{ STATIC_URL }}js/bootstrap-carousel.js"></script>
-    <script src="{{ STATIC_URL }}js/bootstrap-typeahead.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-rowlink.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+
 
   </body>
 </html>
