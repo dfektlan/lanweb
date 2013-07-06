@@ -1,0 +1,29 @@
+{% block navbar %}
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">dfektLAN</a>
+          <div class="nav-collapse collapse">
+            {% if user.is_authenticated %}
+            <div class="pull-right">
+              <button href="#" class="btn btn-primary"> {{ user.username }}</button>
+              <button href="#" class="btn btn-danger">Logg ut</button>
+            </div>
+            {% else %}
+              <p> not logged in </p>
+            {% endif %}
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>    
+{% endblock %}
