@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+ 
+{% block title %}
+{{post.title}}
+{% endblock %}
+ 
+{% block content %}
+<article>
+    <header>
+        <h1> {{post.title}} </h1>
+        <p>
+            Posted on
+            <time datetime="{{post.created|date:"c"}}">
+            {{post.created|date}}
+            </time>
+        </p>
+    </header>
+    <p class="summary">
+        {{post.summary}}
+    </p>
+    {{post.content|safe}}
+</article>
+
+<!-- knappen går tilbake i historie, vil ha den til å linke til overview.html
+<button class="btn btn-primary" type="button" onClick="history.go(-1);return true;">Tilbake</button>
+-->
+{% endblock %}

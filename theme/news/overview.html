@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+News Archive
+{% endblock %}
+
+{% block content %}
+    <h1> dfektLAN news </h1>
+    {% for post in posts %}
+    <div class="post">
+        <h2>
+<!-- følgende hyperlink fungerer ikke. (get_absolute_url eller slug) -->
+            <a href="{{post.get_absolute_url}}">
+                {{post.title}}
+            </a>
+        </h2>
+        <p>{{post.summary}}</p>
+        <p>
+            Posted on
+            <time datetime="{{post.created|date:"c"}}">
+            {{post.created|date}}
+            </time>
+        </p>
+    </div>
+    {% endfor %}
+{% endblock %}
+

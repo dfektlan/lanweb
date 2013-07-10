@@ -135,6 +135,7 @@ INSTALLED_APPS = (
     'logistic',
     'userprofile',
     'crew',
+    'news',
 )
 
 AUTH_USER_MODEL = 'userprofile.SiteUser'
