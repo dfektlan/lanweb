@@ -4,7 +4,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 
-def myprofile(request):
-    user = request.user
+def profile(request, user_id=None):
+    if user_id == None:
+        user = request.user
+    else:
+        user = SiteUser.objects.get(id=user_id)
     apps = user.application_set.all()
-    return render(request, 'userprofile/myprofile.html', {'user':user, 'apps':apps})
+    return render(request, 'userprofile/profile.html', {'user':user, 'apps':apps})

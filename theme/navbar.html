@@ -11,7 +11,7 @@
           <div class="nav-collapse collapse">
             {% if user.is_authenticated %}
             <div class="pull-right">
-              <button href="#" class="btn btn-primary"> {{ user.username }}</button>
+              <a href="{% url 'myprofile' %}"><button class="btn btn-primary"> {{ user.username }}</button></a>
               <button href="#" class="btn btn-danger">Logg ut</button>
             </div>
             {% else %}

@@ -10,7 +10,9 @@ dfektLAN - Min profil
         <h2>{{ user.first_name }} {{ user.last_name }}</h2>
         <div class="span7">
             <div class="row">
+                {% if user.image %}
                 <img src="{{ user.image.url }}" width=160 height=213>
+                {% endif %}
                 <div class="span4">
                     <strong>Nickname</strong>
                     <ul class="unstyled"><li>{{ user.nickname }}</li></ul>
