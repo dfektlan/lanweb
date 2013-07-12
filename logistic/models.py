@@ -15,6 +15,6 @@ class Item(models.Model):
     product_model = models.CharField(_("Produkt modell"), max_length=200)
     description = models.CharField(_("Beskrivelse"), max_length=30)
     holder = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, default=None, verbose_name="Current holder", related_name ="Holder", editable=True)
-
+    image = models.ImageField(_(u'Bilde'), upload_to='items',max_length=150, blank=True)
     def __unicode__(self):
-        return self.product_model
+        return u(self.brand + " " + self.product_model)
