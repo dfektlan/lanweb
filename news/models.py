@@ -14,11 +14,11 @@ class Post(models.Model):
 #    edited_by =
 #    edited_date =
 
-class Meta:
-    ordering = ['-created']
+    class Meta:
+        ordering = ['-created',]
 
     def __unicode__(self):
         return u'%s' % self.title
 
     def get_absolute_url(self):
-        return reverse('news.views.post', args=[self.slug])
+        return reverse('news.views.detail', args=[self.slug])

@@ -5,23 +5,44 @@ News Archive
 {% endblock %}
 
 {% block content %}
-    <h1> dfektLAN news </h1>
-    {% for post in posts %}
-    <div class="post">
-        <h2>
-<!-- følgende hyperlink fungerer ikke. (get_absolute_url eller slug) -->
-            <a href="{{post.get_absolute_url}}">
-                {{post.title}}
-            </a>
-        </h2>
-        <p>{{post.summary}}</p>
-        <p>
-            Posted on
-            <time datetime="{{post.created|date:"c"}}">
-            {{post.created|date}}
-            </time>
-        </p>
+    <h1> News Archive </h1>
+    {% with posts|first as latest_post %}
+    <div class="span9">
+        <div class="hero-unit">
+            <h1> 
+                <a href="{{latest_post.get_absolute_url}}"> {{latest_post.title}} </a>
+            </h1>
+            <p> {{latest_post.summary}} </p>
+            <p> {{latest_post.content}} </p>
+            <p> 
+                Posted on {{latest_post.created|date:"j. M. Y"}}
+                by {{latest_post.author}}
+            </p>
+            <p><a href="#" class="btn btn-primary btn-large">Les mer &raquo;</a></p>
+        </div>
+    {% endwith %}
+
+    <div class="row-fluid">
+        {% with posts|slice:"1:" as remaining_posts %}
+        {% for post in remaining_posts %}
+            <div class="span4">
+                <h2>
+                   <a href="{{post.get_absolute_url}}"> {{post.title}} </a>
+                </h2>
+                <p>{{post.summary}}</p>
+                <p>
+                    Posted on
+                    <time datetime="{{post.created|date:"c"}}">
+                    {{post.created|date}}
+                    </time>
+                    by {{post.author}}
+                </p>
+<!-- kult om den kunne expanda istedet for å linke. typ; onClick show content -->
+                <p><a class="btn" href="#">Vis mer &raquo;</a></p>
+            </div>
+        {% endfor %}
+        {% endwith %}
     </div>
-    {% endfor %}
+
 {% endblock %}
 
