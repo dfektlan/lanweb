@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title%}
+Sponsorer
+{% endblock title %}
+
+
+{% block content %}
+    <div class="span9">
+        {% for sponsor in sponsors %}
+            <div class="hero-unit">
+                <a href="{{ sponsor.url }}"><img src="{{ sponsor.logo.url }}"></a>
+                <p>{{ sponsor.description }}</p>
+            </div>
+        {% endfor %} 
+    </div>
+{% endblock content %}
