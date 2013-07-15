@@ -7,13 +7,12 @@ def overview(request):
     non_featured = Post.objects.filter(featured=False)
     posts = []
     elements = []
-    counter = 0
+
     for p in non_featured:
         elements.append(p)
         if len(elements) == 3:
             posts.append(elements)
             elements = []
-        counter += 1
     posts.append(elements)
     
     print(posts)

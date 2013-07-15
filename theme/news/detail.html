@@ -5,8 +5,7 @@
 {% endblock %}
  
 {% block content %}
-<article>
-    <header>
+    <div class="span9">
         <h1> {{post.title}} </h1>
         <p>
             Posted on
@@ -14,14 +13,10 @@
             {{post.created|date}}
             </time>
         </p>
-    </header>
-    <p class="summary">
-        {{post.summary}}
-    </p>
-    {{post.content|safe}}
-</article>
+        <p> {{post.summary}} </p>
+        <p> {{post.content}} </p>
 
-<!-- knappen går tilbake i historie, vil ha den til å linke til overview.html -->
-<a href="{% url 'news_overview' %}"<button class="btn btn-primary" type="button">Tilbake</button>
-
+    <a href="{% url 'news_overview' %}"<button class="btn btn-primary" type="button">Tilbake</button> </a>
+   
+   </div>
 {% endblock %}
