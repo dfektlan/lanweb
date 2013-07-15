@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     'crew',
     'event',
     'sponsor',
+    'news',
 )
 
 AUTH_USER_MODEL = 'userprofile.SiteUser'
