@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^logistic/',   include('logistic.urls')),
     url(r'^userprofile/',   include('userprofile.urls')),
     url(r'^news/',  include('news.urls')),
+    url(r'^sponsor/',  include('sponsor.urls')),
     
 )
 
