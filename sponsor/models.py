@@ -12,4 +12,4 @@ class Sponsor(models.Model):
     url = models.URLField(_(u'URL'), max_length=200, blank=True)
     
     def __unicode__(self):
-        return u(self.name)
+        return (self.name)

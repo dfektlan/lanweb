@@ -19,7 +19,7 @@ class SiteUser(AbstractUser):
     image = models.ImageField(_(u'Bilde'), upload_to='users',max_length=150, blank=True)
     
     def __unicode__(self):
-        return u(self.first_name + " " + self.last_name)
+        return (self.first_name + " " + self.last_name)
 
     def get_user(self):
         return self 

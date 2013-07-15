@@ -31,7 +31,7 @@ class Application(models.Model):
     cv = models.URLField(_(u'CV'), max_length=200, blank=True)
     
     def __unicode__(self):
-        return u(self.user.first_name + " " + self.user.last_name)
+        return (self.user.first_name + " " + self.user.last_name)
 
     class Meta:
         get_latest_by = 'date'
