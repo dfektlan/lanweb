@@ -6,9 +6,10 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 PROJECT_SETTINGS_DIRECTORY = os.path.dirname(globals()['__file__'])
-# Root directory. Contains manage.py
-PROJECT_ROOT_DIRECTORY = os.path.join(PROJECT_SETTINGS_DIRECTORY, '..')
-
+## Root directory. Contains manage.py
+PROJECT_ROOT_DIRECTORY = os.path.join(PROJECT_SETTINGS_DIRECTORY, '../')
+print PROJECT_SETTINGS_DIRECTORY
+print PROJECT_ROOT_DIRECTORY
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -122,16 +123,19 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+
+    #Thirdparty apps
+
+    #Django apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    
+    #dfektLAN apps
     'logistic',
     'userprofile',
     'crew',
