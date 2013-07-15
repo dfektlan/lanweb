@@ -22,6 +22,6 @@
 </article>
 
 <!-- knappen går tilbake i historie, vil ha den til å linke til overview.html -->
-<button class="btn btn-primary" type="button" onClick="history.go(-1);return true;">Tilbake</button>
+<a href="{% url 'news_overview' %}"<button class="btn btn-primary" type="button">Tilbake</button>
 
 {% endblock %}

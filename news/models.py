@@ -9,6 +9,7 @@ class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, editable=False)
     created = models.DateTimeField(editable=False, auto_now_add=True)
     slug = models.SlugField(unique=True, max_length=100)
+    featured = models.BooleanField(default=False)
 
 #    published = models.BooleanField(default=True)
 #    edited_by =
@@ -16,6 +17,7 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-created',]
+        get_latest_by = 'created'
 
     def __unicode__(self):
         return u'%s' % self.title
