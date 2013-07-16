@@ -10,6 +10,7 @@ class Post(models.Model):
     created = models.DateTimeField(editable=False, auto_now_add=True)
     slug = models.SlugField(unique=True, max_length=100)
     featured = models.BooleanField(default=False)
+    image = models.ImageField(upload_to='news', blank=True, ) 
 
 #    published = models.BooleanField(default=True)
 #    edited_by =

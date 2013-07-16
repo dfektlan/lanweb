@@ -14,7 +14,7 @@ News Archive
             <p> {{featured.content}} </p>
             <p> 
                 Posted on {{featured.created|date:"j. M. Y"}}
-                by {{featured.author}}
+                by <a href="#"> {{featured.author}} </a>
             </p>
             <p> <a href="{{featured.get_absolute_url}}" class="btn btn-primary btn-large"> Les mer &raquo;</a></p>
             </div>
@@ -31,7 +31,7 @@ News Archive
                         <time datetime="{{post.created|date:"c"}}">
                         {{post.created|date}}
                         </time>
-                        by {{post.author}}
+                        by <a href="#"> {{post.author}} </a>
                     </p>
 <!-- kult om den kunne expanda istedet for å linke. typ; onClick show content -->
                     <p> <a class="btn" href="{{post.get_absolute_url}}">Vis mer &raquo;</a> </p>
