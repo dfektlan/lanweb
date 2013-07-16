@@ -2,8 +2,16 @@ from django.shortcuts import render, get_object_or_404
 from news.models import Post
  
 def overview(request):
-# to get the posts that are published, use posts=Post.objects.filter(published=True)
-    featured = Post.objects.filter(featured=True).latest()
+#check if there are featured posts, if not; get the latest post
+    try:
+        featured = Post.objects.filter(featured=True).latest()
+    except Post.DoesNotExist:
+#check if there are posts at all
+        try:
+            featured = Post.objects.latest()
+        except Post.DoesNotExist:
+            featured = None
+    
     non_featured = Post.objects.filter(featured=False)
     posts = []
     elements = []
@@ -15,10 +23,8 @@ def overview(request):
             elements = []
     posts.append(elements)
     
-    print(posts)
     return render(request, 'news/overview.html', {'posts': posts, 'featured': featured})
  
 def detail(request, slug):
-# get the Post object
     post = get_object_or_404(Post, slug=slug)
     return render(request, 'news/detail.html', {'post': post})
