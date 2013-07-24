@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^userprofile/',   include('userprofile.urls')),
     url(r'^news/',  include('news.urls')),
     url(r'^sponsor/',  include('sponsor.urls')),
+    url(r'^auth/',  include('auth.urls')),
     
 )
 

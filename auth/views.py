@@ -4,18 +4,18 @@ import uuid
 
 from django.contrib import auth
 from django.contrib import messages
-from django.contrib import auth
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
+from userprofile.models import SiteUser
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 
-from studlan import settings
-from studlan.authentication.forms import (LoginForm, RegisterForm, 
+#from studlan import settings
+from auth.forms import (LoginForm, RegisterForm, 
                             RecoveryForm, ChangePasswordForm)
-from studlan.authentication.models import RegisterToken
-from studlan.misc.forms import InlineSpanErrorList
-from studlan.userprofile.models import UserProfile
+from auth.models import RegisterToken
+#from studlan.misc.forms import InlineSpanErrorList
+#from studlan.userprofile.models import UserProfile
 
 def login(request):
     redirect_url = request.REQUEST.get('next', '')
@@ -26,7 +26,7 @@ def login(request):
             if redirect_url:
                 return HttpResponseRedirect(redirect_url)
             return HttpResponseRedirect('/')
-        else: form = LoginForm(request.POST, auto_id=True, error_class=InlineSpanErrorList)
+        else: form = LoginForm(request.POST, auto_id=True)
     else:
         form = LoginForm()
 
@@ -49,28 +49,25 @@ def register(request):
                 cleaned = form.cleaned_data
                 
                 # Create user
-                user = User(
-                    username=cleaned['desired_username'], 
+                user = SiteUser(
+                    username=cleaned['username'], 
+                    nickname=cleaned['username'],
                     first_name=cleaned['first_name'], 
                     last_name=cleaned['last_name'],
                     email=cleaned['email'],
+                    date_of_birth=cleaned['date_of_birth'],
+                    zip_code=cleaned['zip_code'],
+                    address=cleaned['address'],
+                    phone=cleaned['phone'],
+                    skype=cleaned['skype'],
+                    steam=cleaned['steam'],
+                    town=cleaned['town'],
+                    country=cleaned['country'],
+                    #image=cleaned['image'],
                 )
                 user.set_password(cleaned['password'])
                 user.is_active = False
                 user.save()
-
-                # Create userprofile
-                up = UserProfile(
-                    user=user, 
-                    nick=cleaned['desired_username'],
-                    ntnu_username=cleaned['ntnu_username'],
-                    date_of_birth=cleaned['date_of_birth'],
-                    gender=cleaned['gender'],
-                    zip_code=cleaned['zip_code'],
-                    address=cleaned['address'],
-                    phone=cleaned['phone'],
-                )
-                up.save() 
 
                 # Create the registration token
                 token = uuid.uuid4().hex
@@ -95,7 +92,7 @@ recovery option to get your account verified.
 
                 return HttpResponseRedirect('/')        
             else:
-                form = RegisterForm(request.POST, auto_id=True, error_class=InlineSpanErrorList)
+                form = RegisterForm(request.POST, auto_id=True)
         else:
             form = RegisterForm()
 
@@ -130,7 +127,7 @@ def recover(request):
             form = RecoveryForm(request.POST)
             if form.is_valid():
                 email = form.cleaned_data['email']
-                users = User.objects.filter(email=email)
+                users = SiteUser.objects.filter(email=email)
 
                 if len(users) == 0:
                     messages.error(request, "That email is not registered.")
@@ -160,13 +157,13 @@ recovery option again to get your account verified.
 """ % (email, user.username, request.META['HTTP_HOST'], token)
                 
 
-                send_mail('Account recovery', email_message, settings.STUDLAN_FROM_MAIL, [email,])
+                send_mail('Account recovery', email_message, settings.REGISTER_FROM_MAIL, [email,])
 
                 messages.success(request, 'A recovery link has been sent to %s.' % email)
 
                 return HttpResponseRedirect('/')        
             else:
-                form = RecoveryForm(request.POST, auto_id=True, error_class=InlineSpanErrorList)
+                form = RecoveryForm(request.POST, auto_id=True)
         else:
             form = RecoveryForm()
 
@@ -180,7 +177,7 @@ def set_password(request, token=None):
        
         if rt.is_valid:
             if request.method == 'POST':
-                form = ChangePasswordForm(request.POST, auto_id=True, error_class=InlineSpanErrorList)
+                form = ChangePasswordForm(request.POST, auto_id=True)
                 if form.is_valid():
                     user = getattr(rt, 'user')
 
@@ -203,4 +200,4 @@ def set_password(request, token=None):
 
         else:
             messages.error(request, "The token has expired. Please use the password recovery to get a new token.")
-            return HttpResponseRedirect('/')        
+            return HttpResponseRedirect('/')

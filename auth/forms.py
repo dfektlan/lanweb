@@ -33,7 +33,7 @@ class LoginForm(forms.Form):
 
     def login(self, request):
         try:
-            User.objects.get(username=request.POST['username'])
+            SiteUser.objects.get(username=request.POST['username'])
         except:
             return False
         if self.is_valid():
@@ -53,10 +53,10 @@ class RegisterForm(forms.Form):
     address = forms.CharField(label="Address", max_length=50)
     zip_code = forms.CharField(label="ZIP code", max_length=4)
     town = forms.CharField(label="Town", max_length=20)
-    country = forsm.CharField(label="Country", max_length=20)
+    country = forms.CharField(label="Country", max_length=20)
     phone = forms.CharField(label="Phone number", max_length=20)
     skype = forms.CharField(label="Skype User", max_length=20)
-    steam = forsm.charField(label="Steam User", max_length=20)
+    steam = forms.CharField(label="Steam User", max_length=20)
 
     
     def clean(self):
@@ -75,15 +75,15 @@ class RegisterForm(forms.Form):
                 self._errors['repeat_password'] = self.error_class(["Passwords did not match."])
 
             # Check username
-            username = cleaned_data['desired_username']
-            if User.objects.filter(username=username).count() > 0:
-                self._errors['desired_username'] = self.error_class(["There is already a user with that username."])
+            username = cleaned_data['username']
+            if SiteUser.objects.filter(username=username).count() > 0:
+                self._errors['username'] = self.error_class(["There is already a user with that username."])
             if not re.match("^[a-zA-Z0-9_-]+$", username):
-                self._errors['desired_username'] = self.error_class(["Your desired username contains illegal characters. Valid: a-Z 0-9 - _"])
+                self._errors['username'] = self.error_class(["Your desired username contains illegal characters. Valid: a-Z 0-9 - _"])
 
             # Check email
             email = cleaned_data['email']
-            if User.objects.filter(email=email).count() > 0:
+            if SiteUser.objects.filter(email=email).count() > 0:
                 self._errors['email'] = self.error_class(["There is already a user with that email."])
 
             # ZIP code digits only
