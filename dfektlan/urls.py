@@ -9,7 +9,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'dfektlan.views.home', name='home'),
+    url(r'^$', 'news.views.overview', name='root'),
     # url(r'^dfektlan/', include('dfektlan.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
