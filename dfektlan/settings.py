@@ -136,6 +136,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     
     #dfektLAN apps
+    'auth',
     'logistic',
     'userprofile',
     'crew',
@@ -145,6 +146,10 @@ INSTALLED_APPS = (
 )
 
 AUTH_USER_MODEL = 'userprofile.SiteUser'
+
+
+#EMAIL SETTINGS
+REGISTER_FROM_MAIL="no-reply@dfektlan.no"
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
