@@ -5,11 +5,8 @@ import re
 
 from django import forms
 from django.contrib import auth
-#from django.contrib.auth.models import User
 from userprofile.models import SiteUser
 
-#from studlan.misc.forms import InlineSpanErrorList
-#from studlan.userprofile.models import GENDERS
 
 class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(), label="Username", max_length=50)

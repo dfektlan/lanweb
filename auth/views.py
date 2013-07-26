@@ -4,18 +4,14 @@ import uuid
 
 from django.contrib import auth
 from django.contrib import messages
-#from django.contrib.auth.models import User
 from userprofile.models import SiteUser
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 
-#from studlan import settings
 from auth.forms import (LoginForm, RegisterForm, 
                             RecoveryForm, ChangePasswordForm)
 from auth.models import RegisterToken
-#from studlan.misc.forms import InlineSpanErrorList
-#from studlan.userprofile.models import UserProfile
 
 def login(request):
     redirect_url = request.REQUEST.get('next', '')
@@ -75,7 +71,7 @@ def register(request):
                 rt.save()
 
                 email_message = u"""
-You have registered an account at studlan.no.
+You have registered an account at dfektlan.no.
 
 To use the account you need to verify it. You can do this by visiting the link below.
 
@@ -86,7 +82,7 @@ link within 24 hours, it will be invalid, and you will need to use the password
 recovery option to get your account verified.
 """ % (request.META['HTTP_HOST'], token)
 
-                send_mail('Verify your account', email_message, settings.STUDLAN_FROM_MAIL, [user.email,])
+                send_mail('Verify your account', email_message, settings.REGISTER_FROM_MAIL, [user.email,])
 
                 messages.success(request, 'Registration successful. Check your email for verification instructions.')
 
