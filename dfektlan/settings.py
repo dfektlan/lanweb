@@ -125,7 +125,6 @@ TEMPLATE_DIRS = (
 INSTALLED_APPS = (
 
     #Thirdparty apps
-
     #Django apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -134,6 +133,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django.contrib.flatpages',
     
     #dfektLAN apps
     'auth',

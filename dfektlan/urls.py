@@ -10,6 +10,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'news.views.overview', name='root'),
+    url(r'^pages/', include('django.contrib.flatpages.urls')),    
     # url(r'^dfektlan/', include('dfektlan.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
@@ -23,7 +24,6 @@ urlpatterns = patterns('',
     url(r'^news/',  include('news.urls')),
     url(r'^sponsor/',  include('sponsor.urls')),
     url(r'^auth/',  include('auth.urls')),
-    
 )
 
 if settings.DEBUG:
