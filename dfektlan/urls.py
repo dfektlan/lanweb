@@ -25,6 +25,10 @@ urlpatterns = patterns('',
     url(r'^sponsor/',  include('sponsor.urls')),
     url(r'^auth/',  include('auth.urls')),
 )
+#Fix for flatpages urls
+urlpatterns += patterns('django.contrib.flatpages.views',
+    (r'^(?P<url>.*/)$', 'flatpage'),
+    )
 
 if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
