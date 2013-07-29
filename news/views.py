@@ -34,20 +34,21 @@ def detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
     return render(request, 'news/detail.html', {'post': post})
 
-# følgende view er IKKE ferdig 
+ 
 def archive(request, event_id=None):
-    event = get_object_or_404(LanEvent, pk=event_id)
-    filtered_posts = Post.objects.filter(event=event)
-
+#    event = get_object_or_404(LanEvent, pk=event_id)
+#    filtered_posts = Post.objects.filter(event=event)
+    events = LanEvent.objects.all()
+    all_posts = Post.objects.all()
 #   Sends posts in parts of 3
     posts = []
     elements = []
-    for p in filtered_posts:
+    for p in all_posts: # change to filtered_posts for URL-sorting
         elements.append(p)
         if len(elements) == 3:
             posts.append(elements)
             elements = []
     posts.append(elements) 
     print(posts)
-    return render(request, 'news/archive.html', {'posts': posts})
+    return render(request, 'news/archive.html', {'posts': posts, 'events': events})
     

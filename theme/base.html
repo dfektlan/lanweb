@@ -1,3 +1,4 @@
+{% load sponsor_tags %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -51,7 +52,24 @@
       <div class="row-fluid">
         <div class="span3">
           <div class="well sidebar-nav">
-              {% include "sidebar.html" %}
+
+<!-- SIDEBAR -->
+{% block sidebar %}
+    <ul class="nav nav-list">
+
+        {% block sidebar_specific %}
+        {% endblock sidebar_specific %}
+    
+    </ul> 
+    <div>
+    <ul class="nav nav-list">
+        <li class="nav-header"><h5>Sponsorer</h5></li>
+        {% show_sponsor_list %}
+    </ul>    
+    </div>
+{% endblock %}
+<!-- endof sidebar -->
+
           </div><!--/.well -->
         </div><!--/span-->
 
@@ -65,7 +83,8 @@
                         </div>
                 {% endfor %}
             {% endif %}     
- 
+
+  
         {% block content %}
         {% endblock content %}
 
