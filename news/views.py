@@ -1,21 +1,23 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, get_object_or_404
 from news.models import Post
- 
+from event.models import LanEvent
+
 def overview(request):
-#    current_event = LanEvent.objects.get(current=True)
-#    current_posts = Post.objects.filter(event=current_event)
-#check if there are featured posts, if not; get the latest post
+# This view displays the posts related to the current event. It will display featured posts on top, else the latest post.
+
+    current_event = LanEvent.objects.get(current=True)
+#check if there are featured posts (to current event), if not; get the latest post
     try:
-        featured = Post.objects.filter(featured=True).latest()
+        featured = Post.objects.filter(event=current_event).filter(featured=True).latest()
     except Post.DoesNotExist:
-#check if there are posts at all
+#check if there are posts at all (to current event)
         try:
-            featured = Post.objects.latest()
+            featured = Post.objects.filter(event=current_event).latest()
         except Post.DoesNotExist:
             featured = None
     
-    non_featured = Post.objects.filter(featured=False)
+    non_featured = Post.objects.filter(featured=False).filter(event=current_event)
     posts = []
     elements = []
 
@@ -25,7 +27,7 @@ def overview(request):
             posts.append(elements)
             elements = []
     posts.append(elements)
-    
+    print(featured) 
     return render(request, 'news/overview.html', {'posts': posts, 'featured': featured})
  
 def detail(request, slug):

@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from event.models import LanEvent
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
@@ -11,7 +12,7 @@ class Post(models.Model):
     slug = models.SlugField(unique=True, max_length=100)
     featured = models.BooleanField(default=False)
     image = models.ImageField(upload_to='news', blank=True, ) 
-#    event = models.ForeignKey(LanEvent, null=False, default=latest_event, verbose_name="Event", related_name="Event", editable=True)
+    event = models.ForeignKey(LanEvent, null=False, verbose_name="Event", related_name="Event_news", editable=True)
 
 #    published = models.BooleanField(default=True)
 #    edited_by =

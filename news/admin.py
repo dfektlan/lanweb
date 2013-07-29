@@ -3,7 +3,7 @@ from news.models import Post
 
 class PostAdmin(admin.ModelAdmin):
 # fields display on change list
-    list_display = ['title', 'summary', 'author']
+    list_display = ['title', 'summary', 'author', 'event']
 # fields to filter the change list with
     list_filter = ['created']
 # fields to search in change list
