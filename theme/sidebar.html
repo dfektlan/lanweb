@@ -1,4 +1,4 @@
-
+{% load sponsor_tags %}
 {% block sidebar %}
     <ul class="nav nav-list">
         <li class="nav-header">Sidebar</li>
@@ -20,5 +20,9 @@
 
     </ul> 
     <div>
+    <ul class="nav nav-list">
+        <li class="nav-header"><h5>Sponsorer</h5></li>
+        {% show_sponsor_list %}
+    </ul>    
     </div>
 {% endblock %}

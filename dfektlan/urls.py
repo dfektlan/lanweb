@@ -9,7 +9,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'dfektlan.views.home', name='home'),
+    url(r'^$', 'news.views.overview', name='root'),
+    url(r'^pages/', include('django.contrib.flatpages.urls')),    
     # url(r'^dfektlan/', include('dfektlan.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
@@ -21,8 +22,13 @@ urlpatterns = patterns('',
     url(r'^logistic/',   include('logistic.urls')),
     url(r'^userprofile/',   include('userprofile.urls')),
     url(r'^news/',  include('news.urls')),
-    
+    url(r'^sponsor/',  include('sponsor.urls')),
+    url(r'^auth/',  include('auth.urls')),
 )
+#Fix for flatpages urls
+urlpatterns += patterns('django.contrib.flatpages.views',
+    (r'^(?P<url>.*/)$', 'flatpage'),
+    )
 
 if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()

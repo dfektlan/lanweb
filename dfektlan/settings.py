@@ -125,7 +125,7 @@ TEMPLATE_DIRS = (
 INSTALLED_APPS = (
 
     #Thirdparty apps
-
+    'south',
     #Django apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -134,8 +134,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django.contrib.flatpages',
     
     #dfektLAN apps
+    'auth',
     'logistic',
     'userprofile',
     'crew',
@@ -145,6 +147,10 @@ INSTALLED_APPS = (
 )
 
 AUTH_USER_MODEL = 'userprofile.SiteUser'
+
+
+#EMAIL SETTINGS
+REGISTER_FROM_MAIL="no-reply@dfektlan.no"
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
