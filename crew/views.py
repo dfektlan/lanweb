@@ -40,8 +40,9 @@ def look(request, application_id=None):
         if form.is_valid():
             form.save()
             form.user = request.user
-            if form.has_changed:
+            if form.has_changed and form.cleaned_data['status'] == 1:
                 change_group(application_id)
+                add_to_crew(application_id)
             messages.success(request, u'The application was successfully saved')
             return redirect(overview)
         else:
@@ -75,20 +76,17 @@ def new_application(request, application_id=None):
     return render(request, 'crew/new_application.html', {'form':form,})
 
 def change_group(aid):
-    u = Application.objects.get(pk=aid).user 
+    user = Application.objects.get(pk=aid).user 
     if Application.objects.get(pk=aid).status == 1:
-       app_crew = Group.objects.get(name=Application.objects.get(pk=aid).get_crew_display())
        crew = Group.objects.get(name="Crew")
-       for i in u.groups.all():
-           Group.objects.get(id=i.id).siteuser_set.remove(u)
-       app_crew.siteuser_set.add(u)
-       crew.siteuser_set.add(u)
-    else: 
-       for i in u.groups.all():
-           Group.objects.get(id=i.id).siteuser_set.remove(u)
-       d = Group.objects.get(name='Deltager').siteuser_set.remove(u)
+       crew.siteuser_set.add(user)
 
-
+def add_to_crew(aid): 
+    user = Application.objects.get(pk=aid).user
+    crew = Application.objects.get(pk=aid).crew
+    if Application.objects.get(pk=aid).status == 1:
+        user.crew.add(crew.crewshift_set.get(name="Flexi"))
+        
 
 def check_for_application(user):
     if user.application_set.all():

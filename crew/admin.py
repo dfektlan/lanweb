@@ -14,6 +14,12 @@ class CrewAdmin(admin.ModelAdmin):
 class CrewGroupAdmin(admin.ModelAdmin):
     list_display = ['name','crew','event']
 
+    def save_model(self, request, obj, form, change):
+        obj.save()
+        if not change:
+            crewshift = CrewShift(crewgroup=obj, name="Flexi", description="Flexi")
+            crewshift.save()
+
 class CrewShiftAdmin(admin.ModelAdmin):
     list_display = ['name','crewgroup']
 
