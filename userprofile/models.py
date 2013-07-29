@@ -4,6 +4,8 @@ from django.contrib.auth.models import AbstractUser, UserManager
 from django.utils.translation import ugettext as _
 
 class SiteUser(AbstractUser):
+    
+    objects = UserManager()
     nickname = models.CharField(_(u'Nickname'), max_length=200)
     date_of_birth = models.DateField(_(u'Fødselsdag'))
     phone = models.CharField(_(u'Telefonnummer'), max_length=16)
@@ -15,7 +17,6 @@ class SiteUser(AbstractUser):
     country = models.CharField(_(u'Land'), max_length=200)
     chief = models.BooleanField(_(u'Sjef'), null=False, default=False)
     position = models.CharField(_(u'Posisjon'), max_length=200, blank=True)
-    objects = UserManager()
     image = models.ImageField(_(u'Bilde'), upload_to='users',max_length=150, blank=True)
     
     def __unicode__(self):

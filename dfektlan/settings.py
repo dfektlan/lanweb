@@ -125,6 +125,7 @@ TEMPLATE_DIRS = (
 INSTALLED_APPS = (
 
     #Thirdparty apps
+    'south',
     #Django apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
