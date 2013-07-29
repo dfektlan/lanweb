@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Application
+from models import Application, Crew, CrewGroup, CrewShift
 
 class ApplicationAdmin(admin.ModelAdmin):
     list_display = ['user']
@@ -8,4 +8,16 @@ class ApplicationAdmin(admin.ModelAdmin):
             obj.user = request.user
         obj.save()
 
+class CrewAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
+class CrewGroupAdmin(admin.ModelAdmin):
+    list_display = ['name','crew','event']
+
+class CrewShiftAdmin(admin.ModelAdmin):
+    list_display = ['name','crewgroup']
+
 admin.site.register(Application, ApplicationAdmin)
+admin.site.register(Crew, CrewAdmin)
+admin.site.register(CrewGroup, CrewGroupAdmin)
+admin.site.register(CrewShift, CrewShiftAdmin)

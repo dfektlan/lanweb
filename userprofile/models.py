@@ -2,6 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.utils.translation import ugettext as _
+from crew.models import CrewShift
 
 class SiteUser(AbstractUser):
     
@@ -15,9 +16,8 @@ class SiteUser(AbstractUser):
     town = models.CharField(_(u'By'), max_length=200)
     zip_code = models.CharField(_(u'Postnummer'), max_length=200)
     country = models.CharField(_(u'Land'), max_length=200)
-    chief = models.BooleanField(_(u'Sjef'), null=False, default=False)
-    position = models.CharField(_(u'Posisjon'), max_length=200, blank=True)
     image = models.ImageField(_(u'Bilde'), upload_to='users',max_length=150, blank=True)
+    crew = models.ManyToManyField(CrewShift, null=False, blank=True)
     
     def __unicode__(self):
         return (self.first_name + " " + self.last_name)
