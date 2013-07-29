@@ -8,6 +8,7 @@ class LanEvent(models.Model):
     description = models.TextField(_(u'Beskrivelse'), )
     start_date = models.DateTimeField(_(u'Start dato'), editable=True)
     end_date = models.DateTimeField(_(u'Slutt dato'), editable=True)
+    current = models.BooleanField(_(u'Current'), editable=True)
 
     def __unicode__(self):
         return self.name
