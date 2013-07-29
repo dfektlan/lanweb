@@ -7,7 +7,7 @@ class SiteUser(AbstractUser):
     
     objects = UserManager()
     nickname = models.CharField(_(u'Nickname'), max_length=200)
-    date_of_birth = models.DateField(_(u'Fødselsdag'))
+    date_of_birth = models.DateField(_(u'Fødselsdag'),blank=False, null=True)
     phone = models.CharField(_(u'Telefonnummer'), max_length=16)
     skype = models.CharField(_(u'Skype'), max_length = 200,blank=True)
     steam = models.CharField(_(u'Steam'), max_length=200, blank=True)
