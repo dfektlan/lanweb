@@ -1,25 +1,12 @@
 {% extends 'base.html' %}
 
 {% block title %}
-News overview
+News Archive
 {% endblock %}
 
 {% block content %}
     <div class="span9">
         <h1> News Archive </h1>
-        {% if featured %}
-            <div class="hero-unit">
-            <h1> <a href="{{featured.get_absolute_url}}"> {{featured.title}} </a> </h1>
-            <p> {{featured.summary}} </p>
-            <p> {{featured.content}} </p>
-            <p> 
-                Posted on {{featured.created|date:"j. M. Y"}}
-                by <a href="#"> {{featured.author}} </a>
-            </p>
-            <p> <a href="{{featured.get_absolute_url}}" class="btn btn-primary btn-large"> Les mer &raquo;</a></p>
-            </div>
-        {% endif %}
-
         {% for list in posts %}
             <div class="row-fluid">
             {% for post in list %}
@@ -33,13 +20,13 @@ News overview
                         </time>
                         by <a href="#"> {{post.author}} </a>
                     </p>
+                    <b>  {{post.event}} </b>
 <!-- kult om den kunne expanda istedet for å linke. typ; onClick show content -->
                     <p> <a class="btn" href="{{post.get_absolute_url}}">Vis mer &raquo;</a> </p>
                 </div> 
            {% endfor %}
             </div>
         {% endfor %}
-
     </div>
 {% endblock %}
 

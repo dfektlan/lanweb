@@ -21,13 +21,13 @@ def overview(request):
     posts = []
     elements = []
 
+#   Sends posts in parts of 3
     for p in non_featured:
         elements.append(p)
         if len(elements) == 3:
             posts.append(elements)
             elements = []
-    posts.append(elements)
-    print(featured) 
+    posts.append(elements) 
     return render(request, 'news/overview.html', {'posts': posts, 'featured': featured})
  
 def detail(request, slug):
@@ -36,7 +36,18 @@ def detail(request, slug):
 
 # følgende view er IKKE ferdig 
 def archive(request, event_id=None):
-    event = get_object_or_404(Event, pk=event_id)
-    posts = Post.objects.filter(event=event)
+    event = get_object_or_404(LanEvent, pk=event_id)
+    filtered_posts = Post.objects.filter(event=event)
+
+#   Sends posts in parts of 3
+    posts = []
+    elements = []
+    for p in filtered_posts:
+        elements.append(p)
+        if len(elements) == 3:
+            posts.append(elements)
+            elements = []
+    posts.append(elements) 
+    print(posts)
     return render(request, 'news/archive.html', {'posts': posts})
     
