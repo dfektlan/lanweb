@@ -5,7 +5,7 @@ import re
 
 from django import forms
 from django.contrib import auth
-from userprofile.models import SiteUser
+from apps.userprofile.models import SiteUser
 
 
 class LoginForm(forms.Form):

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, get_object_or_404
-from news.models import Post
+from apps.news.models import Post
  
 def overview(request):
 #    current_event = LanEvent.objects.get(current=True)

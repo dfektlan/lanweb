@@ -4,7 +4,7 @@ import datetime
 
 #from django.contrib.auth.models import User
 from django.db import models
-from userprofile.models import SiteUser
+from apps.userprofile.models import SiteUser
 
 
 class RegisterToken(models.Model):

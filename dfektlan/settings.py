@@ -1,6 +1,6 @@
 # Django settings for dfektlan project.
 
-import os
+import os,sys
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -137,13 +137,13 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     
     #dfektLAN apps
-    'auth',
-    'logistic',
-    'userprofile',
-    'crew',
-    'event',
-    'sponsor',
-    'news',
+    'apps.auth',
+    'apps.logistic',
+    'apps.userprofile',
+    'apps.crew',
+    'apps.event',
+    'apps.sponsor',
+    'apps.news',
 )
 
 AUTH_USER_MODEL = 'userprofile.SiteUser'

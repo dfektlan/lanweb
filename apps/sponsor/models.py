@@ -1,5 +1,5 @@
 from django.db import models
-from event.models import LanEvent
+from apps.event.models import LanEvent
 from django.utils.translation import ugettext as _
 
 class Sponsor(models.Model):
