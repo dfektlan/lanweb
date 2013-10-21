@@ -138,7 +138,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     
     #dfektLAN apps
-    'apps.auth',
+    'apps.authentication',
     'apps.logistic',
     'apps.userprofile',
     'apps.crew',

@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from django.contrib.auth.models import AbstractUser, UserManager
+from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext as _
-from crew.models import CrewShift
+from apps.crew.models import CrewShift
 
 class SiteUser(AbstractUser):
     
-    objects = UserManager()
     nickname = models.CharField(_(u'Nickname'), max_length=200)
     date_of_birth = models.DateField(_(u'Fødselsdag'),blank=False, null=True)
     phone = models.CharField(_(u'Telefonnummer'), max_length=16)
