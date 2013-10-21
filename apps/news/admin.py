@@ -1,5 +1,5 @@
 from django.contrib import admin
-from news.models import Post
+from apps.news.models import Post
 
 class PostAdmin(admin.ModelAdmin):
 # fields display on change list

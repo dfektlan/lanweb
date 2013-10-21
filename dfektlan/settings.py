@@ -1,6 +1,6 @@
 # Django settings for dfektlan project.
 
-import os
+import os,sys
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -8,8 +8,8 @@ TEMPLATE_DEBUG = DEBUG
 PROJECT_SETTINGS_DIRECTORY = os.path.dirname(globals()['__file__'])
 ## Root directory. Contains manage.py
 PROJECT_ROOT_DIRECTORY = os.path.join(PROJECT_SETTINGS_DIRECTORY, '../')
-print PROJECT_SETTINGS_DIRECTORY
-print PROJECT_ROOT_DIRECTORY
+#print PROJECT_SETTINGS_DIRECTORY
+#print PROJECT_ROOT_DIRECTORY
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -126,6 +126,7 @@ INSTALLED_APPS = (
 
     #Thirdparty apps
     'south',
+
     #Django apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -137,13 +138,13 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     
     #dfektLAN apps
-    'auth',
-    'logistic',
-    'userprofile',
-    'crew',
-    'event',
-    'sponsor',
-    'news',
+    'apps.auth',
+    'apps.logistic',
+    'apps.userprofile',
+    'apps.crew',
+    'apps.event',
+    'apps.sponsor',
+    'apps.news',
 )
 
 AUTH_USER_MODEL = 'userprofile.SiteUser'

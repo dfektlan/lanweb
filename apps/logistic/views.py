@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
-from logistic.models import ItemGroup, Item
-from logistic.forms import ItemForm
-from userprofile.models import SiteUser
+from apps.logistic.models import ItemGroup, Item
+from apps.logistic.forms import ItemForm
+from apps.userprofile.models import SiteUser
 
 
 @login_required

@@ -9,7 +9,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'news.views.overview', name='root'),
+    url(r'^$', 'apps.news.views.overview', name='root'),
     url(r'^pages/', include('django.contrib.flatpages.urls')),    
     # url(r'^dfektlan/', include('dfektlan.foo.urls')),
 
@@ -18,12 +18,12 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^crew/',   include('crew.urls')),
-    url(r'^logistic/',   include('logistic.urls')),
-    url(r'^userprofile/',   include('userprofile.urls')),
-    url(r'^news/',  include('news.urls')),
-    url(r'^sponsor/',  include('sponsor.urls')),
-    url(r'^auth/',  include('auth.urls')),
+    url(r'^crew/',   include('apps.crew.urls')),
+    url(r'^logistic/',   include('apps.logistic.urls')),
+    url(r'^userprofile/',   include('apps.userprofile.urls')),
+    url(r'^news/',  include('apps.news.urls')),
+    url(r'^sponsor/',  include('apps.sponsor.urls')),
+    url(r'^auth/',  include('apps.auth.urls')),
 )
 #Fix for flatpages urls
 urlpatterns += patterns('django.contrib.flatpages.views',

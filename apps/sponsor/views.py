@@ -1,5 +1,5 @@
-from sponsor.models import Sponsor
-from event.models import LanEvent
+from apps.sponsor.models import Sponsor
+from apps.event.models import LanEvent
 from django.shortcuts import render, get_object_or_404, redirect
 
 def index(request):
