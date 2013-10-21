@@ -8,8 +8,8 @@ TEMPLATE_DEBUG = DEBUG
 PROJECT_SETTINGS_DIRECTORY = os.path.dirname(globals()['__file__'])
 ## Root directory. Contains manage.py
 PROJECT_ROOT_DIRECTORY = os.path.join(PROJECT_SETTINGS_DIRECTORY, '../')
-print PROJECT_SETTINGS_DIRECTORY
-print PROJECT_ROOT_DIRECTORY
+#print PROJECT_SETTINGS_DIRECTORY
+#print PROJECT_ROOT_DIRECTORY
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -126,6 +126,7 @@ INSTALLED_APPS = (
 
     #Thirdparty apps
     'south',
+
     #Django apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
