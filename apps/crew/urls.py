@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 
-urlpatterns = patterns('crew.views',
+urlpatterns = patterns('apps.crew.views',
     url(r'^application/overview', 'overview', name='overview'),
     url(r'^application/look/(?P<application_id>\d+)/$', 'look', name='look'),
     url(r'^application/user', 'user_overview', name='user_overview'),

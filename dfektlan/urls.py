@@ -23,7 +23,7 @@ urlpatterns = patterns('',
     url(r'^userprofile/',   include('apps.userprofile.urls')),
     url(r'^news/',  include('apps.news.urls')),
     url(r'^sponsor/',  include('apps.sponsor.urls')),
-    url(r'^auth/',  include('apps.auth.urls')),
+    url(r'^auth/',  include('apps.authentication.urls')),
 )
 #Fix for flatpages urls
 urlpatterns += patterns('django.contrib.flatpages.views',

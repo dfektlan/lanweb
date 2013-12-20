@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from event.models import LanEvent
+from apps.event.models import LanEvent
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
