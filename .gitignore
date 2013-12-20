@@ -3,4 +3,7 @@
 *.swp
 *.jpg
 *.png
-
+.vagrant/
+build/
+.idea/
+.DS_Store
