@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+dfektLAN - Søknad
+{% endblock title %}
+
+{% block content %}
+    <div class="col-md-9">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary" type="submit">Send</button>
+        </form> 
+    </div>
+{% endblock content%}

@@ -28,12 +28,15 @@
 
       {% block sidebar %}
         <div class="col-md-3">
+            <div>
+                <h5>Informasjon:</h5>
+            </div>    
             <ul class="list-group">
                 {% block sidebar_specific %}
                 {% endblock sidebar_specific %}
             </ul>
             <div>
-                <h5>Sponsorer</h5>
+                <h5>Sponsorer:</h5>
                 {% show_sponsor_list %}
         </div>
         </div>
@@ -62,7 +65,7 @@
       <footer>
         <div class="row">
           <div class="col-lg-12">
-            <p>Copyright &copy; dfekt LAN 2013</p>
+            <p>Copyright &copy; dfekt LAN 2013 | Laget av <a href="http://kradalby.no">Kristoffer Dalby</a> og <a href="http://github.com/thormartin91">Thor Martin Abrahamsen</a></p>
           </div>
         </div>
       </footer>

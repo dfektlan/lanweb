@@ -1,18 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %}
+{% block title%}
 Sponsorer
-{% endblock %}
+{% endblock title %}
 
 
 {% block content %}
-
-<div class="col-md-9">
-{% for sponsor in sponsors%}
-<div class="row jumbotron">
-<a href="{{ sponsor.url }}"><img src="{{ sponsor.logo.url }}"></a>
-<p>{{ sponsor.description }}</p>
-</div>
-
-</div>
-{% endblock %}
+    <div class="col-md-9">
+        {% for sponsor in sponsors %}
+            <div class="jumobotron">
+                <a href="{{ sponsor.url }}"><img src="{{ sponsor.logo.url }}"></a>
+                <p>{{ sponsor.description }}</p>
+            </div>
+        {% endfor %} 
+    </div>
+{% endblock content %}

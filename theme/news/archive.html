@@ -1,0 +1,46 @@
+#
+#Denne filen har mye gammelt som må endres.
+#Se navlist og absolute url.
+#
+
+{% extends 'base.html' %}
+
+{% block title %}
+News Archive
+{% endblock %}
+
+{% block sidebar_specific %}
+<ul class="nav nav-list">
+    <li class="nav-header"> <h5>Nyhetsarkiv</h5> </li>
+    {% for event in events %}
+        <li><a href="#">{{event.name}}</a></li>
+    {% endfor %}
+</ul>
+{% endblock sidebar_specific %}
+
+{% block content %}
+    <div class="col-md-9">
+        <h1> News Archive </h1>
+        {% for list in posts %}
+            <div class="row-fluid">
+            {% for post in list %}
+                <div class="col-md-4">
+                    <h2> <a href="{{post.get_absolute_url}}"> {{post.title}} </a> </h2>
+                    <p>{{post.summary}}</p>
+                    <p>
+                        Posted on
+                        <time datetime="{{post.created|date:"c"}}">
+                        {{post.created|date}}
+                        </time>
+                        by <a href="#"> {{post.author}} </a>
+                    </p>
+                    <b>  {{post.event}} </b>
+<!-- kult om den kunne expanda istedet for å linke. typ; onClick show content -->
+                    <p> <a class="btn" href="{{post.get_absolute_url}}">Vis mer &raquo;</a> </p>
+                </div> 
+           {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
