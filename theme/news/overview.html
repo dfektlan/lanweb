@@ -9,14 +9,14 @@ News overview
         <h1> News overview </h1>
         {% if featured %}
             <div class="hero-unit">
-            <h1> <a href="{{featured.get_absolute_url}}"> {{featured.title}} </a> </h1>
+            <h1> <a href="{% url 'news_detail' featured.id %}"> {{featured.title}} </a> </h1>
             <p> {{featured.summary}} </p>
             <p> {{featured.content}} </p>
             <p> 
                 Posted on {{featured.created|date:"j. M. Y"}}
                 by <a href="#"> {{featured.author}} </a>
             </p>
-            <p> <a href="{{featured.get_absolute_url}}" class="btn btn-primary btn-large"> Les mer &raquo;</a></p>
+            <p> <a href="{% url 'news_detail' featured.id %}" class="btn btn-primary btn-large"> Les mer &raquo;</a></p>
             </div>
         {% endif %}
 
@@ -24,7 +24,7 @@ News overview
             <div class="row-fluid">
             {% for post in list %}
                 <div class="span4">
-                    <h2> <a href="{{post.get_absolute_url}}"> {{post.title}} </a> </h2>
+                    <h2> <a href="{% url 'news_detail' post.id %}"> {{post.title}} </a> </h2>
                     <p>{{post.summary}}</p>
                     <p>
                         Posted on
@@ -34,7 +34,7 @@ News overview
                         by <a href="#"> {{post.author}} </a>
                     </p>
 <!-- kult om den kunne expanda istedet for å linke. typ; onClick show content -->
-                    <p> <a class="btn" href="{{post.get_absolute_url}}">Vis mer &raquo;</a> </p>
+                    <p> <a class="btn" href="{% url 'news_detail' post.id %}">Vis mer &raquo;</a> </p>
                 </div> 
            {% endfor %}
             </div>

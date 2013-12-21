@@ -9,7 +9,6 @@ class Post(models.Model):
     content = models.TextField()
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=False, editable=False)
     created = models.DateTimeField(editable=False, auto_now_add=True)
-    slug = models.SlugField(unique=True, max_length=100)
     featured = models.BooleanField(default=False)
     image = models.ImageField(upload_to='news', blank=True, ) 
     event = models.ForeignKey(LanEvent, null=False, verbose_name="Event", related_name="Event_news", editable=True)
@@ -24,6 +23,3 @@ class Post(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.title
-
-    def get_absolute_url(self):
-        return reverse('news.views.detail', args=[self.slug])

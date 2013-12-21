@@ -30,8 +30,8 @@ def overview(request):
     posts.append(elements) 
     return render(request, 'news/overview.html', {'posts': posts, 'featured': featured})
  
-def detail(request, slug):
-    post = get_object_or_404(Post, slug=slug)
+def detail(request, news_id):
+    post = get_object_or_404(Post, pk=news_id)
     return render(request, 'news/detail.html', {'post': post})
 
  

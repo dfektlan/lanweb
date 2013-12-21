@@ -13,7 +13,7 @@ class PostAdmin(admin.ModelAdmin):
 # enable the save buttons on top on change form
     save_on_top = True
 # prepopulate the slug from the title - big timesaver!
-    prepopulated_fields = {"slug": ("title",)}
+#    prepopulated_fields = {"slug": ("title",)}
 
     def save_model(self, request, obj, form, change):
         if not change:
