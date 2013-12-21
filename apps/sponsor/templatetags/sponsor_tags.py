@@ -1,6 +1,6 @@
 from django import template
-from sponsor.models import Sponsor
-from event.models import LanEvent
+from apps.sponsor.models import Sponsor
+from apps.event.models import LanEvent
 
 
 register = template.Library()
