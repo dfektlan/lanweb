@@ -1,45 +1,51 @@
 {% extends 'base.html' %}
 
 {% block title %}
-News overview
+    News overview
 {% endblock %}
+
 
 {% block content %}
-    <div class="span9">
-        <h1> News overview </h1>
-        {% if featured %}
-            <div class="hero-unit">
-            <h1> <a href="{% url 'news_detail' featured.id %}"> {{featured.title}} </a> </h1>
-            <p> {{featured.summary}} </p>
-            <p> {{featured.content}} </p>
-            <p> 
-                Posted on {{featured.created|date:"j. M. Y"}}
-                by <a href="#"> {{featured.author}} </a>
-            </p>
-            <p> <a href="{% url 'news_detail' featured.id %}" class="btn btn-primary btn-large"> Les mer &raquo;</a></p>
-            </div>
-        {% endif %}
+<div class="col-md-9">
+<h1> News </h1>
+{% if featured %}
+<div class="row jumbotron">
+<h1> <a href="{% url 'news_detail' featured.id %}"> {{featured.title}} </a> </h1>
+<p> {{featured.summary}} </p>
+<p> {{featured.content}} </p>
+<p>
+Posted on {{featured.created|date:"j. M. Y"}}
+by <a href="#"> {{featured.author}} </a>
+</p>
+<p> <a href="{% url 'news_detail' featured.id %}" class="btn btn-primary btn-lg"> Les mer &raquo;</a></p>
+</div>
+{% endif %}
+<!--<div class="col-md-12">
 
-        {% for list in posts %}
-            <div class="row-fluid">
-            {% for post in list %}
-                <div class="span4">
-                    <h2> <a href="{% url 'news_detail' post.id %}"> {{post.title}} </a> </h2>
-                    <p>{{post.summary}}</p>
-                    <p>
-                        Posted on
-                        <time datetime="{{post.created|date:"c"}}">
-                        {{post.created|date}}
-                        </time>
-                        by <a href="#"> {{post.author}} </a>
-                    </p>
+</div>
+</div>-->
+
+</div>
+
+{% for list in posts %}
+<div class="row">
+{% for post in list %}
+<div class="col-sm-4 col-lg-4 col-md-4">
+<h2> <a href="{% url 'news_detail' post.id %}"> {{post.title}} </a> </h2>
+<p>{{post.summary}}</p>
+<p>
+Posted on
+<time datetime="{{post.created|date:"c"}}">
+{{post.created|date}}
+</time>
+by <a href="#"> {{post.author}} </a>
+</p>
 <!-- kult om den kunne expanda istedet for å linke. typ; onClick show content -->
-                    <p> <a class="btn" href="{% url 'news_detail' post.id %}">Vis mer &raquo;</a> </p>
-                </div> 
-           {% endfor %}
-            </div>
-        {% endfor %}
+<p> <a class="btn" href="{% url 'news_detail' post.id %}">Vis mer &raquo;</a> </p>
+</div>
+{% endfor %}
+</div>
+{% endfor %}
 
-    </div>
+</div>
 {% endblock %}
-
