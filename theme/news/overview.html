@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    News overview
+News overview
 {% endblock %}
 
 
@@ -14,7 +14,7 @@
 <p> {{featured.summary}} </p>
 <p> {{featured.content}} </p>
 <p>
-Posted on {{featured.created|date:"j. M. Y"}}
+Posted on {{featured.created|date:'d.m.Y H:i'}}
 by <a href="#"> {{featured.author}} </a>
 </p>
 <p> <a href="{% url 'news_detail' featured.id %}" class="btn btn-primary btn-lg"> Les mer &raquo;</a></p>
@@ -35,17 +35,17 @@ by <a href="#"> {{featured.author}} </a>
 <p>{{post.summary}}</p>
 <p>
 Posted on
-<time datetime="{{post.created|date:"c"}}">
-{{post.created|date}}
-</time>
-by <a href="#"> {{post.author}} </a>
-</p>
-<!-- kult om den kunne expanda istedet for å linke. typ; onClick show content -->
-<p> <a class="btn" href="{% url 'news_detail' post.id %}">Vis mer &raquo;</a> </p>
-</div>
-{% endfor %}
-</div>
-{% endfor %}
+<time datetime="{{post.created|date:'d.m.Y H:i'}}">
+{{post.created|date:'d.m.Y H:i'}}
+    </time>
+        by <a href="#"> {{post.author}} </a>
+        </p>
+        <!-- kult om den kunne expanda istedet for å linke. typ; onClick show content -->
+        <p> <a class="btn" href="{% url 'news_detail' post.id %}">Vis mer &raquo;</a> </p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
 
-</div>
-{% endblock %}
+    </div>
+    {% endblock %}

@@ -11,8 +11,8 @@
             <div class="col-md-5">
                 <p>
                     Posted on
-                    <time datetime="{{post.created|date:"c"}}">
-                    {{post.created|date}}
+                    <time datetime="{{post.created|date:'d.m.Y H:i'}}">
+                    {{post.created|date:'d.m.Y H:i'}}
                     </time>
                     by <a href="#"> {{post.author}} </a>
                 </p>
