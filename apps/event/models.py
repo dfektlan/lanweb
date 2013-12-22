@@ -9,6 +9,10 @@ class LanEvent(models.Model):
     start_date = models.DateTimeField(_(u'Start dato'), editable=True)
     end_date = models.DateTimeField(_(u'Slutt dato'), editable=True)
     current = models.BooleanField(_(u'Current'), editable=True)
+    location = models.CharField(_(u'Lokasjon'), max_length=200)
+    price = models.IntegerField(_(u'Pris'))
+    numberOfSeats = models.IntegerField(_(u'Antall plasser'), max_length=200)
+    
 
     def __unicode__(self):
         return self.name

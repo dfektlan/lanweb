@@ -1,4 +1,6 @@
 {% load sponsor_tags %}
+{% load event_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,18 +31,18 @@
       {% block sidebar %}
         <div class="col-md-3">
             <div>
-                <h5>Informasjon:</h5>
+                {% get_latest_lanevent %}
             </div>    
             <ul class="list-group">
                 {% block sidebar_specific %}
                 {% endblock sidebar_specific %}
             </ul>
             <div>
-                <h5>Sponsorer:</h5>
+                <h4>Sponsorer:</h4>
                 {% show_sponsor_list %}
         </div>
         </div>
-      {% endblock %}
+      {% endblock sidebar %}
 
                    {% if messages %}
                 {% for message in messages %}
