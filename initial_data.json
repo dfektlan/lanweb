@@ -933,29 +933,29 @@
     "pk": 1, 
     "model": "userprofile.siteuser", 
     "fields": {
-        "last_name": "", 
+        "last_name": "Dalby", 
         "image": "", 
         "is_staff": true, 
-        "skype": "", 
+        "skype": "kristoffer.dalby", 
         "user_permissions": [], 
-        "date_joined": "2013-12-21T08:55:44.890Z", 
-        "first_name": "", 
+        "date_joined": "2013-12-21T08:55:44Z", 
+        "first_name": "Kristoffer", 
         "crew": [], 
         "is_superuser": true, 
-        "date_of_birth": null, 
-        "last_login": "2013-12-21T17:17:03.265Z", 
+        "date_of_birth": "1992-09-12", 
+        "last_login": "2013-12-21T17:17:03Z", 
         "email": "kradalby@kradalby.no", 
-        "zip_code": "", 
+        "zip_code": "7048", 
         "username": "kradalby", 
         "is_active": true, 
-        "phone": "", 
+        "phone": "45673429", 
         "groups": [], 
-        "address": "", 
+        "address": "Ole Aasveds veg 4", 
         "password": "pbkdf2_sha256$12000$yt4qYqoHilGw$2mX0wokQaP8CmdXtJ6XikHpBCDnO7JFOP/P191vSDK8=", 
-        "nickname": "", 
-        "town": "", 
-        "country": "", 
-        "steam": ""
+        "nickname": "kradalby", 
+        "town": "Trondheim", 
+        "country": "Norge", 
+        "steam": "aof_soilex"
     }
 },
 {
@@ -1272,6 +1272,19 @@
         "change_message": "", 
         "user": 1, 
         "content_type": 8
+    }
+},
+{
+    "pk": 21, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 2, 
+        "action_time": "2013-12-22T22:30:47.890Z", 
+        "object_repr": "Kristoffer Dalby", 
+        "object_id": "1", 
+        "change_message": "Changed first_name, last_name, nickname, date_of_birth, phone, skype, steam, address, town, zip_code and country.", 
+        "user": 1, 
+        "content_type": 13
     }
 }
 ]
