@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load gravatar_url_resolver %}
-{% get_gravatar_url request.user 286 as gravatar_url %}
 
 {% block title %}
 dfektLAN - Min profil
@@ -13,6 +12,7 @@ dfektLAN - Min profil
         <div class="col-md-7">
             <div class="row">
 
+                {% get_gravatar_url user 287 as gravatar_url %}
                 <img class="img-thumbnail" src="{{ gravatar_url }}">
                 <div class="col-md-4">
                     <strong>Nickname</strong>
