@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load gravatar_url_resolver %}
+{% get_gravatar_url request.user 286 as gravatar_url %}
 
 {% block title %}
 dfektLAN - Min profil
@@ -10,16 +12,15 @@ dfektLAN - Min profil
         <h2>{{ user.first_name }} {{ user.last_name }}</h2>
         <div class="col-md-7">
             <div class="row">
-                {% if user.image %}
-                <img src="{{ user.image.url }}" width=160 height=213>
-                {% endif %}
+
+                <img class="img-thumbnail" src="{{ gravatar_url }}">
                 <div class="col-md-4">
                     <strong>Nickname</strong>
                     <ul class="unstyled"><li>{{ user.nickname }}</li></ul>
                 </div>
                 <div class="col-md-4">
                     <strong>Fødselsdag</strong>
-                    <ul class="unstyled"><li>{{ user.date_of_birth }}</li></ul>
+                    <ul class="unstyled"><li>{{ user.date_of_birth|date:'d.m.Y' }}</li></ul>
                 </div>
             </div>
             <div class="row">

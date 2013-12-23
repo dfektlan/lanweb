@@ -23,3 +23,6 @@ class SiteUser(AbstractUser):
 
     def get_user(self):
         return self 
+
+    def get_email(self):
+        return self.email
