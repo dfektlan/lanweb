@@ -9,7 +9,7 @@ register = template.Library()
 
 @register.filter(is_safe=True)
 @stringfilter
-def my_markdown(value):
+def dfekt_markdown(value):
     extensions = ["nl2br", ]
 
     return mark_safe(markdown.markdown(force_unicode(value),
