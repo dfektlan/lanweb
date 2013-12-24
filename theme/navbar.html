@@ -20,13 +20,13 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             {% if user.is_authenticated %}
             <div class="pull-right">
-              <a href="{% url "myprofile" %}"><button class="btn btn-primary"> {{ user.username }}</button></a>
-              <a href="{% url "auth_logout" %}"><button class="btn btn-danger">Logg ut</button></a>
+              <a href="{% url "myprofile" %}"><button class="btn-sm btn-primary"> {{ user.username }}</button></a>
+              <a href="{% url "auth_logout" %}"><button class="btn-sm btn-danger">Logg ut</button></a>
             </div>
             {% else %}
             <div class="pull-right">
-              <a href="{% url "auth_login" %}"><button class="btn btn-primary">Logg inn</button></a>
-              <a href="{% url "auth_register" %}"><button class="btn btn-info">Registrer</button></a>
+              <a href="{% url "auth_login" %}"><button class="btn-sm btn-primary">Logg inn</button></a>
+              <a href="{% url "auth_register" %}"><button class="btn-sm btn-info">Registrer</button></a>
               </div>
             {% endif %}
           <ul class="nav navbar-nav">

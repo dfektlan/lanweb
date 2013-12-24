@@ -17,17 +17,18 @@ def overview(request):
         except Post.DoesNotExist:
             featured = None
     
-    non_featured = Post.objects.filter(featured=False).filter(event=current_event)
-    posts = []
-    elements = []
-
+#    non_featured = Post.objects.filter(featured=False).filter(event=current_event)
+#    posts = []
+#    elements = []
+#
 #   Sends posts in parts of 3
-    for p in non_featured:
-        elements.append(p)
-        if len(elements) == 3:
-            posts.append(elements)
-            elements = []
-    posts.append(elements) 
+#    for p in non_featured:
+#        elements.append(p)
+#        if len(elements) == 3:
+#            posts.append(elements)
+#            elements = []
+#    posts.append(elements) 
+    posts = Post.objects.filter(featured=False).filter(event=current_event)
     return render(request, 'news/overview.html', {'posts': posts, 'featured': featured})
  
 def detail(request, news_id):

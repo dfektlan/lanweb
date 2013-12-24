@@ -28,8 +28,7 @@
 
       <div class="row">
 
-      {% block sidebar %}
-        <div class="col-md-3">
+        <div class="col-md-3 bs-sidebar">
             <div>
                 {% get_latest_lanevent %}
             </div>    
@@ -40,9 +39,8 @@
             <div>
                 <h4>Sponsorer:</h4>
                 {% show_sponsor_list %}
+            </div>
         </div>
-        </div>
-      {% endblock sidebar %}
 
                    {% if messages %}
                 {% for message in messages %}

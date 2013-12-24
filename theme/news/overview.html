@@ -8,8 +8,9 @@ News overview
 {% block content %}
 <div class="col-md-9">
 <h1> News </h1>
-{% if featured %}
 <div class="row jumbotron">
+{% if featured %}
+<div class="col-md-12">
 <h1> <a href="{% url 'news_detail' featured.id %}"> {{featured.title}} </a> </h1>
 <p> {{featured.summary}} </p>
 <p> {{featured.content}} </p>
@@ -20,16 +21,11 @@ by <a href="#"> {{featured.author}} </a>
 <p> <a href="{% url 'news_detail' featured.id %}" class="btn btn-primary btn-lg"> Les mer &raquo;</a></p>
 </div>
 {% endif %}
-<!--<div class="col-md-12">
-
-</div>
-</div>-->
-
 </div>
 
-{% for list in posts %}
+
 <div class="row">
-{% for post in list %}
+{% for post in posts %}
 <div class="col-sm-4 col-lg-4 col-md-4">
 <h2> <a href="{% url 'news_detail' post.id %}"> {{post.title}} </a> </h2>
 <p>{{post.summary}}</p>
@@ -37,15 +33,15 @@ by <a href="#"> {{featured.author}} </a>
 Posted on
 <time datetime="{{post.created|date:'d.m.Y H:i'}}">
 {{post.created|date:'d.m.Y H:i'}}
-    </time>
-        by <a href="#"> {{post.author}} </a>
-        </p>
-        <!-- kult om den kunne expanda istedet for å linke. typ; onClick show content -->
-        <p> <a class="btn" href="{% url 'news_detail' post.id %}">Vis mer &raquo;</a> </p>
-        </div>
-        {% endfor %}
-    </div>
-    {% endfor %}
+</time>
+by <a href="#"> {{post.author}} </a>
+</p>
+<!-- kult om den kunne expanda istedet for å linke. typ; onClick show content -->
+<p> <a class="btn" href="{% url 'news_detail' post.id %}">Vis mer &raquo;</a> </p>
+</div>
+{% endfor %}
+</div>
 
-    </div>
-    {% endblock %}
+</div>
+</div>
+{% endblock %}
