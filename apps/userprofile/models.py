@@ -17,6 +17,7 @@ class SiteUser(AbstractUser):
     country = models.CharField(_(u'Land'), max_length=200)
     image = models.ImageField(_(u'Bilde'), upload_to='users',max_length=150, blank=True)
     crew = models.ManyToManyField(CrewShift, null=False, blank=True)
+    rfid = models.CharField(_(u'RFID'), max_length=100, blank=True)
     
     def __unicode__(self):
         return (self.first_name + " " + self.last_name)
