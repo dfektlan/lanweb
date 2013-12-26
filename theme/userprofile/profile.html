@@ -12,48 +12,54 @@ dfektLAN - Min profil
         <div class="col-md-7">
             <div class="row">
 
+                <strong>Bilde</strong>
+                <i id="image-help" class="glyphicon glyphicon-info-sign" href="#" data-toggle="popover" title="" data-content="Vi henter bilder fra Gravatar! For å få hentet bildet ditt må epost-adresse du har registert hos oss også være registrert hos Gravatar. Konto kan registreres på https://gravatar.com." data-original-title="Hjelpeinformasjon"></i>
+            </div>
+            <div class="row">
                 {% get_gravatar_url user 287 as gravatar_url %}
                 <img class="img-thumbnail" src="{{ gravatar_url }}">
-                <div class="col-md-4">
+            </div>
+            <div class="row">    
+                <div class="col-xs-6 col-sm-4">
                     <strong>Nickname</strong>
-                    <ul class="unstyled"><li>{{ user.nickname }}</li></ul>
+                    <p>{{ user.nickname }}</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-xs-6 col-sm-4">
                     <strong>Fødselsdag</strong>
-                    <ul class="unstyled"><li>{{ user.date_of_birth|date:'d.m.Y' }}</li></ul>
+                    <p>{{ user.date_of_birth|date:'d.m.Y' }}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-xs-6 col-sm-4">
                     <strong>Addresse</strong>
-                    <ul class="unstyled"><li>{{ user.address }}</li><li>{{ user.town }} {{ user.zip_code }} {{ user.country }}</li></ul>
+                    <p>{{ user.address }}<br> {{ user.zip_code }} {{ user.town }} <br> {{ user.country }}</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-xs-6 col-sm-4">
                     <strong>Telefon</strong>
-                    <ul class="unstyled"><li>{{ user.phone }}</li></ul>
+                    <p>{{ user.phone }}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-xs-6 col-sm-4">
                     <strong>Skype</strong>
-                    <ul class="unstyled"><li>{{ user.skype }}</li></ul>
+                    <p>{{ user.skype }}</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-xs-6 col-sm-4">
                     <strong>Steam</strong>
-                    <ul class="unstyled"><li>{{ user.steam }}</li></ul>
+                    <p>{{ user.steam }}</p>
                 </div>
             </div>
             <div class="row">
                 {% if user.position %}
-                <div class="col-md-4">
+                <div class="col-xs-6 col-sm-4">
                     <strong>Posisjon</strong>
-                    <ul class="unstyled"><li>{{ user.position }}</li></ul>
+                    <p>{{ user.position }}</p>
                 </div>
                 {% endif %}
                 {% if user.cheif %}
-                <div class="col-md-4">
+                <div class="col-xs-6 col-sm-4">
                     <strong>Chief</strong>
-                    <ul class="unstyled"><li>Ja</li></ul>
+                    <p>Ja</p>
                 </div>
                 {% endif %}
             </div>
