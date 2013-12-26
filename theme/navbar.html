@@ -30,7 +30,7 @@
               </div>
             {% endif %}
           <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url "root" %}">Hjem</a></li>
+            <li class=""><a href="{% url "root" %}">Hjem</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Informasjon</a>
                 <ul class="dropdown-menu">
@@ -55,7 +55,8 @@
                     {% endfor %}
                 </ul>
               </li>
-              <li><a href="http://geekevents.org/">Kjøp Billett</a></li>
+              <li class=""><a href="{% url "sponsor_index" %}">Sponsorer</a></li>
+              <li><a href="https://www.geekevents.org/dfektv14/shop/">Kjøp Billett</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container -->
