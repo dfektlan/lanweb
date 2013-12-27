@@ -9,9 +9,11 @@ from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 
+
 from apps.authentication.forms import (LoginForm, RegisterForm, 
                             RecoveryForm, ChangePasswordForm)
 from apps.authentication.models import RegisterToken
+from django.conf import settings
 
 def login(request):
     redirect_url = request.REQUEST.get('next', '')
