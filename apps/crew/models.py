@@ -15,7 +15,7 @@ class Crew(models.Model):
         return self.name
 
 
-class CrewShift(models.Model):
+class CrewTeam(models.Model):
     crew = models.ForeignKey(Crew, null=False)
     name = models.CharField(_(u'Navn'), max_length=30)
     description = models.TextField(_(u'Beskrivelse'))
