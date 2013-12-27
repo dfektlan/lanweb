@@ -44,7 +44,7 @@ class Application(models.Model):
     crew = models.ForeignKey(CrewTeam)
     #crew = models.SmallIntegerField(_(u'Crew'), choices=crews, blank=False, default=0)
     cv = models.URLField(_(u'CV'), max_length=200, blank=True)
-    event = models.ForeignKey(LanEvent, default=LanEvent.objects.filter(current=True))
+    event = models.ForeignKey(LanEvent)
     
     def __unicode__(self):
         return self.user.first_name + " " + self.user.last_name

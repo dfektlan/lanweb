@@ -5,6 +5,7 @@ from django.contrib.auth.models import Group
 from forms import ApplicationAdminForm, ApplicationForm
 from django.contrib import messages
 from django.http import HttpResponse
+from apps.event.models import LanEvent
 
 @login_required
 @user_passes_test(lambda u: u.is_chief())
@@ -21,13 +22,12 @@ def overview(request):
     approved = []
     declined = []
     for j in Application.objects.all().order_by('-date'):
-        if j.get_crew_display() == i.name:
-            if j.status == 0:
-                pending.append(j)
-            elif j.status == 1:
-                approved.append(j)
-            elif j.status == 2:
-                declined.append(j)
+        if j.status == 0:
+            pending.append(j)
+        elif j.status == 1:
+            approved.append(j)
+        elif j.status == 2:
+            declined.append(j)
     return render(request, 'crew/overview.html', {'pending':pending, 'approved':approved,'declined':declined})
 
 
@@ -67,6 +67,7 @@ def new_application(request, application_id=None):
         form = ApplicationForm(request.POST, instance=application)
         if form.is_valid():
             application.user_id = request.user.id
+            application.event = LanEvent.objects.filter(current=True)[0]
             form.save()
             messages.success(request, u'Your application was succesfully submitted')
         return redirect(user_overview)
