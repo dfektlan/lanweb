@@ -2,6 +2,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext as _
+from apps.event.models import LanEvent
+
 
 class SiteUser(AbstractUser):
     
@@ -25,3 +27,21 @@ class SiteUser(AbstractUser):
 
     def get_email(self):
         return self.email
+
+    def is_crew(self):
+        current_event = LanEvent.objects.filter(current=True)[0]
+
+        #check if the user is in a crew team
+        if len(self.crewteam_set.all()) == 0:
+            return False
+
+        # if in crew team, is it for the current event?
+        for crewteam in self.crewteam_set.all():
+            if crewteam.event == current_event:
+                return True
+        return False
+
+    def is_chief(self):
+        if len(self.crew_set.all()) > 0:
+            return True
+        return False

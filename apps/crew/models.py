@@ -21,8 +21,10 @@ class CrewTeam(models.Model):
     description = models.TextField(_(u'Beskrivelse'))
     event = models.ForeignKey(LanEvent, null=False)
     date = models.DateTimeField(_(u'Dato'), editable=False, auto_now_add=True)
-    members = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    members = models.ManyToManyField(settings.AUTH_USER_MODEL, null=True)
 
+    def __unicode__(self):
+        return self.name
 
 class Application(models.Model):
 
@@ -39,7 +41,7 @@ class Application(models.Model):
     license = models.CharField(_(u'Førerkort'), max_length=200)
     status = models.SmallIntegerField(_(u'Status'), choices=stat, default=0)
     date = models.DateTimeField(_(u'Dato'), editable=False, auto_now_add=True)
-    crew = models.ForeignKey(Crew)
+    crew = models.ForeignKey(CrewTeam)
     #crew = models.SmallIntegerField(_(u'Crew'), choices=crews, blank=False, default=0)
     cv = models.URLField(_(u'CV'), max_length=200, blank=True)
     event = models.ForeignKey(LanEvent, default=LanEvent.objects.filter(current=True))
