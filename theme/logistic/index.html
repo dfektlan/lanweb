@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block title %}
 dfektLAN - Logistikk
@@ -15,7 +16,7 @@ dfektLAN - Logistikk
         {% for item, form in both %}
         <tr><td>{{ item.itemgroup.name }}</td><td>{{ item.brand }}</td><td>{{ item.product_model }}</td><td>{{ item.description }} {{item.id }}</td>
         <td>
-            {{ form.holder }}
+            {{ form.holder|crispy }}
             <input type="hidden" name="id" value="{{ item.id }}">
         </td></tr>
         {% empty %}
