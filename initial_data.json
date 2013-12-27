@@ -1,1 +1,1207 @@
-[{"pk": 1, "model": "south.migrationhistory", "fields": {"applied": "2013-12-21T08:54:55.090Z", "app_name": "authentication", "migration": "0001_initial"}}, {"pk": 2, "model": "south.migrationhistory", "fields": {"applied": "2013-12-21T08:54:55.157Z", "app_name": "logistic", "migration": "0001_initial"}}, {"pk": 3, "model": "south.migrationhistory", "fields": {"applied": "2013-12-21T08:54:55.257Z", "app_name": "userprofile", "migration": "0001_initial"}}, {"pk": 4, "model": "south.migrationhistory", "fields": {"applied": "2013-12-21T08:54:55.338Z", "app_name": "crew", "migration": "0001_initial"}}, {"pk": 5, "model": "south.migrationhistory", "fields": {"applied": "2013-12-21T08:54:55.392Z", "app_name": "event", "migration": "0001_initial"}}, {"pk": 6, "model": "south.migrationhistory", "fields": {"applied": "2013-12-21T08:54:55.442Z", "app_name": "sponsor", "migration": "0001_initial"}}, {"pk": 7, "model": "south.migrationhistory", "fields": {"applied": "2013-12-21T09:32:22.487Z", "app_name": "news", "migration": "0001_initial"}}, {"pk": 8, "model": "south.migrationhistory", "fields": {"applied": "2013-12-21T13:43:13.096Z", "app_name": "news", "migration": "0002_auto__del_field_post_slug"}}, {"pk": 9, "model": "south.migrationhistory", "fields": {"applied": "2013-12-22T20:53:33.393Z", "app_name": "event", "migration": "0002_auto__add_field_lanevent_location__add_field_lanevent_price__add_field"}}, {"pk": 10, "model": "south.migrationhistory", "fields": {"applied": "2013-12-24T10:26:51.187Z", "app_name": "pos", "migration": "0001_initial"}}, {"pk": 11, "model": "south.migrationhistory", "fields": {"applied": "2013-12-24T10:56:21.596Z", "app_name": "userprofile", "migration": "0002_auto__add_field_siteuser_rfid"}}, {"pk": 1, "model": "auth.permission", "fields": {"codename": "add_migrationhistory", "name": "Can add migration history", "content_type": 1}}, {"pk": 2, "model": "auth.permission", "fields": {"codename": "change_migrationhistory", "name": "Can change migration history", "content_type": 1}}, {"pk": 3, "model": "auth.permission", "fields": {"codename": "delete_migrationhistory", "name": "Can delete migration history", "content_type": 1}}, {"pk": 4, "model": "auth.permission", "fields": {"codename": "add_permission", "name": "Can add permission", "content_type": 2}}, {"pk": 5, "model": "auth.permission", "fields": {"codename": "change_permission", "name": "Can change permission", "content_type": 2}}, {"pk": 6, "model": "auth.permission", "fields": {"codename": "delete_permission", "name": "Can delete permission", "content_type": 2}}, {"pk": 7, "model": "auth.permission", "fields": {"codename": "add_group", "name": "Can add group", "content_type": 3}}, {"pk": 8, "model": "auth.permission", "fields": {"codename": "change_group", "name": "Can change group", "content_type": 3}}, {"pk": 9, "model": "auth.permission", "fields": {"codename": "delete_group", "name": "Can delete group", "content_type": 3}}, {"pk": 10, "model": "auth.permission", "fields": {"codename": "add_contenttype", "name": "Can add content type", "content_type": 4}}, {"pk": 11, "model": "auth.permission", "fields": {"codename": "change_contenttype", "name": "Can change content type", "content_type": 4}}, {"pk": 12, "model": "auth.permission", "fields": {"codename": "delete_contenttype", "name": "Can delete content type", "content_type": 4}}, {"pk": 13, "model": "auth.permission", "fields": {"codename": "add_session", "name": "Can add session", "content_type": 5}}, {"pk": 14, "model": "auth.permission", "fields": {"codename": "change_session", "name": "Can change session", "content_type": 5}}, {"pk": 15, "model": "auth.permission", "fields": {"codename": "delete_session", "name": "Can delete session", "content_type": 5}}, {"pk": 16, "model": "auth.permission", "fields": {"codename": "add_site", "name": "Can add site", "content_type": 6}}, {"pk": 17, "model": "auth.permission", "fields": {"codename": "change_site", "name": "Can change site", "content_type": 6}}, {"pk": 18, "model": "auth.permission", "fields": {"codename": "delete_site", "name": "Can delete site", "content_type": 6}}, {"pk": 19, "model": "auth.permission", "fields": {"codename": "add_logentry", "name": "Can add log entry", "content_type": 7}}, {"pk": 20, "model": "auth.permission", "fields": {"codename": "change_logentry", "name": "Can change log entry", "content_type": 7}}, {"pk": 21, "model": "auth.permission", "fields": {"codename": "delete_logentry", "name": "Can delete log entry", "content_type": 7}}, {"pk": 22, "model": "auth.permission", "fields": {"codename": "add_flatpage", "name": "Can add flat page", "content_type": 8}}, {"pk": 23, "model": "auth.permission", "fields": {"codename": "change_flatpage", "name": "Can change flat page", "content_type": 8}}, {"pk": 24, "model": "auth.permission", "fields": {"codename": "delete_flatpage", "name": "Can delete flat page", "content_type": 8}}, {"pk": 25, "model": "auth.permission", "fields": {"codename": "add_post", "name": "Can add post", "content_type": 9}}, {"pk": 26, "model": "auth.permission", "fields": {"codename": "change_post", "name": "Can change post", "content_type": 9}}, {"pk": 27, "model": "auth.permission", "fields": {"codename": "delete_post", "name": "Can delete post", "content_type": 9}}, {"pk": 28, "model": "auth.permission", "fields": {"codename": "add_registertoken", "name": "Can add register token", "content_type": 10}}, {"pk": 29, "model": "auth.permission", "fields": {"codename": "change_registertoken", "name": "Can change register token", "content_type": 10}}, {"pk": 30, "model": "auth.permission", "fields": {"codename": "delete_registertoken", "name": "Can delete register token", "content_type": 10}}, {"pk": 31, "model": "auth.permission", "fields": {"codename": "add_itemgroup", "name": "Can add item group", "content_type": 11}}, {"pk": 32, "model": "auth.permission", "fields": {"codename": "change_itemgroup", "name": "Can change item group", "content_type": 11}}, {"pk": 33, "model": "auth.permission", "fields": {"codename": "delete_itemgroup", "name": "Can delete item group", "content_type": 11}}, {"pk": 34, "model": "auth.permission", "fields": {"codename": "add_item", "name": "Can add item", "content_type": 12}}, {"pk": 35, "model": "auth.permission", "fields": {"codename": "change_item", "name": "Can change item", "content_type": 12}}, {"pk": 36, "model": "auth.permission", "fields": {"codename": "delete_item", "name": "Can delete item", "content_type": 12}}, {"pk": 37, "model": "auth.permission", "fields": {"codename": "add_siteuser", "name": "Can add user", "content_type": 13}}, {"pk": 38, "model": "auth.permission", "fields": {"codename": "change_siteuser", "name": "Can change user", "content_type": 13}}, {"pk": 39, "model": "auth.permission", "fields": {"codename": "delete_siteuser", "name": "Can delete user", "content_type": 13}}, {"pk": 40, "model": "auth.permission", "fields": {"codename": "add_crew", "name": "Can add crew", "content_type": 14}}, {"pk": 41, "model": "auth.permission", "fields": {"codename": "change_crew", "name": "Can change crew", "content_type": 14}}, {"pk": 42, "model": "auth.permission", "fields": {"codename": "delete_crew", "name": "Can delete crew", "content_type": 14}}, {"pk": 43, "model": "auth.permission", "fields": {"codename": "add_crewgroup", "name": "Can add crew group", "content_type": 15}}, {"pk": 44, "model": "auth.permission", "fields": {"codename": "change_crewgroup", "name": "Can change crew group", "content_type": 15}}, {"pk": 45, "model": "auth.permission", "fields": {"codename": "delete_crewgroup", "name": "Can delete crew group", "content_type": 15}}, {"pk": 46, "model": "auth.permission", "fields": {"codename": "add_crewshift", "name": "Can add crew shift", "content_type": 16}}, {"pk": 47, "model": "auth.permission", "fields": {"codename": "change_crewshift", "name": "Can change crew shift", "content_type": 16}}, {"pk": 48, "model": "auth.permission", "fields": {"codename": "delete_crewshift", "name": "Can delete crew shift", "content_type": 16}}, {"pk": 49, "model": "auth.permission", "fields": {"codename": "add_application", "name": "Can add application", "content_type": 17}}, {"pk": 50, "model": "auth.permission", "fields": {"codename": "change_application", "name": "Can change application", "content_type": 17}}, {"pk": 51, "model": "auth.permission", "fields": {"codename": "delete_application", "name": "Can delete application", "content_type": 17}}, {"pk": 52, "model": "auth.permission", "fields": {"codename": "add_lanevent", "name": "Can add lan event", "content_type": 18}}, {"pk": 53, "model": "auth.permission", "fields": {"codename": "change_lanevent", "name": "Can change lan event", "content_type": 18}}, {"pk": 54, "model": "auth.permission", "fields": {"codename": "delete_lanevent", "name": "Can delete lan event", "content_type": 18}}, {"pk": 55, "model": "auth.permission", "fields": {"codename": "add_sponsor", "name": "Can add sponsor", "content_type": 19}}, {"pk": 56, "model": "auth.permission", "fields": {"codename": "change_sponsor", "name": "Can change sponsor", "content_type": 19}}, {"pk": 57, "model": "auth.permission", "fields": {"codename": "delete_sponsor", "name": "Can delete sponsor", "content_type": 19}}, {"pk": "k4esz4hm47yxmg99yih344n27auhrii8", "model": "sessions.session", "fields": {"expire_date": "2014-01-08T18:50:19.729Z", "session_data": "Y2UwYzE2MTNmMWFhZWMxYjlmZmRlOTg1MzMxNDc3YTZhZGEwZWU2Yzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0="}}, {"pk": "s87b2irje28qxcm97h5nk4z475f60kiv", "model": "sessions.session", "fields": {"expire_date": "2014-01-07T23:10:44.429Z", "session_data": "OGYzOTM2Njg1NTY5N2FhN2U4NTg5NmIwNDE0NzNhNGYzOGQ3N2VjYTp7Il9zZXNzaW9uX2V4cGlyeSI6MCwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2lkIjoxfQ=="}}, {"pk": 1, "model": "sites.site", "fields": {"domain": "dfektlan.no", "name": "dfektlan.no"}}, {"pk": 1, "model": "flatpages.flatpage", "fields": {"registration_required": false, "title": "Styret", "url": "/about/styret/", "template_name": "", "sites": [1], "content": "Styret i dfekt LAN best\u00e5r av f\u00f8lgende personer.\r\n\r\nKristoffer Dalby\r\nStyreleder\r\nTelefon: 456 73 429\r\nEpost: kradalby at dfektlan dot no\r\n\r\nAtle-Andr\u00e8 Gundersen\r\nNestleder\r\nTelefon: 406 10 234\r\nEpost: atle at dfektlan dot no\r\n\r\nSimen Holmberg\r\nStyremedlem\r\nTelefon: -\r\nEpost: simen at dfektlan dot no\r\n\r\nSindre Enge\r\nStyremedlem\r\nTelefon: -\r\nEpost: sindre at dfektlan dot no\r\n\r\nAnders Pedersen\r\nStyremedlem\r\nTelefon: -\r\nEpost: anders at dfektlan dot no", "enable_comments": false}}, {"pk": 2, "model": "flatpages.flatpage", "fields": {"registration_required": false, "title": "Foreldreinformasjon", "url": "/info/foreldreinformasjon/", "template_name": "", "sites": [1], "content": "###Er det en aldersgrense?\r\nDet er ingen aldersgrense p\u00e5 v\u00e5re arrangementer, men deltakerene m\u00e5 klare \"seg selv\".\r\nVi stiller krav til at deltakeren klarer \u00e5 ta vare p\u00e5 selv i form av kroppens behov, og ikke minst \u00e5 oppf\u00f8re seg med tanke p\u00e5 andre.\r\nVi f\u00f8lger ogs\u00e5 med p\u00e5 v\u00e5re deltakere, og vi n\u00f8ler ikke med \u00e5 oppfordre eventuelle personer til \u00e5 f\u00e5 i seg noe mat, eller ta noen timer p\u00e5 \u00f8yet\r\nOm det skulle v\u00e6re n\u00f8dvendig vil vi ta kontakt med deg som forelder hvis barnet ditt er under 16\u00e5r og det skulle skje noe. (samtykkeskjema)\r\n\r\nDersom deltakeren er under 16 \u00e5r, m\u00e5 samtykkeskjema fylles ut og vises ved innsjekking. Samtykkeskjema finnes i \"Informasjon\"-menyen\r\n\r\n###Alkohol?\r\nUnder v\u00e5re arrangementer har vi nulltolleranse for alkohol.\r\nEventuelle personer som velger \u00e5 bryte denne regelen vil bli bortvist fra arrangementet.\r\n\r\n###Mat og drikke?\r\nP\u00e5 begge v\u00e5re arrangementer vil det v\u00e6re mulighet for \u00e5 kj\u00f8pe b\u00e5de mat og drikke.\r\n\r\n###Samtykkeskjema?\r\nSamtykkeskjema er laget for deg som forelder, slik at vi er sikre p\u00e5 at vi som arrang\u00f8rer har en kontaktperson i tilfelle det skulle oppst\u00e5 en hendelse.\r\n\r\n###Hvordan f\u00e5r jeg kontakt med mitt/mine barn?\r\nVi anbefaler sterkt at vedkommende tar med seg en mobiltelefon. Dette gj\u00f8r jobben v\u00e5r lettere ettersom det til tider kan v\u00e6re mye som skjer p\u00e5 en gang under en slik samling.\r\nOm du som forelder har mulighet til \u00e5 f\u00e5 tak i plassnummeret til ditt barn, vil dette v\u00e6re kjekt hvis vedkommende ikke tar telefonen.\r\n\r\n###Hva gj\u00f8r jeg hvis noe mitt barn tok med seg blir stj\u00e5let eller \u00f8delagt?\r\nVi gj\u00f8r v\u00e5rt beste for \u00e5 ta tak i eventuelle problemer som m\u00e5tte oppst\u00e5 under LANet.\r\nDerimot s\u00e5 er alt utstyr personen tar med seg under eget ansvar. Om dette skulle bli stj\u00e5let eller \u00f8delagt, m\u00e5 vedkommende selv, eller forelder ta dette videre. (F.eks anmeldelse)\r\n\r\n###Sove under LANet?\r\nUnder v\u00e5re arrangementer vil det enten v\u00e6re egne sovesaler eller soveomr\u00e5der for deltakere.\r\nVi vil bemerke at vi som arrang\u00f8rer er de eneste som f\u00e5r lov til \u00e5 ha med musikk-anlegg, og dette blir skrudd av mellom 23:00-12:00\r\n\r\n###Toaletter og dusjer\r\nUnder h\u00f8st-LANet (3 dager) har vi seks toaletter (ink. 2 HC)\r\nUnder vinter-LANet (5 dager) har vi seks toaletter (ink. 2 HC), og fire dusjer. (2 felles og 2 private)", "enable_comments": false}}, {"pk": 3, "model": "flatpages.flatpage", "fields": {"registration_required": false, "title": "Ofte stilte sp\u00f8rsm\u00e5l", "url": "/info/faq/", "template_name": "", "sites": [1], "content": "Q: Er det en aldersgrense?\r\nA: Nei, dfektlan har ingen aldersgrense, men alle deltakere under 16 \u00e5r m\u00e5 vise et samtykkeskjema underskrevet av foreldrene\r\n\r\nQ: Hva slags mat blir solgt under arrangementet?\r\nA: Det blir solgt toast, hamburgere, gryteretter, baguetter\r\n\r\nQ: Er det mulighet for \u00e5 varme opp eller kj\u00f8le ned egen mat under lanet?\r\nA: Nei, dette er det dessverre ingen mulighet for, men deltakerne kan f\u00e5 varmtvann av oss.", "enable_comments": false}}, {"pk": 4, "model": "flatpages.flatpage", "fields": {"registration_required": false, "title": "Sikkerhet", "url": "/info/sikkerhet/", "template_name": "", "sites": [1], "content": "Det vil v\u00e6re vakter som passer p\u00e5 hele d\u00f8gnet.\r\n\r\nDeltakere under 16 \u00e5r m\u00e5 medbringe et samtykkeskjema underskrevet av en foresatt for \u00e5 slippe inn.\r\n\r\nRusmidler er ikke tillatt i noen form. Overstadig berusede personer f\u00e5r ikke tilgang til arrangementet og vil bli utestengt fra omr\u00e5det.\r\n\r\nFor mer informasjon og eventuelle sp\u00f8rsm\u00e5l vennligst henvend deg til sjef for sikkerhet Simen Holmberg\r\n\r\nSimen Holmberg\r\nsimen at dfektlan dot no", "enable_comments": false}}, {"pk": 5, "model": "flatpages.flatpage", "fields": {"registration_required": false, "title": "Pakkeliste", "url": "/info/pakkeliste/", "template_name": "", "sites": [1], "content": "###Generelt\r\n\r\nGyldig legitimasjon (ID /m bilde; F\u00f8rerkort, bankkort eller pass)\r\nSamtykkeskjema om du er under 16 \u00e5r.\r\nKontanter\r\nBankkort\r\nMobiltelefon\r\nDatamaskin med alt av utstyr:\r\n-Str\u00f8mkabler\r\n-Nettverkskabel\r\n-Mus\r\n-Tastatur\r\n-Musematte\r\n-Nettverkskabel (TP 10m minimum)\r\n-Hodetelefoner\r\n-Skjerm + kabel\r\n-Str\u00f8mpad/Forgreningskontakt\r\n\r\n###Toalettsaker\r\n\r\nTannb\u00f8rste\r\nTannkrem\r\nH\u00e5ndkle\r\nS\u00e5pe\r\nDeodorant\r\n\r\n###Soveutstyr\r\n\r\nSovepose/dyne/pledd\r\nPute\r\nLiggeunderlag\r\n\r\n###Eventuelt\r\n\r\nGaffatape\r\nEgen stol\r\nEkstra skift (Det vil alts\u00e5 si RENE kl\u00e6r)\r\n\r\n###Ikke ta med dette:\r\n\r\nHvitevarer (vannkoker, toastjern, vaffeljern, komfyr, o.l)\r\nH\u00f8ytalere. Vi stiller med dette.", "enable_comments": false}}, {"pk": 6, "model": "flatpages.flatpage", "fields": {"registration_required": false, "title": "Reglement", "url": "/info/reglement/", "template_name": "", "sites": [1], "content": "###Reglement under dfekt LAN\r\nPersoner som deltar i dfekt LAN Interesseorganisasjon sine arrangementer er p\u00e5lagt \u00e5 f\u00f8lge arrangementets rettningslinjer. Ved brudd p\u00e5 reglementet kan vedkommende bli utvist fra det gjeldende arrangement.\r\nVedkommende kan f\u00e5 et erstatningskrav for eventuelt h\u00e6rverk, og bli utvist fra fremtidige arrangementer.\r\nFolkeskikk og norsk lovverk gjelder ogs\u00e5 under dfekt LANs arrangementer.\r\n\r\n###Deltakere\r\nDeltakere skal ikke under noen omstendigheter;\r\n- v\u00e6re i besittelse av eller nyte alkohol under arrangementet. (Gjelder ogs\u00e5 beruset tilstand)\r\n- g\u00e5 inn i kantine/kiosk, fordelingsrom, serverrom, tak eller noen andre crewomr\u00e5der.\r\n- medbringe eget h\u00f8ytalersystem.\r\n- koble egne routere, switcher eller annet nettverksutstyr fysisk til nettverket.\r\n- g\u00e5 inn i garderoben til det motsatte kj\u00f8nn.\r\n- r\u00f8re utstyr som ikke eies av deltakeren selv.\r\n\r\nAll form for h\u00e6rverk, mobbing, st\u00f8y eller d\u00e5rlig oppf\u00f8rsel ovenfor crew og deltakere kan f\u00f8re til bortvisning fra lokalet, politianmeldelse og/eller eventuelt erstatningskrav.\r\nI visse tilfeller kan deltakere miste retten til \u00e5 delta p\u00e5 v\u00e5re videre arrangementer.\r\nMerk at refundering av billett vil ikke v\u00e6re mulig hvis det forekommer brudd p\u00e5 regelverk.\r\n\r\n###Crew\r\nCrew-medlemmet skal ikke under noen omstendigheter;\r\n- v\u00e6re i besittelse av eller nyte alkohol under arrangementet.\r\n- g\u00e5 inn i kantine/kiosk, fordelingsrom, serverrom og p\u00e5 taket med mindre dette er tillat for ditt aktuelle crew.\r\n- medbringe eget h\u00f8ytalersystem.\r\n- koble egne routere, switcher eller annet nettverksutstyr fysisk til nettverket.\r\n- g\u00e5 inn i garderoben til det motsatte kj\u00f8nn, med mindre dette er absolutt n\u00f8dvendig.\r\n- r\u00f8re utstyr som ikke eies av crew-medlemmet selv.\r\n\r\nCrew-medlemmer er p\u00e5lagt \u00e5 f\u00f8lge ordrene til deres overordnede . Eventuelle konflikter vil bli tatt opp med ansvarlig for crew og deltakere (Atle-Andr\u00e9 Gundersen)\r\nVedkommende har ogs\u00e5 plikt til \u00e5 m\u00f8te opp til avtalt tid for skift eller annet som er avtalt og s\u00f8rge for at vedkommende er uthvilt og klar.\r\n\r\nCrew-medlemmer skal ikke under noen omstendigheter forlate sin \u00abpost\u00bb med mindre noe akutt oppst\u00e5r (brann, sykdom o.l)\r\n(Ved pauser skal det v\u00e6re en person til \u00e5 ta over vedkommendes post)\r\nH\u00e6rverk, mobbing, st\u00f8y eller d\u00e5rlig oppf\u00f8rsel ovenfor crew og deltakere kan f\u00f8re til bortvisning fra lokalet, og eventuelt erstatningskrav.\r\nI visse tilfeller kan crew-medlemmet miste retten til \u00e5 delta p\u00e5 v\u00e5re videre arrangementer.", "enable_comments": false}}, {"pk": 7, "model": "flatpages.flatpage", "fields": {"registration_required": false, "title": "Crew chiefs", "url": "/info/chiefs/", "template_name": "", "sites": [1], "content": "dfekt LAN 2014 Vinter Chiefs\r\n\r\n###Game\r\nHenrik Paulsen\r\n\r\n###Kantine\r\nSandra B\u00f8ien Hem\r\n\r\n###Security\r\nSimen Holmberg\r\nsimen at dfektlan dot no\r\n\r\n###Tech\r\nKristoffer Dalby\r\nkradalby at dfektlan dot no\r\n\r\n###Informasjon\r\nAnders Pedersen\r\nanders at dfektlan dot no\r\n\r\n###Logistikk\r\nAtle-Andr\u00e9 Gundersen\r\natle at dfektlan dot no", "enable_comments": false}}, {"pk": 8, "model": "flatpages.flatpage", "fields": {"registration_required": false, "title": "S\u00f8ke crew?", "url": "/info/sokecrew/", "template_name": "", "sites": [1], "content": "DETTE GJELDER DFEKT LAN, VINTER 2014\r\nSend en mail med din s\u00f8knad til soknad@lists.dfektlan.no\r\n\r\n\u00d8nsker du \u00e5 jobbe under LANet?\r\n\r\nHar du erfaring p\u00e5 et omr\u00e5de eller \u00f8nsker \u00e5 pr\u00f8ve noe nytt?\r\nVi kan tilby deg en stilling innenfor en rekke omr\u00e5der:\r\n\r\n###Kantine\r\n-Tar seg av alt innen salg og tilberedning av mat- og drikkevarer.\r\n###Logstikk\r\n-Tar seg av transport av materialer og utstyr.\r\n###Renhold\r\n-Tar seg av renhold av lokalet og sanit\u00e6re anlegg.\r\n###Sikkerhet\r\n-Tar seg av vaktholdet inne og utenfor lokalet. S\u00f8rger ogs\u00e5 for dirigering av trafikken p\u00e5 innslippet.\r\n###Str\u00f8m\r\n-Tar seg av opplegging av str\u00f8mnettet og eventuell feils\u00f8kning.\r\n###Tech\r\n-Tar seg av servere, nettverk og andre tekniske utfordringer.\r\n\r\nEr du selvstendig og arbeidsvillig, er muligheten \u00e5pen for \u00e5 s\u00f8ke crew-stilling for v\u00e5rt vinter-LAN.\r\n\r\n###Dette kan vi tilby deg\r\n- Gratis plass til din PC/konsoll/pok\u00e9mon i crew-omr\u00e5det (80cm x 60cm)\r\n- Soveplass i eget omr\u00e5de kun for crew.\r\n- Gratis mat og drikke under skift (de som jobber flexi/mye f\u00e5r dette dekket 24/7)\r\n- Ansvar utifra hva du selv \u00f8nsker. Co-chief? Skiftleder? Eller medlem av et crew?\r\n\r\n###Dette krever vi av deg\r\n- Punktlighet.\r\n- Disiplin.\r\n- Evnen til \u00e5 kunne ta ansvar.\r\n- Godt hum\u00f8r.\r\n- Arbeidsvilje.\r\n- F\u00e5 nok s\u00f8vn.", "enable_comments": false}}, {"pk": 9, "model": "flatpages.flatpage", "fields": {"registration_required": false, "title": "Utleie", "url": "/info/utleie/", "template_name": "", "sites": [1], "content": "dfekt LAN sitter p\u00e5 endel utstyr som flere andre ogs\u00e5 kan ha glede av. Vi har derfor v\u00e5r egne lille utleie tjeneste.\r\n\r\nDenne listen er utdatert.\r\n\r\nHvis ikke du vet n\u00f8yaktig hva du trenger til ditt arrangement, s\u00e5 sp\u00f8r oss. Vi ordner.\r\n\r\nSwitcher\r\n\r\n1x Cisco Catalyst 3560 24p 100mbit\r\n1x Cisco Catalyst 2950 24p 100mbit\r\n1x Cisco Catalyst Express 500 24p 100mbit + 2gbit\r\n1x Cisco Catalyst 3500XL 24p 100mbit + 1gbit\r\n1x Cisco Catalyst 2950 48p 100mbit + 1gbit\r\n3x Cisco Catalyst 3548 48p 100mbit + 1gbit\r\n1x 3com Superstack II 3300 24p 100mbit\r\n1x D-Link DGS-3627 L3 24p 1000mbit med mulighet for 10gbit\r\n\r\nServere\r\n\r\n1x HP D380 G4\r\n5x HP D360 G4\r\n\r\nDiverse\r\n\r\nKabling\r\nForgreningskontakter\r\n2x iZettle leser\r\n5x Laptoper\r\n3x Prosjektorer\r\n\r\nVi har ingen faste priser p\u00e5 leie, og vi skreddersyr gjerne pakke til dere. Vi skalerer prisene etter hva slags st\u00f8rrelse og inntekter ditt LAN har og vi tar hensyn til om inntektene g\u00e5r til noe bra som klasseturer eller lignende.\r\nVi tilbyr gjerne hjelp av oppsett av utstyr og kan tilby support s\u00e5 sant det lar seg utf\u00f8re.\r\n\r\nFor leie, kontakt Kristoffer Dalby\r\n456 73 429\r\nkradalby at dfektlan dot no", "enable_comments": false}}, {"pk": 1, "model": "userprofile.siteuser", "fields": {"last_name": "Dalby", "image": "", "is_staff": true, "skype": "kristoffer.dalby", "user_permissions": [], "date_joined": "2013-12-21T08:55:44Z", "first_name": "Kristoffer", "crew": [], "is_superuser": true, "date_of_birth": "1992-09-12", "last_login": "2013-12-25T18:50:19.725Z", "email": "kradalby@kradalby.no", "zip_code": "7048", "username": "kradalby", "rfid": "", "is_active": true, "phone": "45673429", "groups": [], "address": "Ole Aasveds veg 4", "password": "pbkdf2_sha256$12000$yt4qYqoHilGw$2mX0wokQaP8CmdXtJ6XikHpBCDnO7JFOP/P191vSDK8=", "nickname": "kradalby", "town": "Trondheim", "country": "Norge", "steam": "aof_soilex"}}, {"pk": 1, "model": "event.lanevent", "fields": {"name": "dfekt LAN Vinter 2014", "end_date": "2014-02-21T11:00:00Z", "price": 299, "current": true, "location": "Ormestadhallen", "numberOfSeats": 250, "start_date": "2014-02-17T13:00:00Z", "description": "Vinter LAN"}}, {"pk": 1, "model": "news.post", "fields": {"created": "2013-12-21T09:39:18.440Z", "image": "", "author": 1, "summary": "asdf", "content": "asdgf", "featured": true, "title": "kradalby er awesome", "event": 1}}, {"pk": 2, "model": "news.post", "fields": {"created": "2013-12-21T13:43:25.462Z", "image": "", "author": 1, "summary": "asdf", "content": "asdf", "featured": false, "title": "asdf", "event": 1}}, {"pk": 3, "model": "news.post", "fields": {"created": "2013-12-21T13:44:13.659Z", "image": "", "author": 1, "summary": "sdfhrr", "content": "Bacon ipsum dolor sit amet sirloin ball tip tongue, corned beef ground round strip steak tenderloin shank. Kielbasa pork chop strip steak prosciutto leberkas shankle salami meatball corned beef. Pork belly jerky cow prosciutto doner shank meatball jowl, ball tip tri-tip. Beef ribs pork sausage tri-tip flank pastrami boudin t-bone spare ribs strip steak ham hock shoulder shank hamburger pork loin.\r\n\r\nFatback andouille pancetta pig pork pork belly capicola drumstick kevin pork loin sausage tail tongue bresaola. Brisket filet mignon tongue, shoulder jowl beef ribs rump ribeye. Meatball pork belly salami t-bone doner biltong shoulder pork sausage leberkas tongue. Beef pastrami tenderloin, drumstick salami kevin rump. Shank filet mignon sausage drumstick fatback, flank ground round short ribs rump ham hock pork capicola ham chuck. Boudin frankfurter beef ribs tri-tip tenderloin beef. Shankle tongue pancetta pork belly fatback, tenderloin jowl tri-tip.\r\n\r\nProsciutto pork loin filet mignon corned beef. Boudin tri-tip pancetta biltong sausage. Short ribs t-bone pork chop doner flank ball tip tri-tip boudin meatball beef ribs pork belly meatloaf chicken beef andouille. Ham pork loin drumstick tongue, kevin tenderloin jerky prosciutto spare ribs biltong frankfurter. Hamburger beef ribs venison, capicola bacon turkey kielbasa drumstick spare ribs salami.\r\n\r\nTongue ribeye strip steak salami bacon shankle turducken. Spare ribs ball tip beef biltong. Drumstick pancetta tail boudin ham chuck pastrami biltong turkey tenderloin. Venison filet mignon pork belly, shankle pig spare ribs short loin flank. Pork chop prosciutto turkey boudin shank tail ham sirloin, andouille fatback shankle corned beef short ribs hamburger.\r\n\r\nTurkey spare ribs biltong, drumstick fatback short ribs ham hock. Ground round filet mignon tri-tip sausage chuck tail sirloin ball tip short loin doner rump drumstick bacon jowl salami. Leberkas kielbasa salami spare ribs turducken. Ham hock pork loin chicken, ham drumstick doner sausage venison chuck tenderloin. Prosciutto drumstick turkey biltong ball tip. Doner t-bone frankfurter ball tip, fatback pork loin filet mignon pork belly brisket ham capicola. Tail jowl hamburger, cow rump tongue leberkas pork venison pancetta doner spare ribs fatback turkey chicken.", "featured": false, "title": "Bacon", "event": 1}}, {"pk": 4, "model": "news.post", "fields": {"created": "2013-12-21T13:44:27.669Z", "image": "", "author": 1, "summary": "Herpaderp", "content": "Bacon ipsum dolor sit amet sirloin ball tip tongue, corned beef ground round strip steak tenderloin shank. Kielbasa pork chop strip steak prosciutto leberkas shankle salami meatball corned beef. Pork belly jerky cow prosciutto doner shank meatball jowl, ball tip tri-tip. Beef ribs pork sausage tri-tip flank pastrami boudin t-bone spare ribs strip steak ham hock shoulder shank hamburger pork loin.\r\n\r\nFatback andouille pancetta pig pork pork belly capicola drumstick kevin pork loin sausage tail tongue bresaola. Brisket filet mignon tongue, shoulder jowl beef ribs rump ribeye. Meatball pork belly salami t-bone doner biltong shoulder pork sausage leberkas tongue. Beef pastrami tenderloin, drumstick salami kevin rump. Shank filet mignon sausage drumstick fatback, flank ground round short ribs rump ham hock pork capicola ham chuck. Boudin frankfurter beef ribs tri-tip tenderloin beef. Shankle tongue pancetta pork belly fatback, tenderloin jowl tri-tip.\r\n\r\nProsciutto pork loin filet mignon corned beef. Boudin tri-tip pancetta biltong sausage. Short ribs t-bone pork chop doner flank ball tip tri-tip boudin meatball beef ribs pork belly meatloaf chicken beef andouille. Ham pork loin drumstick tongue, kevin tenderloin jerky prosciutto spare ribs biltong frankfurter. Hamburger beef ribs venison, capicola bacon turkey kielbasa drumstick spare ribs salami.\r\n\r\nTongue ribeye strip steak salami bacon shankle turducken. Spare ribs ball tip beef biltong. Drumstick pancetta tail boudin ham chuck pastrami biltong turkey tenderloin. Venison filet mignon pork belly, shankle pig spare ribs short loin flank. Pork chop prosciutto turkey boudin shank tail ham sirloin, andouille fatback shankle corned beef short ribs hamburger.\r\n\r\nTurkey spare ribs biltong, drumstick fatback short ribs ham hock. Ground round filet mignon tri-tip sausage chuck tail sirloin ball tip short loin doner rump drumstick bacon jowl salami. Leberkas kielbasa salami spare ribs turducken. Ham hock pork loin chicken, ham drumstick doner sausage venison chuck tenderloin. Prosciutto drumstick turkey biltong ball tip. Doner t-bone frankfurter ball tip, fatback pork loin filet mignon pork belly brisket ham capicola. Tail jowl hamburger, cow rump tongue leberkas pork venison pancetta doner spare ribs fatback turkey chicken.", "featured": false, "title": "Turkey", "event": 1}}, {"pk": 5, "model": "news.post", "fields": {"created": "2013-12-24T22:52:13.999Z", "image": "", "author": 1, "summary": "fdgh", "content": "dfgh", "featured": false, "title": "asdf", "event": 1}}, {"pk": 6, "model": "news.post", "fields": {"created": "2013-12-24T22:52:21.466Z", "image": "", "author": 1, "summary": "fghdfgh", "content": "dfghfdgh", "featured": false, "title": "dfghfgh", "event": 1}}, {"pk": 1, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2013-12-21T09:37:46.970Z", "object_repr": "dfekt LAN Vinter 2014", "object_id": "1", "change_message": "", "user": 1, "content_type": 18}}, {"pk": 2, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2013-12-21T09:38:11.033Z", "object_repr": "kradalby er awesome", "object_id": "1", "change_message": "", "user": 1, "content_type": 9}}, {"pk": 3, "model": "admin.logentry", "fields": {"action_flag": 3, "action_time": "2013-12-21T09:39:07.581Z", "object_repr": "kradalby er awesome", "object_id": "1", "change_message": "", "user": 1, "content_type": 9}}, {"pk": 4, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2013-12-21T09:39:18.443Z", "object_repr": "kradalby er awesome", "object_id": "1", "change_message": "", "user": 1, "content_type": 9}}, {"pk": 5, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2013-12-21T13:43:25.465Z", "object_repr": "asdf", "object_id": "2", "change_message": "", "user": 1, "content_type": 9}}, {"pk": 6, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2013-12-21T13:44:13.663Z", "object_repr": "Bacon", "object_id": "3", "change_message": "", "user": 1, "content_type": 9}}, {"pk": 7, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2013-12-21T13:44:27.672Z", "object_repr": "Turkey", "object_id": "4", "change_message": "", "user": 1, "content_type": 9}}, {"pk": 8, "model": "admin.logentry", "fields": {"action_flag": 2, "action_time": "2013-12-21T13:45:42.622Z", "object_repr": "kradalby er awesome", "object_id": "1", "change_message": "Changed featured.", "user": 1, "content_type": 9}}, {"pk": 9, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2013-12-21T17:14:51.575Z", "object_repr": "/about/styret/ -- Styret", "object_id": "1", "change_message": "", "user": 1, "content_type": 8}}, {"pk": 10, "model": "admin.logentry", "fields": {"action_flag": 2, "action_time": "2013-12-22T20:54:36.427Z", "object_repr": "dfekt LAN Vinter 2014", "object_id": "1", "change_message": "Changed location, price and numberOfSeats.", "user": 1, "content_type": 18}}, {"pk": 11, "model": "admin.logentry", "fields": {"action_flag": 2, "action_time": "2013-12-22T20:55:14.559Z", "object_repr": "dfekt LAN Vinter 2014", "object_id": "1", "change_message": "Changed start_date and end_date.", "user": 1, "content_type": 18}}, {"pk": 12, "model": "admin.logentry", "fields": {"action_flag": 2, "action_time": "2013-12-22T22:09:35.575Z", "object_repr": "dfektlan.no", "object_id": "1", "change_message": "Changed domain and name.", "user": 1, "content_type": 6}}, {"pk": 13, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2013-12-22T22:12:48.770Z", "object_repr": "/info/foreldreinformasjon/ -- Foreldreinformasjon", "object_id": "2", "change_message": "", "user": 1, "content_type": 8}}, {"pk": 14, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2013-12-22T22:13:57.571Z", "object_repr": "/info/faq/ -- Ofte stilte sp\u00f8rsm\u00e5l", "object_id": "3", "change_message": "", "user": 1, "content_type": 8}}, {"pk": 15, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2013-12-22T22:14:28.017Z", "object_repr": "/info/sikkerhet/ -- Sikkerhet", "object_id": "4", "change_message": "", "user": 1, "content_type": 8}}, {"pk": 16, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2013-12-22T22:15:36.372Z", "object_repr": "/info/pakkeliste/ -- Pakkeliste", "object_id": "5", "change_message": "", "user": 1, "content_type": 8}}, {"pk": 17, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2013-12-22T22:16:52.422Z", "object_repr": "/info/reglement/ -- Reglement", "object_id": "6", "change_message": "", "user": 1, "content_type": 8}}, {"pk": 18, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2013-12-22T22:18:58.439Z", "object_repr": "/info/chiefs/ -- Crew chiefs", "object_id": "7", "change_message": "", "user": 1, "content_type": 8}}, {"pk": 19, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2013-12-22T22:20:30.659Z", "object_repr": "/info/sokecrew/ -- S\u00f8ke crew?", "object_id": "8", "change_message": "", "user": 1, "content_type": 8}}, {"pk": 20, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2013-12-22T22:21:52.935Z", "object_repr": "/info/utleie/ -- Utleie", "object_id": "9", "change_message": "", "user": 1, "content_type": 8}}, {"pk": 21, "model": "admin.logentry", "fields": {"action_flag": 2, "action_time": "2013-12-22T22:30:47.890Z", "object_repr": "Kristoffer Dalby", "object_id": "1", "change_message": "Changed first_name, last_name, nickname, date_of_birth, phone, skype, steam, address, town, zip_code and country.", "user": 1, "content_type": 13}}, {"pk": 22, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2013-12-24T22:52:14.001Z", "object_repr": "asdf", "object_id": "5", "change_message": "", "user": 1, "content_type": 9}}, {"pk": 23, "model": "admin.logentry", "fields": {"action_flag": 1, "action_time": "2013-12-24T22:52:21.467Z", "object_repr": "dfghfgh", "object_id": "6", "change_message": "", "user": 1, "content_type": 9}}]
+[
+{
+    "pk": 1, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-12-21T08:54:55.090Z", 
+        "app_name": "authentication", 
+        "migration": "0001_initial"
+    }
+},
+{
+    "pk": 2, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-12-21T08:54:55.157Z", 
+        "app_name": "logistic", 
+        "migration": "0001_initial"
+    }
+},
+{
+    "pk": 3, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-12-21T08:54:55.257Z", 
+        "app_name": "userprofile", 
+        "migration": "0001_initial"
+    }
+},
+{
+    "pk": 4, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-12-21T08:54:55.338Z", 
+        "app_name": "crew", 
+        "migration": "0001_initial"
+    }
+},
+{
+    "pk": 5, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-12-21T08:54:55.392Z", 
+        "app_name": "event", 
+        "migration": "0001_initial"
+    }
+},
+{
+    "pk": 6, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-12-21T08:54:55.442Z", 
+        "app_name": "sponsor", 
+        "migration": "0001_initial"
+    }
+},
+{
+    "pk": 7, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-12-21T09:32:22.487Z", 
+        "app_name": "news", 
+        "migration": "0001_initial"
+    }
+},
+{
+    "pk": 8, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-12-21T13:43:13.096Z", 
+        "app_name": "news", 
+        "migration": "0002_auto__del_field_post_slug"
+    }
+},
+{
+    "pk": 9, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-12-22T20:53:33.393Z", 
+        "app_name": "event", 
+        "migration": "0002_auto__add_field_lanevent_location__add_field_lanevent_price__add_field"
+    }
+},
+{
+    "pk": 10, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-12-24T10:26:51.187Z", 
+        "app_name": "pos", 
+        "migration": "0001_initial"
+    }
+},
+{
+    "pk": 11, 
+    "model": "south.migrationhistory", 
+    "fields": {
+        "applied": "2013-12-24T10:56:21.596Z", 
+        "app_name": "userprofile", 
+        "migration": "0002_auto__add_field_siteuser_rfid"
+    }
+},
+{
+    "pk": 1, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_migrationhistory", 
+        "name": "Can add migration history", 
+        "content_type": 1
+    }
+},
+{
+    "pk": 2, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_migrationhistory", 
+        "name": "Can change migration history", 
+        "content_type": 1
+    }
+},
+{
+    "pk": 3, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_migrationhistory", 
+        "name": "Can delete migration history", 
+        "content_type": 1
+    }
+},
+{
+    "pk": 4, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_permission", 
+        "name": "Can add permission", 
+        "content_type": 2
+    }
+},
+{
+    "pk": 5, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_permission", 
+        "name": "Can change permission", 
+        "content_type": 2
+    }
+},
+{
+    "pk": 6, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_permission", 
+        "name": "Can delete permission", 
+        "content_type": 2
+    }
+},
+{
+    "pk": 7, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_group", 
+        "name": "Can add group", 
+        "content_type": 3
+    }
+},
+{
+    "pk": 8, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_group", 
+        "name": "Can change group", 
+        "content_type": 3
+    }
+},
+{
+    "pk": 9, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_group", 
+        "name": "Can delete group", 
+        "content_type": 3
+    }
+},
+{
+    "pk": 10, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_contenttype", 
+        "name": "Can add content type", 
+        "content_type": 4
+    }
+},
+{
+    "pk": 11, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_contenttype", 
+        "name": "Can change content type", 
+        "content_type": 4
+    }
+},
+{
+    "pk": 12, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_contenttype", 
+        "name": "Can delete content type", 
+        "content_type": 4
+    }
+},
+{
+    "pk": 13, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_session", 
+        "name": "Can add session", 
+        "content_type": 5
+    }
+},
+{
+    "pk": 14, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_session", 
+        "name": "Can change session", 
+        "content_type": 5
+    }
+},
+{
+    "pk": 15, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_session", 
+        "name": "Can delete session", 
+        "content_type": 5
+    }
+},
+{
+    "pk": 16, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_site", 
+        "name": "Can add site", 
+        "content_type": 6
+    }
+},
+{
+    "pk": 17, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_site", 
+        "name": "Can change site", 
+        "content_type": 6
+    }
+},
+{
+    "pk": 18, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_site", 
+        "name": "Can delete site", 
+        "content_type": 6
+    }
+},
+{
+    "pk": 19, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_logentry", 
+        "name": "Can add log entry", 
+        "content_type": 7
+    }
+},
+{
+    "pk": 20, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_logentry", 
+        "name": "Can change log entry", 
+        "content_type": 7
+    }
+},
+{
+    "pk": 21, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_logentry", 
+        "name": "Can delete log entry", 
+        "content_type": 7
+    }
+},
+{
+    "pk": 22, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_flatpage", 
+        "name": "Can add flat page", 
+        "content_type": 8
+    }
+},
+{
+    "pk": 23, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_flatpage", 
+        "name": "Can change flat page", 
+        "content_type": 8
+    }
+},
+{
+    "pk": 24, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_flatpage", 
+        "name": "Can delete flat page", 
+        "content_type": 8
+    }
+},
+{
+    "pk": 25, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_post", 
+        "name": "Can add post", 
+        "content_type": 9
+    }
+},
+{
+    "pk": 26, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_post", 
+        "name": "Can change post", 
+        "content_type": 9
+    }
+},
+{
+    "pk": 27, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_post", 
+        "name": "Can delete post", 
+        "content_type": 9
+    }
+},
+{
+    "pk": 28, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_registertoken", 
+        "name": "Can add register token", 
+        "content_type": 10
+    }
+},
+{
+    "pk": 29, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_registertoken", 
+        "name": "Can change register token", 
+        "content_type": 10
+    }
+},
+{
+    "pk": 30, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_registertoken", 
+        "name": "Can delete register token", 
+        "content_type": 10
+    }
+},
+{
+    "pk": 31, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_itemgroup", 
+        "name": "Can add item group", 
+        "content_type": 11
+    }
+},
+{
+    "pk": 32, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_itemgroup", 
+        "name": "Can change item group", 
+        "content_type": 11
+    }
+},
+{
+    "pk": 33, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_itemgroup", 
+        "name": "Can delete item group", 
+        "content_type": 11
+    }
+},
+{
+    "pk": 34, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_item", 
+        "name": "Can add item", 
+        "content_type": 12
+    }
+},
+{
+    "pk": 35, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_item", 
+        "name": "Can change item", 
+        "content_type": 12
+    }
+},
+{
+    "pk": 36, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_item", 
+        "name": "Can delete item", 
+        "content_type": 12
+    }
+},
+{
+    "pk": 37, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_siteuser", 
+        "name": "Can add user", 
+        "content_type": 13
+    }
+},
+{
+    "pk": 38, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_siteuser", 
+        "name": "Can change user", 
+        "content_type": 13
+    }
+},
+{
+    "pk": 39, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_siteuser", 
+        "name": "Can delete user", 
+        "content_type": 13
+    }
+},
+{
+    "pk": 40, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_crew", 
+        "name": "Can add crew", 
+        "content_type": 14
+    }
+},
+{
+    "pk": 41, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_crew", 
+        "name": "Can change crew", 
+        "content_type": 14
+    }
+},
+{
+    "pk": 42, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_crew", 
+        "name": "Can delete crew", 
+        "content_type": 14
+    }
+},
+{
+    "pk": 43, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_crewgroup", 
+        "name": "Can add crew group", 
+        "content_type": 15
+    }
+},
+{
+    "pk": 44, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_crewgroup", 
+        "name": "Can change crew group", 
+        "content_type": 15
+    }
+},
+{
+    "pk": 45, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_crewgroup", 
+        "name": "Can delete crew group", 
+        "content_type": 15
+    }
+},
+{
+    "pk": 46, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_crewshift", 
+        "name": "Can add crew shift", 
+        "content_type": 16
+    }
+},
+{
+    "pk": 47, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_crewshift", 
+        "name": "Can change crew shift", 
+        "content_type": 16
+    }
+},
+{
+    "pk": 48, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_crewshift", 
+        "name": "Can delete crew shift", 
+        "content_type": 16
+    }
+},
+{
+    "pk": 49, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_application", 
+        "name": "Can add application", 
+        "content_type": 17
+    }
+},
+{
+    "pk": 50, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_application", 
+        "name": "Can change application", 
+        "content_type": 17
+    }
+},
+{
+    "pk": 51, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_application", 
+        "name": "Can delete application", 
+        "content_type": 17
+    }
+},
+{
+    "pk": 52, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_lanevent", 
+        "name": "Can add lan event", 
+        "content_type": 18
+    }
+},
+{
+    "pk": 53, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_lanevent", 
+        "name": "Can change lan event", 
+        "content_type": 18
+    }
+},
+{
+    "pk": 54, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_lanevent", 
+        "name": "Can delete lan event", 
+        "content_type": 18
+    }
+},
+{
+    "pk": 55, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "add_sponsor", 
+        "name": "Can add sponsor", 
+        "content_type": 19
+    }
+},
+{
+    "pk": 56, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "change_sponsor", 
+        "name": "Can change sponsor", 
+        "content_type": 19
+    }
+},
+{
+    "pk": 57, 
+    "model": "auth.permission", 
+    "fields": {
+        "codename": "delete_sponsor", 
+        "name": "Can delete sponsor", 
+        "content_type": 19
+    }
+},
+{
+    "pk": "2v98d8g0wgpb7ongqlctfp5ulbx5nfkq", 
+    "model": "sessions.session", 
+    "fields": {
+        "expire_date": "2014-01-10T11:53:40.250Z", 
+        "session_data": "OGYzOTM2Njg1NTY5N2FhN2U4NTg5NmIwNDE0NzNhNGYzOGQ3N2VjYTp7Il9zZXNzaW9uX2V4cGlyeSI6MCwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2lkIjoxfQ=="
+    }
+},
+{
+    "pk": "k4esz4hm47yxmg99yih344n27auhrii8", 
+    "model": "sessions.session", 
+    "fields": {
+        "expire_date": "2014-01-08T18:50:19.729Z", 
+        "session_data": "Y2UwYzE2MTNmMWFhZWMxYjlmZmRlOTg1MzMxNDc3YTZhZGEwZWU2Yzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0="
+    }
+},
+{
+    "pk": "s87b2irje28qxcm97h5nk4z475f60kiv", 
+    "model": "sessions.session", 
+    "fields": {
+        "expire_date": "2014-01-07T23:10:44.429Z", 
+        "session_data": "OGYzOTM2Njg1NTY5N2FhN2U4NTg5NmIwNDE0NzNhNGYzOGQ3N2VjYTp7Il9zZXNzaW9uX2V4cGlyeSI6MCwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2lkIjoxfQ=="
+    }
+},
+{
+    "pk": 1, 
+    "model": "sites.site", 
+    "fields": {
+        "domain": "dfektlan.no", 
+        "name": "dfektlan.no"
+    }
+},
+{
+    "pk": 1, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "Styret", 
+        "url": "/about/styret/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "Styret i dfekt LAN best\u00e5r av f\u00f8lgende personer.\r\n\r\nKristoffer Dalby\r\nStyreleder\r\nTelefon: 456 73 429\r\nEpost: kradalby at dfektlan dot no\r\n\r\nAtle-Andr\u00e8 Gundersen\r\nNestleder\r\nTelefon: 406 10 234\r\nEpost: atle at dfektlan dot no\r\n\r\nSimen Holmberg\r\nStyremedlem\r\nTelefon: -\r\nEpost: simen at dfektlan dot no\r\n\r\nSindre Enge\r\nStyremedlem\r\nTelefon: -\r\nEpost: sindre at dfektlan dot no\r\n\r\nAnders Pedersen\r\nStyremedlem\r\nTelefon: -\r\nEpost: anders at dfektlan dot no", 
+        "enable_comments": false
+    }
+},
+{
+    "pk": 2, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "Foreldreinformasjon", 
+        "url": "/info/foreldreinformasjon/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "###Er det en aldersgrense?\r\nDet er ingen aldersgrense p\u00e5 v\u00e5re arrangementer, men deltakerene m\u00e5 klare \"seg selv\".\r\nVi stiller krav til at deltakeren klarer \u00e5 ta vare p\u00e5 selv i form av kroppens behov, og ikke minst \u00e5 oppf\u00f8re seg med tanke p\u00e5 andre.\r\nVi f\u00f8lger ogs\u00e5 med p\u00e5 v\u00e5re deltakere, og vi n\u00f8ler ikke med \u00e5 oppfordre eventuelle personer til \u00e5 f\u00e5 i seg noe mat, eller ta noen timer p\u00e5 \u00f8yet\r\nOm det skulle v\u00e6re n\u00f8dvendig vil vi ta kontakt med deg som forelder hvis barnet ditt er under 16\u00e5r og det skulle skje noe. (samtykkeskjema)\r\n\r\nDersom deltakeren er under 16 \u00e5r, m\u00e5 samtykkeskjema fylles ut og vises ved innsjekking. Samtykkeskjema finnes i \"Informasjon\"-menyen\r\n\r\n###Alkohol?\r\nUnder v\u00e5re arrangementer har vi nulltolleranse for alkohol.\r\nEventuelle personer som velger \u00e5 bryte denne regelen vil bli bortvist fra arrangementet.\r\n\r\n###Mat og drikke?\r\nP\u00e5 begge v\u00e5re arrangementer vil det v\u00e6re mulighet for \u00e5 kj\u00f8pe b\u00e5de mat og drikke.\r\n\r\n###Samtykkeskjema?\r\nSamtykkeskjema er laget for deg som forelder, slik at vi er sikre p\u00e5 at vi som arrang\u00f8rer har en kontaktperson i tilfelle det skulle oppst\u00e5 en hendelse.\r\n\r\n###Hvordan f\u00e5r jeg kontakt med mitt/mine barn?\r\nVi anbefaler sterkt at vedkommende tar med seg en mobiltelefon. Dette gj\u00f8r jobben v\u00e5r lettere ettersom det til tider kan v\u00e6re mye som skjer p\u00e5 en gang under en slik samling.\r\nOm du som forelder har mulighet til \u00e5 f\u00e5 tak i plassnummeret til ditt barn, vil dette v\u00e6re kjekt hvis vedkommende ikke tar telefonen.\r\n\r\n###Hva gj\u00f8r jeg hvis noe mitt barn tok med seg blir stj\u00e5let eller \u00f8delagt?\r\nVi gj\u00f8r v\u00e5rt beste for \u00e5 ta tak i eventuelle problemer som m\u00e5tte oppst\u00e5 under LANet.\r\nDerimot s\u00e5 er alt utstyr personen tar med seg under eget ansvar. Om dette skulle bli stj\u00e5let eller \u00f8delagt, m\u00e5 vedkommende selv, eller forelder ta dette videre. (F.eks anmeldelse)\r\n\r\n###Sove under LANet?\r\nUnder v\u00e5re arrangementer vil det enten v\u00e6re egne sovesaler eller soveomr\u00e5der for deltakere.\r\nVi vil bemerke at vi som arrang\u00f8rer er de eneste som f\u00e5r lov til \u00e5 ha med musikk-anlegg, og dette blir skrudd av mellom 23:00-12:00\r\n\r\n###Toaletter og dusjer\r\nUnder h\u00f8st-LANet (3 dager) har vi seks toaletter (ink. 2 HC)\r\nUnder vinter-LANet (5 dager) har vi seks toaletter (ink. 2 HC), og fire dusjer. (2 felles og 2 private)", 
+        "enable_comments": false
+    }
+},
+{
+    "pk": 3, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "Ofte stilte sp\u00f8rsm\u00e5l", 
+        "url": "/info/faq/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "Q: Er det en aldersgrense?\r\nA: Nei, dfektlan har ingen aldersgrense, men alle deltakere under 16 \u00e5r m\u00e5 vise et samtykkeskjema underskrevet av foreldrene\r\n\r\nQ: Hva slags mat blir solgt under arrangementet?\r\nA: Det blir solgt toast, hamburgere, gryteretter, baguetter\r\n\r\nQ: Er det mulighet for \u00e5 varme opp eller kj\u00f8le ned egen mat under lanet?\r\nA: Nei, dette er det dessverre ingen mulighet for, men deltakerne kan f\u00e5 varmtvann av oss.", 
+        "enable_comments": false
+    }
+},
+{
+    "pk": 4, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "Sikkerhet", 
+        "url": "/info/sikkerhet/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "Det vil v\u00e6re vakter som passer p\u00e5 hele d\u00f8gnet.\r\n\r\nDeltakere under 16 \u00e5r m\u00e5 medbringe et samtykkeskjema underskrevet av en foresatt for \u00e5 slippe inn.\r\n\r\nRusmidler er ikke tillatt i noen form. Overstadig berusede personer f\u00e5r ikke tilgang til arrangementet og vil bli utestengt fra omr\u00e5det.\r\n\r\nFor mer informasjon og eventuelle sp\u00f8rsm\u00e5l vennligst henvend deg til sjef for sikkerhet Simen Holmberg\r\n\r\nSimen Holmberg\r\nsimen at dfektlan dot no", 
+        "enable_comments": false
+    }
+},
+{
+    "pk": 5, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "Pakkeliste", 
+        "url": "/info/pakkeliste/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "###Generelt\r\n\r\nGyldig legitimasjon (ID /m bilde; F\u00f8rerkort, bankkort eller pass)\r\nSamtykkeskjema om du er under 16 \u00e5r.\r\nKontanter\r\nBankkort\r\nMobiltelefon\r\nDatamaskin med alt av utstyr:\r\n-Str\u00f8mkabler\r\n-Nettverkskabel\r\n-Mus\r\n-Tastatur\r\n-Musematte\r\n-Nettverkskabel (TP 10m minimum)\r\n-Hodetelefoner\r\n-Skjerm + kabel\r\n-Str\u00f8mpad/Forgreningskontakt\r\n\r\n###Toalettsaker\r\n\r\nTannb\u00f8rste\r\nTannkrem\r\nH\u00e5ndkle\r\nS\u00e5pe\r\nDeodorant\r\n\r\n###Soveutstyr\r\n\r\nSovepose/dyne/pledd\r\nPute\r\nLiggeunderlag\r\n\r\n###Eventuelt\r\n\r\nGaffatape\r\nEgen stol\r\nEkstra skift (Det vil alts\u00e5 si RENE kl\u00e6r)\r\n\r\n###Ikke ta med dette:\r\n\r\nHvitevarer (vannkoker, toastjern, vaffeljern, komfyr, o.l)\r\nH\u00f8ytalere. Vi stiller med dette.", 
+        "enable_comments": false
+    }
+},
+{
+    "pk": 6, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "Reglement", 
+        "url": "/info/reglement/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "###Reglement under dfekt LAN\r\nPersoner som deltar i dfekt LAN Interesseorganisasjon sine arrangementer er p\u00e5lagt \u00e5 f\u00f8lge arrangementets rettningslinjer. Ved brudd p\u00e5 reglementet kan vedkommende bli utvist fra det gjeldende arrangement.\r\nVedkommende kan f\u00e5 et erstatningskrav for eventuelt h\u00e6rverk, og bli utvist fra fremtidige arrangementer.\r\nFolkeskikk og norsk lovverk gjelder ogs\u00e5 under dfekt LANs arrangementer.\r\n\r\n###Deltakere\r\nDeltakere skal ikke under noen omstendigheter;\r\n- v\u00e6re i besittelse av eller nyte alkohol under arrangementet. (Gjelder ogs\u00e5 beruset tilstand)\r\n- g\u00e5 inn i kantine/kiosk, fordelingsrom, serverrom, tak eller noen andre crewomr\u00e5der.\r\n- medbringe eget h\u00f8ytalersystem.\r\n- koble egne routere, switcher eller annet nettverksutstyr fysisk til nettverket.\r\n- g\u00e5 inn i garderoben til det motsatte kj\u00f8nn.\r\n- r\u00f8re utstyr som ikke eies av deltakeren selv.\r\n\r\nAll form for h\u00e6rverk, mobbing, st\u00f8y eller d\u00e5rlig oppf\u00f8rsel ovenfor crew og deltakere kan f\u00f8re til bortvisning fra lokalet, politianmeldelse og/eller eventuelt erstatningskrav.\r\nI visse tilfeller kan deltakere miste retten til \u00e5 delta p\u00e5 v\u00e5re videre arrangementer.\r\nMerk at refundering av billett vil ikke v\u00e6re mulig hvis det forekommer brudd p\u00e5 regelverk.\r\n\r\n###Crew\r\nCrew-medlemmet skal ikke under noen omstendigheter;\r\n- v\u00e6re i besittelse av eller nyte alkohol under arrangementet.\r\n- g\u00e5 inn i kantine/kiosk, fordelingsrom, serverrom og p\u00e5 taket med mindre dette er tillat for ditt aktuelle crew.\r\n- medbringe eget h\u00f8ytalersystem.\r\n- koble egne routere, switcher eller annet nettverksutstyr fysisk til nettverket.\r\n- g\u00e5 inn i garderoben til det motsatte kj\u00f8nn, med mindre dette er absolutt n\u00f8dvendig.\r\n- r\u00f8re utstyr som ikke eies av crew-medlemmet selv.\r\n\r\nCrew-medlemmer er p\u00e5lagt \u00e5 f\u00f8lge ordrene til deres overordnede . Eventuelle konflikter vil bli tatt opp med ansvarlig for crew og deltakere (Atle-Andr\u00e9 Gundersen)\r\nVedkommende har ogs\u00e5 plikt til \u00e5 m\u00f8te opp til avtalt tid for skift eller annet som er avtalt og s\u00f8rge for at vedkommende er uthvilt og klar.\r\n\r\nCrew-medlemmer skal ikke under noen omstendigheter forlate sin \u00abpost\u00bb med mindre noe akutt oppst\u00e5r (brann, sykdom o.l)\r\n(Ved pauser skal det v\u00e6re en person til \u00e5 ta over vedkommendes post)\r\nH\u00e6rverk, mobbing, st\u00f8y eller d\u00e5rlig oppf\u00f8rsel ovenfor crew og deltakere kan f\u00f8re til bortvisning fra lokalet, og eventuelt erstatningskrav.\r\nI visse tilfeller kan crew-medlemmet miste retten til \u00e5 delta p\u00e5 v\u00e5re videre arrangementer.", 
+        "enable_comments": false
+    }
+},
+{
+    "pk": 7, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "Crew chiefs", 
+        "url": "/info/chiefs/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "dfekt LAN 2014 Vinter Chiefs\r\n\r\n###Game\r\nHenrik Paulsen\r\n\r\n###Kantine\r\nSandra B\u00f8ien Hem\r\n\r\n###Security\r\nSimen Holmberg\r\nsimen at dfektlan dot no\r\n\r\n###Tech\r\nKristoffer Dalby\r\nkradalby at dfektlan dot no\r\n\r\n###Informasjon\r\nAnders Pedersen\r\nanders at dfektlan dot no\r\n\r\n###Logistikk\r\nAtle-Andr\u00e9 Gundersen\r\natle at dfektlan dot no", 
+        "enable_comments": false
+    }
+},
+{
+    "pk": 8, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "S\u00f8ke crew?", 
+        "url": "/info/sokecrew/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "DETTE GJELDER DFEKT LAN, VINTER 2014\r\nSend en mail med din s\u00f8knad til soknad@lists.dfektlan.no\r\n\r\n\u00d8nsker du \u00e5 jobbe under LANet?\r\n\r\nHar du erfaring p\u00e5 et omr\u00e5de eller \u00f8nsker \u00e5 pr\u00f8ve noe nytt?\r\nVi kan tilby deg en stilling innenfor en rekke omr\u00e5der:\r\n\r\n###Kantine\r\n-Tar seg av alt innen salg og tilberedning av mat- og drikkevarer.\r\n###Logstikk\r\n-Tar seg av transport av materialer og utstyr.\r\n###Renhold\r\n-Tar seg av renhold av lokalet og sanit\u00e6re anlegg.\r\n###Sikkerhet\r\n-Tar seg av vaktholdet inne og utenfor lokalet. S\u00f8rger ogs\u00e5 for dirigering av trafikken p\u00e5 innslippet.\r\n###Str\u00f8m\r\n-Tar seg av opplegging av str\u00f8mnettet og eventuell feils\u00f8kning.\r\n###Tech\r\n-Tar seg av servere, nettverk og andre tekniske utfordringer.\r\n\r\nEr du selvstendig og arbeidsvillig, er muligheten \u00e5pen for \u00e5 s\u00f8ke crew-stilling for v\u00e5rt vinter-LAN.\r\n\r\n###Dette kan vi tilby deg\r\n- Gratis plass til din PC/konsoll/pok\u00e9mon i crew-omr\u00e5det (80cm x 60cm)\r\n- Soveplass i eget omr\u00e5de kun for crew.\r\n- Gratis mat og drikke under skift (de som jobber flexi/mye f\u00e5r dette dekket 24/7)\r\n- Ansvar utifra hva du selv \u00f8nsker. Co-chief? Skiftleder? Eller medlem av et crew?\r\n\r\n###Dette krever vi av deg\r\n- Punktlighet.\r\n- Disiplin.\r\n- Evnen til \u00e5 kunne ta ansvar.\r\n- Godt hum\u00f8r.\r\n- Arbeidsvilje.\r\n- F\u00e5 nok s\u00f8vn.", 
+        "enable_comments": false
+    }
+},
+{
+    "pk": 9, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "Utleie", 
+        "url": "/info/utleie/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "dfekt LAN sitter p\u00e5 endel utstyr som flere andre ogs\u00e5 kan ha glede av. Vi har derfor v\u00e5r egne lille utleie tjeneste.\r\n\r\nDenne listen er utdatert.\r\n\r\nHvis ikke du vet n\u00f8yaktig hva du trenger til ditt arrangement, s\u00e5 sp\u00f8r oss. Vi ordner.\r\n\r\nSwitcher\r\n\r\n1x Cisco Catalyst 3560 24p 100mbit\r\n1x Cisco Catalyst 2950 24p 100mbit\r\n1x Cisco Catalyst Express 500 24p 100mbit + 2gbit\r\n1x Cisco Catalyst 3500XL 24p 100mbit + 1gbit\r\n1x Cisco Catalyst 2950 48p 100mbit + 1gbit\r\n3x Cisco Catalyst 3548 48p 100mbit + 1gbit\r\n1x 3com Superstack II 3300 24p 100mbit\r\n1x D-Link DGS-3627 L3 24p 1000mbit med mulighet for 10gbit\r\n\r\nServere\r\n\r\n1x HP D380 G4\r\n5x HP D360 G4\r\n\r\nDiverse\r\n\r\nKabling\r\nForgreningskontakter\r\n2x iZettle leser\r\n5x Laptoper\r\n3x Prosjektorer\r\n\r\nVi har ingen faste priser p\u00e5 leie, og vi skreddersyr gjerne pakke til dere. Vi skalerer prisene etter hva slags st\u00f8rrelse og inntekter ditt LAN har og vi tar hensyn til om inntektene g\u00e5r til noe bra som klasseturer eller lignende.\r\nVi tilbyr gjerne hjelp av oppsett av utstyr og kan tilby support s\u00e5 sant det lar seg utf\u00f8re.\r\n\r\nFor leie, kontakt Kristoffer Dalby\r\n456 73 429\r\nkradalby at dfektlan dot no", 
+        "enable_comments": false
+    }
+},
+{
+    "pk": 1, 
+    "model": "userprofile.siteuser", 
+    "fields": {
+        "last_name": "Dalby", 
+        "image": "", 
+        "is_staff": true, 
+        "skype": "kristoffer.dalby", 
+        "user_permissions": [], 
+        "date_joined": "2013-12-21T08:55:44Z", 
+        "first_name": "Kristoffer", 
+        "is_superuser": true, 
+        "date_of_birth": "1992-09-12", 
+        "last_login": "2013-12-27T11:53:40.247Z", 
+        "email": "kradalby@kradalby.no", 
+        "zip_code": "7048", 
+        "username": "kradalby", 
+        "rfid": "", 
+        "is_active": true, 
+        "phone": "45673429", 
+        "groups": [], 
+        "address": "Ole Aasveds veg 4", 
+        "password": "pbkdf2_sha256$12000$yt4qYqoHilGw$2mX0wokQaP8CmdXtJ6XikHpBCDnO7JFOP/P191vSDK8=", 
+        "nickname": "kradalby", 
+        "town": "Trondheim", 
+        "country": "Norge", 
+        "steam": "aof_soilex"
+    }
+},
+{
+    "pk": 1, 
+    "model": "event.lanevent", 
+    "fields": {
+        "name": "dfekt LAN Vinter 2014", 
+        "end_date": "2014-02-21T11:00:00Z", 
+        "price": 299, 
+        "current": true, 
+        "location": "Ormestadhallen", 
+        "numberOfSeats": 250, 
+        "start_date": "2014-02-17T13:00:00Z", 
+        "description": "Vinter LAN"
+    }
+},
+{
+    "pk": 1, 
+    "model": "news.post", 
+    "fields": {
+        "created": "2013-12-21T09:39:18.440Z", 
+        "image": "", 
+        "author": 1, 
+        "summary": "asdf", 
+        "content": "asdgf", 
+        "featured": true, 
+        "title": "kradalby er awesome", 
+        "event": 1
+    }
+},
+{
+    "pk": 2, 
+    "model": "news.post", 
+    "fields": {
+        "created": "2013-12-21T13:43:25.462Z", 
+        "image": "", 
+        "author": 1, 
+        "summary": "asdf", 
+        "content": "asdf", 
+        "featured": false, 
+        "title": "asdf", 
+        "event": 1
+    }
+},
+{
+    "pk": 3, 
+    "model": "news.post", 
+    "fields": {
+        "created": "2013-12-21T13:44:13.659Z", 
+        "image": "", 
+        "author": 1, 
+        "summary": "sdfhrr", 
+        "content": "Bacon ipsum dolor sit amet sirloin ball tip tongue, corned beef ground round strip steak tenderloin shank. Kielbasa pork chop strip steak prosciutto leberkas shankle salami meatball corned beef. Pork belly jerky cow prosciutto doner shank meatball jowl, ball tip tri-tip. Beef ribs pork sausage tri-tip flank pastrami boudin t-bone spare ribs strip steak ham hock shoulder shank hamburger pork loin.\r\n\r\nFatback andouille pancetta pig pork pork belly capicola drumstick kevin pork loin sausage tail tongue bresaola. Brisket filet mignon tongue, shoulder jowl beef ribs rump ribeye. Meatball pork belly salami t-bone doner biltong shoulder pork sausage leberkas tongue. Beef pastrami tenderloin, drumstick salami kevin rump. Shank filet mignon sausage drumstick fatback, flank ground round short ribs rump ham hock pork capicola ham chuck. Boudin frankfurter beef ribs tri-tip tenderloin beef. Shankle tongue pancetta pork belly fatback, tenderloin jowl tri-tip.\r\n\r\nProsciutto pork loin filet mignon corned beef. Boudin tri-tip pancetta biltong sausage. Short ribs t-bone pork chop doner flank ball tip tri-tip boudin meatball beef ribs pork belly meatloaf chicken beef andouille. Ham pork loin drumstick tongue, kevin tenderloin jerky prosciutto spare ribs biltong frankfurter. Hamburger beef ribs venison, capicola bacon turkey kielbasa drumstick spare ribs salami.\r\n\r\nTongue ribeye strip steak salami bacon shankle turducken. Spare ribs ball tip beef biltong. Drumstick pancetta tail boudin ham chuck pastrami biltong turkey tenderloin. Venison filet mignon pork belly, shankle pig spare ribs short loin flank. Pork chop prosciutto turkey boudin shank tail ham sirloin, andouille fatback shankle corned beef short ribs hamburger.\r\n\r\nTurkey spare ribs biltong, drumstick fatback short ribs ham hock. Ground round filet mignon tri-tip sausage chuck tail sirloin ball tip short loin doner rump drumstick bacon jowl salami. Leberkas kielbasa salami spare ribs turducken. Ham hock pork loin chicken, ham drumstick doner sausage venison chuck tenderloin. Prosciutto drumstick turkey biltong ball tip. Doner t-bone frankfurter ball tip, fatback pork loin filet mignon pork belly brisket ham capicola. Tail jowl hamburger, cow rump tongue leberkas pork venison pancetta doner spare ribs fatback turkey chicken.", 
+        "featured": false, 
+        "title": "Bacon", 
+        "event": 1
+    }
+},
+{
+    "pk": 4, 
+    "model": "news.post", 
+    "fields": {
+        "created": "2013-12-21T13:44:27.669Z", 
+        "image": "", 
+        "author": 1, 
+        "summary": "Herpaderp", 
+        "content": "Bacon ipsum dolor sit amet sirloin ball tip tongue, corned beef ground round strip steak tenderloin shank. Kielbasa pork chop strip steak prosciutto leberkas shankle salami meatball corned beef. Pork belly jerky cow prosciutto doner shank meatball jowl, ball tip tri-tip. Beef ribs pork sausage tri-tip flank pastrami boudin t-bone spare ribs strip steak ham hock shoulder shank hamburger pork loin.\r\n\r\nFatback andouille pancetta pig pork pork belly capicola drumstick kevin pork loin sausage tail tongue bresaola. Brisket filet mignon tongue, shoulder jowl beef ribs rump ribeye. Meatball pork belly salami t-bone doner biltong shoulder pork sausage leberkas tongue. Beef pastrami tenderloin, drumstick salami kevin rump. Shank filet mignon sausage drumstick fatback, flank ground round short ribs rump ham hock pork capicola ham chuck. Boudin frankfurter beef ribs tri-tip tenderloin beef. Shankle tongue pancetta pork belly fatback, tenderloin jowl tri-tip.\r\n\r\nProsciutto pork loin filet mignon corned beef. Boudin tri-tip pancetta biltong sausage. Short ribs t-bone pork chop doner flank ball tip tri-tip boudin meatball beef ribs pork belly meatloaf chicken beef andouille. Ham pork loin drumstick tongue, kevin tenderloin jerky prosciutto spare ribs biltong frankfurter. Hamburger beef ribs venison, capicola bacon turkey kielbasa drumstick spare ribs salami.\r\n\r\nTongue ribeye strip steak salami bacon shankle turducken. Spare ribs ball tip beef biltong. Drumstick pancetta tail boudin ham chuck pastrami biltong turkey tenderloin. Venison filet mignon pork belly, shankle pig spare ribs short loin flank. Pork chop prosciutto turkey boudin shank tail ham sirloin, andouille fatback shankle corned beef short ribs hamburger.\r\n\r\nTurkey spare ribs biltong, drumstick fatback short ribs ham hock. Ground round filet mignon tri-tip sausage chuck tail sirloin ball tip short loin doner rump drumstick bacon jowl salami. Leberkas kielbasa salami spare ribs turducken. Ham hock pork loin chicken, ham drumstick doner sausage venison chuck tenderloin. Prosciutto drumstick turkey biltong ball tip. Doner t-bone frankfurter ball tip, fatback pork loin filet mignon pork belly brisket ham capicola. Tail jowl hamburger, cow rump tongue leberkas pork venison pancetta doner spare ribs fatback turkey chicken.", 
+        "featured": false, 
+        "title": "Turkey", 
+        "event": 1
+    }
+},
+{
+    "pk": 5, 
+    "model": "news.post", 
+    "fields": {
+        "created": "2013-12-24T22:52:13.999Z", 
+        "image": "", 
+        "author": 1, 
+        "summary": "fdgh", 
+        "content": "dfgh", 
+        "featured": false, 
+        "title": "asdf", 
+        "event": 1
+    }
+},
+{
+    "pk": 6, 
+    "model": "news.post", 
+    "fields": {
+        "created": "2013-12-24T22:52:21.466Z", 
+        "image": "", 
+        "author": 1, 
+        "summary": "fghdfgh", 
+        "content": "dfghfdgh", 
+        "featured": false, 
+        "title": "dfghfgh", 
+        "event": 1
+    }
+},
+{
+    "pk": 1, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2013-12-21T09:37:46.970Z", 
+        "object_repr": "dfekt LAN Vinter 2014", 
+        "object_id": "1", 
+        "change_message": "", 
+        "user": 1, 
+        "content_type": 18
+    }
+},
+{
+    "pk": 2, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2013-12-21T09:38:11.033Z", 
+        "object_repr": "kradalby er awesome", 
+        "object_id": "1", 
+        "change_message": "", 
+        "user": 1, 
+        "content_type": 9
+    }
+},
+{
+    "pk": 3, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 3, 
+        "action_time": "2013-12-21T09:39:07.581Z", 
+        "object_repr": "kradalby er awesome", 
+        "object_id": "1", 
+        "change_message": "", 
+        "user": 1, 
+        "content_type": 9
+    }
+},
+{
+    "pk": 4, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2013-12-21T09:39:18.443Z", 
+        "object_repr": "kradalby er awesome", 
+        "object_id": "1", 
+        "change_message": "", 
+        "user": 1, 
+        "content_type": 9
+    }
+},
+{
+    "pk": 5, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2013-12-21T13:43:25.465Z", 
+        "object_repr": "asdf", 
+        "object_id": "2", 
+        "change_message": "", 
+        "user": 1, 
+        "content_type": 9
+    }
+},
+{
+    "pk": 6, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2013-12-21T13:44:13.663Z", 
+        "object_repr": "Bacon", 
+        "object_id": "3", 
+        "change_message": "", 
+        "user": 1, 
+        "content_type": 9
+    }
+},
+{
+    "pk": 7, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2013-12-21T13:44:27.672Z", 
+        "object_repr": "Turkey", 
+        "object_id": "4", 
+        "change_message": "", 
+        "user": 1, 
+        "content_type": 9
+    }
+},
+{
+    "pk": 8, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 2, 
+        "action_time": "2013-12-21T13:45:42.622Z", 
+        "object_repr": "kradalby er awesome", 
+        "object_id": "1", 
+        "change_message": "Changed featured.", 
+        "user": 1, 
+        "content_type": 9
+    }
+},
+{
+    "pk": 9, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2013-12-21T17:14:51.575Z", 
+        "object_repr": "/about/styret/ -- Styret", 
+        "object_id": "1", 
+        "change_message": "", 
+        "user": 1, 
+        "content_type": 8
+    }
+},
+{
+    "pk": 10, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 2, 
+        "action_time": "2013-12-22T20:54:36.427Z", 
+        "object_repr": "dfekt LAN Vinter 2014", 
+        "object_id": "1", 
+        "change_message": "Changed location, price and numberOfSeats.", 
+        "user": 1, 
+        "content_type": 18
+    }
+},
+{
+    "pk": 11, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 2, 
+        "action_time": "2013-12-22T20:55:14.559Z", 
+        "object_repr": "dfekt LAN Vinter 2014", 
+        "object_id": "1", 
+        "change_message": "Changed start_date and end_date.", 
+        "user": 1, 
+        "content_type": 18
+    }
+},
+{
+    "pk": 12, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 2, 
+        "action_time": "2013-12-22T22:09:35.575Z", 
+        "object_repr": "dfektlan.no", 
+        "object_id": "1", 
+        "change_message": "Changed domain and name.", 
+        "user": 1, 
+        "content_type": 6
+    }
+},
+{
+    "pk": 13, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2013-12-22T22:12:48.770Z", 
+        "object_repr": "/info/foreldreinformasjon/ -- Foreldreinformasjon", 
+        "object_id": "2", 
+        "change_message": "", 
+        "user": 1, 
+        "content_type": 8
+    }
+},
+{
+    "pk": 14, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2013-12-22T22:13:57.571Z", 
+        "object_repr": "/info/faq/ -- Ofte stilte sp\u00f8rsm\u00e5l", 
+        "object_id": "3", 
+        "change_message": "", 
+        "user": 1, 
+        "content_type": 8
+    }
+},
+{
+    "pk": 15, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2013-12-22T22:14:28.017Z", 
+        "object_repr": "/info/sikkerhet/ -- Sikkerhet", 
+        "object_id": "4", 
+        "change_message": "", 
+        "user": 1, 
+        "content_type": 8
+    }
+},
+{
+    "pk": 16, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2013-12-22T22:15:36.372Z", 
+        "object_repr": "/info/pakkeliste/ -- Pakkeliste", 
+        "object_id": "5", 
+        "change_message": "", 
+        "user": 1, 
+        "content_type": 8
+    }
+},
+{
+    "pk": 17, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2013-12-22T22:16:52.422Z", 
+        "object_repr": "/info/reglement/ -- Reglement", 
+        "object_id": "6", 
+        "change_message": "", 
+        "user": 1, 
+        "content_type": 8
+    }
+},
+{
+    "pk": 18, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2013-12-22T22:18:58.439Z", 
+        "object_repr": "/info/chiefs/ -- Crew chiefs", 
+        "object_id": "7", 
+        "change_message": "", 
+        "user": 1, 
+        "content_type": 8
+    }
+},
+{
+    "pk": 19, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2013-12-22T22:20:30.659Z", 
+        "object_repr": "/info/sokecrew/ -- S\u00f8ke crew?", 
+        "object_id": "8", 
+        "change_message": "", 
+        "user": 1, 
+        "content_type": 8
+    }
+},
+{
+    "pk": 20, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2013-12-22T22:21:52.935Z", 
+        "object_repr": "/info/utleie/ -- Utleie", 
+        "object_id": "9", 
+        "change_message": "", 
+        "user": 1, 
+        "content_type": 8
+    }
+},
+{
+    "pk": 21, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 2, 
+        "action_time": "2013-12-22T22:30:47.890Z", 
+        "object_repr": "Kristoffer Dalby", 
+        "object_id": "1", 
+        "change_message": "Changed first_name, last_name, nickname, date_of_birth, phone, skype, steam, address, town, zip_code and country.", 
+        "user": 1, 
+        "content_type": 13
+    }
+},
+{
+    "pk": 22, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2013-12-24T22:52:14.001Z", 
+        "object_repr": "asdf", 
+        "object_id": "5", 
+        "change_message": "", 
+        "user": 1, 
+        "content_type": 9
+    }
+},
+{
+    "pk": 23, 
+    "model": "admin.logentry", 
+    "fields": {
+        "action_flag": 1, 
+        "action_time": "2013-12-24T22:52:21.467Z", 
+        "object_repr": "dfghfgh", 
+        "object_id": "6", 
+        "change_message": "", 
+        "user": 1, 
+        "content_type": 9
+    }
+}
+]

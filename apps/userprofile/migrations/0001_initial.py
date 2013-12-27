@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import datetime
+from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
@@ -31,6 +31,7 @@ class Migration(SchemaMigration):
             ('zip_code', self.gf('django.db.models.fields.CharField')(max_length=200)),
             ('country', self.gf('django.db.models.fields.CharField')(max_length=200)),
             ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=150, blank=True)),
+            ('rfid', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
         ))
         db.send_create_signal(u'userprofile', ['SiteUser'])
 
@@ -52,15 +53,6 @@ class Migration(SchemaMigration):
         ))
         db.create_unique(m2m_table_name, ['siteuser_id', 'permission_id'])
 
-        # Adding M2M table for field crew on 'SiteUser'
-        m2m_table_name = db.shorten_name(u'userprofile_siteuser_crew')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('siteuser', models.ForeignKey(orm[u'userprofile.siteuser'], null=False)),
-            ('crewshift', models.ForeignKey(orm[u'crew.crewshift'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['siteuser_id', 'crewshift_id'])
-
 
     def backwards(self, orm):
         # Deleting model 'SiteUser'
@@ -71,9 +63,6 @@ class Migration(SchemaMigration):
 
         # Removing M2M table for field user_permissions on 'SiteUser'
         db.delete_table(db.shorten_name(u'userprofile_siteuser_user_permissions'))
-
-        # Removing M2M table for field crew on 'SiteUser'
-        db.delete_table(db.shorten_name(u'userprofile_siteuser_crew'))
 
 
     models = {
@@ -97,46 +86,15 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'crew.crew': {
-            'Meta': {'object_name': 'Crew'},
-            'description': ('django.db.models.fields.TextField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '30'})
-        },
-        u'crew.crewgroup': {
-            'Meta': {'object_name': 'CrewGroup'},
-            'crew': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['crew.Crew']"}),
-            'description': ('django.db.models.fields.TextField', [], {}),
-            'event': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['event.LanEvent']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '30'})
-        },
-        u'crew.crewshift': {
-            'Meta': {'object_name': 'CrewShift'},
-            'crewgroup': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['crew.CrewGroup']"}),
-            'description': ('django.db.models.fields.TextField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '30'})
-        },
-        u'event.lanevent': {
-            'Meta': {'object_name': 'LanEvent'},
-            'current': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'description': ('django.db.models.fields.TextField', [], {}),
-            'end_date': ('django.db.models.fields.DateTimeField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'start_date': ('django.db.models.fields.DateTimeField', [], {})
-        },
         u'userprofile.siteuser': {
             'Meta': {'object_name': 'SiteUser'},
             'address': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'country': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'crew': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['crew.CrewShift']", 'symmetrical': 'False', 'blank': 'True'}),
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'date_of_birth': ('django.db.models.fields.DateField', [], {'null': 'True'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
+            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Group']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '150', 'blank': 'True'}),
             'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
@@ -147,10 +105,11 @@ class Migration(SchemaMigration):
             'nickname': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
             'phone': ('django.db.models.fields.CharField', [], {'max_length': '16'}),
+            'rfid': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'skype': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
             'steam': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
             'town': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
+            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'}),
             'zip_code': ('django.db.models.fields.CharField', [], {'max_length': '200'})
         }

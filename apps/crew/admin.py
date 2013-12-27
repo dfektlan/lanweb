@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Application, Crew, CrewGroup, CrewShift
+from models import Application, Crew, CrewTeam
 
 class ApplicationAdmin(admin.ModelAdmin):
     list_display = ['user']
@@ -11,19 +11,10 @@ class ApplicationAdmin(admin.ModelAdmin):
 class CrewAdmin(admin.ModelAdmin):
     list_display = ['name']
 
-class CrewGroupAdmin(admin.ModelAdmin):
-    list_display = ['name','crew','event']
 
-    def save_model(self, request, obj, form, change):
-        obj.save()
-        if not change:
-            crewshift = CrewShift(crewgroup=obj, name="Flexi", description="Flexi")
-            crewshift.save()
-
-class CrewShiftAdmin(admin.ModelAdmin):
-    list_display = ['name','crewgroup']
+class CrewTeamAdmin(admin.ModelAdmin):
+    list_display = ['name','crew']
 
 admin.site.register(Application, ApplicationAdmin)
 admin.site.register(Crew, CrewAdmin)
-admin.site.register(CrewGroup, CrewGroupAdmin)
-admin.site.register(CrewShift, CrewShiftAdmin)
+admin.site.register(CrewTeam, CrewTeamAdmin)
