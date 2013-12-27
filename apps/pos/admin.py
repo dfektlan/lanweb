@@ -3,13 +3,20 @@ from models import Item, ItemGroup, ItemPack, Order
 
 
 class ItemAdmin(admin.ModelAdmin):
-    pass 
+    pass
+
+
 class ItemGroupAdmin(admin.ModelAdmin):
     pass
+
+
 class ItemPackAdmin(admin.ModelAdmin):
     pass
+
+
 class OrderAdmin(admin.ModelAdmin):
     pass
+
 
 admin.site.register(Item, ItemAdmin)
 admin.site.register(ItemGroup, ItemGroupAdmin)

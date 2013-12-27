@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     #Thirdparty apps
     'south',
     'crispy_forms',
+    'tastypie',
 
     #Django apps
     'django.contrib.auth',
