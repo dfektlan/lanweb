@@ -122,10 +122,13 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT_DIRECTORY, 'theme/')
 )
 
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
 INSTALLED_APPS = (
 
     #Thirdparty apps
     'south',
+    'crispy_forms',
 
     #Django apps
     'django.contrib.auth',
