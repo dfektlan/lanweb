@@ -149,7 +149,7 @@ INSTALLED_APPS = (
     'apps.event',
     'apps.sponsor',
     'apps.news',
-#    'apps.pos',
+    'apps.pos',
 )
 
 AUTH_USER_MODEL = 'userprofile.SiteUser'

@@ -26,6 +26,9 @@ class Order(models.Model):
     item = models.ManyToManyField(Item, null=True, editable=True, through='ItemQuantity')
     event = models.ForeignKey(LanEvent, null=False)
 
+    def __unicode__(self):
+        return "Order " + str(self.pk)
+
 
 class ItemPack(models.Model):
     name = models.CharField(_('Navn'), max_length=200, blank=False, null=False)
@@ -41,3 +44,6 @@ class ItemQuantity(models.Model):
     order = models.ForeignKey(Order, null=False)
     item = models.ForeignKey(Item, null=False)
     quantity = models.IntegerField()
+
+    def __unicode__(self):
+        return "Item Quantity " + str(self.pk)
