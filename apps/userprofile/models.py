@@ -4,7 +4,6 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext as _
 from apps.event.models import LanEvent
 
-
 class SiteUser(AbstractUser):
     
     nickname = models.CharField(_(u'Nickname'), max_length=200)
