@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     #Thirdparty apps
     'south',
     'crispy_forms',
+    'tastypie',
 
     #Django apps
     'django.contrib.auth',
@@ -148,7 +149,7 @@ INSTALLED_APPS = (
     'apps.event',
     'apps.sponsor',
     'apps.news',
-#    'apps.pos',
+    'apps.pos',
 )
 
 AUTH_USER_MODEL = 'userprofile.SiteUser'
