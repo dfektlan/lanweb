@@ -34,7 +34,7 @@ class ItemPackResource(ModelResource):
 
 
 class ItemQuantityResource(ModelResource):
-#    order = fields.ForeignKey(OrderResource, 'order', full=True)
+    order = fields.ForeignKey('apps.pos.api.OrderResource', 'order', related_name='itemquantity')
     item = fields.ForeignKey(ItemResource, 'item', full=True)
 
     class Meta:
@@ -48,9 +48,9 @@ class OrderResource(ModelResource):
     items = fields.ManyToManyField(ItemQuantityResource,
                                    attribute=lambda bundle: bundle.obj.item.through.objects.filter(
                                        order=bundle.obj) or bundle.obj.item, full=True)
-    #ingredients = fields.ToManyField(RecipeIngredientResource,
-    #        attribute=lambda bundle: bundle.obj.ingredients.through.objects.filter(
-    #            recipe=bundle.obj) or bundle.obj.ingredients, full=True)
+
+    #workaround to allow ItemQuantityResource to point at OrderResource through a foreignkey
+    itemquantity = fields.ForeignKey(ItemQuantityResource, 'itemquantity', null=True)
 
     class Meta:
         queryset = Order.objects.all()
