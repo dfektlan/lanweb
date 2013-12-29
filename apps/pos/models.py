@@ -1,6 +1,10 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 from apps.event.models import LanEvent
+from tastypie.models import create_api_key 
+from django.conf import settings
+
+models.signals.post_save.connect(create_api_key, sender=settings.AUTH_USER_MODEL)
 
 
 class ItemGroup(models.Model):

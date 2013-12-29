@@ -1,7 +1,7 @@
 from tastypie.resources import ModelResource
 from tastypie import fields
 from apps.pos.models import Item, ItemGroup, ItemPack, ItemQuantity, Order
-from tastypie.authentication import BasicAuthentication
+from tastypie.authentication import ApiKeyAuthentication
 from tastypie.authorization import DjangoAuthorization
 
 
@@ -9,7 +9,7 @@ class ItemGroupResource(ModelResource):
     class Meta:
         queryset = ItemGroup.objects.all()
         resource_name = 'itemgroup'
-        authentication = BasicAuthentication()
+        authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
 
 
@@ -19,7 +19,7 @@ class ItemResource(ModelResource):
     class Meta:
         queryset = Item.objects.all()
         resource_name = 'item'
-        authentication = BasicAuthentication()
+        authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
 
 
@@ -29,7 +29,7 @@ class ItemPackResource(ModelResource):
     class Meta:
         queryset = ItemPack.objects.all()
         resource_name = 'itempack'
-        authentication = BasicAuthentication()
+        authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
 
 
@@ -40,7 +40,7 @@ class ItemQuantityResource(ModelResource):
     class Meta:
         queryset = ItemQuantity.objects.all()
         resource_name = 'itemquantity'
-        authentication = BasicAuthentication()
+        authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
 
 
@@ -55,7 +55,7 @@ class OrderResource(ModelResource):
     class Meta:
         queryset = Order.objects.all()
         resource_name = 'order'
-        authentication = BasicAuthentication()
+        authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
 
 
