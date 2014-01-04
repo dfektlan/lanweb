@@ -6,14 +6,13 @@ from tastypie.authentication import ApiKeyAuthentication
 from tastypie.authorization import DjangoAuthorization
 from tastypie.serializers import Serializer
 from apps.event.models import LanEvent
-from apps.crew.models import CrewMember
+from apps.userprofile.models import SiteUser
 
 
-class CrewMemberResource(ModelResource):
-    user = fields.ForeignKey()
+class UserResource(ModelResource):
 
     class Meta:
-        queryset = CrewMember.objects.all()
+        queryset = SiteUser.objects.all()
         resource_name = 'crewmember'
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()

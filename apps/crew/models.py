@@ -26,6 +26,12 @@ class CrewTeam(models.Model):
     def __unicode__(self):
         return self.name
 
+
+class CrewMember(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False)
+    credit = models.IntegerField()
+
+
 class Application(models.Model):
 
 
