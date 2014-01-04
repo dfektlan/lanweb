@@ -43,7 +43,7 @@ class ItemPackResource(ModelResource):
 
 
 class ItemQuantityResource(ModelResource):
-    order = fields.ForeignKey('apps.pos.api.OrderResource', 'order', related_name='itemquantity')
+    order = fields.ForeignKey('apps.api.v1.pos.OrderResource', 'order', related_name='itemquantity')
     item = fields.ForeignKey(ItemResource, 'item', full=True)
 
     class Meta:

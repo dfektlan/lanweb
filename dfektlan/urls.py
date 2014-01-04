@@ -11,13 +11,9 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'apps.news.views.overview', name='root'),
     url(r'^pages/', include('django.contrib.flatpages.urls')),    
-    # url(r'^dfektlan/', include('dfektlan.foo.urls')),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^api/',    include('apps.api.urls')),
     url(r'^crew/',   include('apps.crew.urls')),
     url(r'^logistic/',   include('apps.logistic.urls')),
     url(r'^userprofile/',   include('apps.userprofile.urls')),
