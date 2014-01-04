@@ -25,6 +25,7 @@ class Order(models.Model):
     date = models.DateTimeField(_('Dato'), editable=False, auto_now_add=True)
     item = models.ManyToManyField(Item, null=True, editable=True, through='ItemQuantity')
     event = models.ForeignKey(LanEvent, null=False)
+    paymentMethod = models.CharField(_('Betalingsmetode'), max_length=10, null=False)
 
     def __unicode__(self):
         return "Order " + str(self.pk)
