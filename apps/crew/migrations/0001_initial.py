@@ -26,13 +26,21 @@ class Migration(SchemaMigration):
         ))
         db.create_unique(m2m_table_name, ['crew_id', 'siteuser_id'])
 
+        # Adding model 'CrewMember'
+        db.create_table(u'crew_crewmember', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['userprofile.SiteUser'])),
+            ('credit', self.gf('django.db.models.fields.IntegerField')()),
+            ('event', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['event.LanEvent'])),
+        ))
+        db.send_create_signal(u'crew', ['CrewMember'])
+
         # Adding model 'CrewTeam'
         db.create_table(u'crew_crewteam', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('crew', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['crew.Crew'])),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=30)),
             ('description', self.gf('django.db.models.fields.TextField')()),
-            ('event', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['event.LanEvent'])),
             ('date', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
         ))
         db.send_create_signal(u'crew', ['CrewTeam'])
@@ -42,9 +50,9 @@ class Migration(SchemaMigration):
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('crewteam', models.ForeignKey(orm[u'crew.crewteam'], null=False)),
-            ('siteuser', models.ForeignKey(orm[u'userprofile.siteuser'], null=False))
+            ('crewmember', models.ForeignKey(orm[u'crew.crewmember'], null=False))
         ))
-        db.create_unique(m2m_table_name, ['crewteam_id', 'siteuser_id'])
+        db.create_unique(m2m_table_name, ['crewteam_id', 'crewmember_id'])
 
         # Adding model 'Application'
         db.create_table(u'crew_application', (
@@ -68,6 +76,9 @@ class Migration(SchemaMigration):
 
         # Removing M2M table for field chief on 'Crew'
         db.delete_table(db.shorten_name(u'crew_crew_chief'))
+
+        # Deleting model 'CrewMember'
+        db.delete_table(u'crew_crewmember')
 
         # Deleting model 'CrewTeam'
         db.delete_table(u'crew_crewteam')
@@ -121,14 +132,20 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '30'})
         },
+        u'crew.crewmember': {
+            'Meta': {'object_name': 'CrewMember'},
+            'credit': ('django.db.models.fields.IntegerField', [], {}),
+            'event': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['event.LanEvent']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['userprofile.SiteUser']"})
+        },
         u'crew.crewteam': {
             'Meta': {'object_name': 'CrewTeam'},
             'crew': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['crew.Crew']"}),
             'date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {}),
-            'event': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['event.LanEvent']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'members': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['userprofile.SiteUser']", 'null': 'True', 'symmetrical': 'False'}),
+            'members': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['crew.CrewMember']", 'null': 'True', 'symmetrical': 'False'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '30'})
         },
         u'event.lanevent': {

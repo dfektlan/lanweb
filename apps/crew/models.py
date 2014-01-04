@@ -15,21 +15,24 @@ class Crew(models.Model):
         return self.name
 
 
+class CrewMember(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False)
+    credit = models.IntegerField()
+    event = models.ForeignKey(LanEvent, null=False)
+
+    def __unicode__(self):
+        return self.user.name
+
+
 class CrewTeam(models.Model):
     crew = models.ForeignKey(Crew, null=False)
     name = models.CharField(_(u'Navn'), max_length=30)
     description = models.TextField(_(u'Beskrivelse'))
-    event = models.ForeignKey(LanEvent, null=False)
     date = models.DateTimeField(_(u'Dato'), editable=False, auto_now_add=True)
-    members = models.ManyToManyField(settings.AUTH_USER_MODEL, null=True)
+    members = models.ManyToManyField(CrewMember, null=True)
 
     def __unicode__(self):
         return self.name
-
-
-class CrewMember(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False)
-    credit = models.IntegerField()
 
 
 class Application(models.Model):
