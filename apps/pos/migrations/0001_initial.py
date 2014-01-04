@@ -31,6 +31,7 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('date', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('event', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['event.LanEvent'])),
+            ('paymentMethod', self.gf('django.db.models.fields.CharField')(max_length=10)),
         ))
         db.send_create_signal(u'pos', ['Order'])
 
@@ -129,7 +130,8 @@ class Migration(SchemaMigration):
             'date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'event': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['event.LanEvent']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'item': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['pos.Item']", 'null': 'True', 'through': u"orm['pos.ItemQuantity']", 'symmetrical': 'False'})
+            'item': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['pos.Item']", 'null': 'True', 'through': u"orm['pos.ItemQuantity']", 'symmetrical': 'False'}),
+            'paymentMethod': ('django.db.models.fields.CharField', [], {'max_length': '10'})
         }
     }
 
