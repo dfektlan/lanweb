@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Application, Crew, CrewTeam
+from models import Application, Crew, CrewTeam, CrewMember
 
 class ApplicationAdmin(admin.ModelAdmin):
     list_display = ['user']
@@ -15,6 +15,10 @@ class CrewAdmin(admin.ModelAdmin):
 class CrewTeamAdmin(admin.ModelAdmin):
     list_display = ['name','crew']
 
+class CrewMemberAdmin(admin.ModelAdmin):
+    list_display = ['user','event']
+
 admin.site.register(Application, ApplicationAdmin)
 admin.site.register(Crew, CrewAdmin)
 admin.site.register(CrewTeam, CrewTeamAdmin)
+admin.site.register(CrewMember, CrewMemberAdmin)

@@ -17,4 +17,8 @@ class UserResource(ModelResource):
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
         serializer = Serializer(formats=['json'])
-        allowed_methods = ['get', 'patch']
+        allowed_methods = ['get']
+        excludes = ['nickname', 'date_of_birth', 'phone', 'skype',
+                    'steam', 'address', 'town', 'zip_code', 'country',
+                    'image', 'email', 'date_joined', 'is_true',
+                    'is_staff', 'is_superuser', 'password']

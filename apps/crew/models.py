@@ -21,7 +21,7 @@ class CrewMember(models.Model):
     event = models.ForeignKey(LanEvent, null=False)
 
     def __unicode__(self):
-        return self.user.name
+        return "Crew: " + self.user.first_name + " " + self.user.last_name
 
 
 class CrewTeam(models.Model):
@@ -29,7 +29,7 @@ class CrewTeam(models.Model):
     name = models.CharField(_(u'Navn'), max_length=30)
     description = models.TextField(_(u'Beskrivelse'))
     date = models.DateTimeField(_(u'Dato'), editable=False, auto_now_add=True)
-    members = models.ManyToManyField(CrewMember, null=True)
+    members = models.ManyToManyField(CrewMember, null=True, blank=True)
 
     def __unicode__(self):
         return self.name

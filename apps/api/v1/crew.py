@@ -9,8 +9,9 @@ from apps.event.models import LanEvent
 from apps.crew.models import CrewMember
 from apps.api.v1.userprofile import UserResource
 
+
 class CrewMemberResource(ModelResource):
-    user = fields.ForeignKey(UserResource, 'user')
+    user = fields.ForeignKey(UserResource, 'user', full=True)
 
     class Meta:
         queryset = CrewMember.objects.all()
@@ -18,4 +19,4 @@ class CrewMemberResource(ModelResource):
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
         serializer = Serializer(formats=['json'])
-        allowed_methods = ['get', 'patch']
+        allowed_methods = ['get', 'patch', 'put']
