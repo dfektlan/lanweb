@@ -7,10 +7,10 @@ from tastypie.authorization import DjangoAuthorization
 from tastypie.serializers import Serializer
 from apps.event.models import LanEvent
 from apps.crew.models import CrewMember
-
+from apps.api.v1.userprofile import UserResource
 
 class CrewMemberResource(ModelResource):
-    user = fields.ForeignKey()
+    user = fields.ForeignKey(UserResource, 'user')
 
     class Meta:
         queryset = CrewMember.objects.all()
