@@ -18,5 +18,5 @@ class CrewMemberResource(ModelResource):
         resource_name = 'crewmember'
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
-        serializer = Serializer(formats=['json'])
+        serializer = Serializer(formats=['json', 'jsonp'])
         allowed_methods = ['get', 'patch', 'put']
