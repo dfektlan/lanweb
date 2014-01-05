@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+dfektLAN - Crew
+{% endblock title %}
+
+{% block content %}
+{% csrf_token %}
+    <div class="col-md-9">
+        {% for team in crewteams %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a href="{% url 'crewteam' team.id %}"><h3 class="panel-title">{{ team.name }}</h3></a>
+                </div>
+                <div class="panel-body">
+                </div>
+                 <ul class="list-group">
+                    {% for member in team.members.all %}
+                        <a href="{% url 'profile' member.user.id %}">
+                            <li class="list-group-item">{{ member.user.first_name }} {{ member.user.last_name }}</li>
+                        </a>
+                    {% endfor %}
+                 </ul>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content%}

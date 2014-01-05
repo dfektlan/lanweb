@@ -17,7 +17,7 @@ class Crew(models.Model):
 
 class CrewMember(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=False)
-    credit = models.IntegerField()
+    credit = models.IntegerField(default=0)
     event = models.ForeignKey(LanEvent, null=False)
 
     def __unicode__(self):
