@@ -16,7 +16,7 @@ dfektLAN - Crew
                  <ul class="list-group">
                     {% for member in members %}
                         <a href="{% url 'profile' member.user.id %}">
-                            <li class="list-group-item">{{ member.user.first_name }} {{ member.user.last_name }}</li>
+                            <li class="list-group-item">{{ member.user.first_name }} {{ member.user.last_name }}<span class="pull-right">{{  member.user.phone }}</span></li>
                         </a>
                     {% endfor %}
                  </ul>
