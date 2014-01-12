@@ -1,36 +1,21 @@
 # Django settings for dfektlan project.
 
-import os,sys
-
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+import os, sys
 
 PROJECT_SETTINGS_DIRECTORY = os.path.dirname(globals()['__file__'])
 ## Root directory. Contains manage.py
-PROJECT_ROOT_DIRECTORY = os.path.join(PROJECT_SETTINGS_DIRECTORY, '../')
+PROJECT_ROOT_DIRECTORY = os.path.join(PROJECT_SETTINGS_DIRECTORY, '..', '..')
 #print PROJECT_SETTINGS_DIRECTORY
 #print PROJECT_ROOT_DIRECTORY
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Kristoffer Dalby', 'kradalby@kradalby.no'),
 )
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'db.db',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
-    }
-}
 
-# Hosts/domain names that are valid for this site; required if DEBUG is False
-# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+
+
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -57,7 +42,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = os.path.join(PROJECT_ROOT_DIRECTORY,'media/')
+MEDIA_ROOT = os.path.join(PROJECT_ROOT_DIRECTORY, 'media/')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -187,3 +172,18 @@ LOGGING = {
         },
     }
 }
+
+# Remember to keep 'local' last, so it can override any setting.
+for settings_module in ['local']:  # local last
+    if not os.path.exists(os.path.join(PROJECT_SETTINGS_DIRECTORY, settings_module + ".py")):
+        sys.stderr.write("Could not find settings module '%s'.\n" % settings_module)
+        if settings_module == 'local':
+            sys.stderr.write("You need to copy the settings file "
+                             "'onlineweb4/settings/example-local.py' to "
+                             "'onlineweb4/settings/local.py'.\n")
+        sys.exit(1)
+    try:
+        exec('from %s import *' % settings_module)
+    except ImportError, e:
+        print "Could not import settings for '%s' : %s" % (settings_module,
+                str(e))
