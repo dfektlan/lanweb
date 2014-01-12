@@ -23,7 +23,7 @@ class Item(models.Model):
 
 class Order(models.Model):
     date = models.DateTimeField(_('Dato'), editable=False, auto_now_add=True)
-    item = models.ManyToManyField(Item, null=True, editable=True, through='ItemQuantity')
+    items = models.ManyToManyField(Item, null=True, editable=True, through='ItemQuantity')
     event = models.ForeignKey(LanEvent, null=False)
     paymentMethod = models.CharField(_('Betalingsmetode'), max_length=10, null=False)
 
@@ -45,6 +45,7 @@ class ItemQuantity(models.Model):
     order = models.ForeignKey(Order, null=False)
     item = models.ForeignKey(Item, null=False)
     quantity = models.IntegerField()
+    totalPrice = models.IntegerField()
 
     def __unicode__(self):
         return "Item Quantity " + str(self.pk)
