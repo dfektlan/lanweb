@@ -15,6 +15,7 @@ from apps.authentication.forms import (LoginForm, RegisterForm,
 from apps.authentication.models import RegisterToken
 from django.conf import settings
 
+
 def login(request):
     redirect_url = request.REQUEST.get('next', '')
     if request.method == 'POST':
@@ -31,10 +32,12 @@ def login(request):
     response_dict = { 'form' : form, 'next' : redirect_url}
     return render(request, 'auth/login.html', response_dict)
 
+
 def logout(request):
     auth.logout(request)
     messages.success(request, 'You have successfully logged out.')
     return HttpResponseRedirect('/')
+
 
 def register(request):
     if request.user.is_authenticated():

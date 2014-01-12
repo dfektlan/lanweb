@@ -55,7 +55,6 @@ class RegisterForm(forms.Form):
     skype = forms.CharField(label="Skype User", max_length=20)
     steam = forms.CharField(label="Steam User", max_length=20)
 
-    
     def clean(self):
         super(RegisterForm, self).clean()
         if self.is_valid():
@@ -88,10 +87,12 @@ class RegisterForm(forms.Form):
             if len(zip_code) != 4 or not zip_code.isdigit():
                 self._errors['zip_code'] = self.error_class(["The ZIP code must be 4 digit number."])
 
-            return cleaned_data 
+            return cleaned_data
+
 
 class RecoveryForm(forms.Form):
     email = forms.EmailField(label="Email", max_length=50)
+
 
 class ChangePasswordForm(forms.Form):
     old_password = forms.CharField(widget=forms.PasswordInput(render_value=False), label="Old password", required=False)

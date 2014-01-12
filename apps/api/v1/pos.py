@@ -41,7 +41,6 @@ class ItemPackResource(ModelResource):
         serializer = Serializer(formats=['json', 'jsonp'])
 
 
-
 class ItemQuantityResource(ModelResource):
     order = fields.ForeignKey('apps.api.v1.pos.OrderResource', 'order', related_name='itemquantity')
     item = fields.ForeignKey(ItemResource, 'item', full=True)
@@ -57,8 +56,8 @@ class ItemQuantityResource(ModelResource):
 
 class OrderResource(ModelResource):
     items = fields.ManyToManyField(ItemQuantityResource,
-                                   attribute=lambda bundle: bundle.obj.item.through.objects.filter(
-                                       order=bundle.obj) or bundle.obj.item, full=True, null=True, readonly=True)
+                                   attribute=lambda bundle: bundle.obj.items.through.objects.filter(
+                                       order=bundle.obj) or bundle.obj.items, full=True, null=True, readonly=True)
 
     #workaround to allow ItemQuantityResource to point at OrderResource through a foreignkey
     itemquantity = fields.ForeignKey(ItemQuantityResource, 'itemquantity', null=True)
