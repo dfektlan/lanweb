@@ -5,6 +5,7 @@ import datetime
 #from django.contrib.auth.models import User
 from django.db import models
 from apps.userprofile.models import SiteUser
+from django.utils import timezone
 
 
 class RegisterToken(models.Model):
@@ -14,6 +15,6 @@ class RegisterToken(models.Model):
 
     @property
     def is_valid(self):
-        valid_period = datetime.timedelta(days=1)
-        now = datetime.datetime.now()
+        valid_period = timezone.make_aware(datetime.timedelta(days=1), timezone.get_default_timezone())
+        now = timezone.make_aware(datetime.datetime.now(), timezone.get_default_timezone())
         return now < self.created + valid_period 
