@@ -9,7 +9,7 @@ class Crew(models.Model):
     name = models.CharField(_(u'Crewnavn'), max_length=30)
     description = models.TextField(_(u'Beskrivelse'))
     date = models.DateTimeField(_(u'Dato'), editable=False, auto_now_add=True)
-    chief = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    chief = models.ManyToManyField(settings.AUTH_USER_MODEL, null=True, blank=True)
 
     def __unicode__(self):
         return self.name
