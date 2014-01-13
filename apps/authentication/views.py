@@ -143,20 +143,16 @@ def recover(request):
                 rt.save()
 
                 email_message = u"""
-You have requested a password recovery for the account bound to %s.
+Du har registrert en konto på dfektlan.no.
 
-Username: %s
+For å bruke denne kontoen må du aktivere den. Du kan aktivere den ved å besøke linken under.
 
-If you did not ask for this password recovery, please ignore this email.
+http://%s/auth/verify/%s/
 
-Otherwise, click the link below to reset your password;
-http://%s/auth/set_password/%s/
-
-Note that tokens have a valid lifetime of 24 hours. If you do not use this
-link within 24 hours, it will be invalid, and you will need to use the password
-recovery option again to get your account verified.
+Aktiveringslinken er kun aktiv i 24 timer, etter dette vil du måtte bruke Reset Password for
+å få en ny link.
 """ % (email, user.username, request.META['HTTP_HOST'], token)
-                
+
 
                 send_mail('Account recovery', email_message, settings.REGISTER_FROM_MAIL, [email,])
 
