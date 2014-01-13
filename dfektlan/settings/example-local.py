@@ -22,6 +22,7 @@ DATABASES = {
 
 EMAIL_HOST = "localhost"
 DEFAULT_FROM_EMAIL = "no-reply@dfektlan.no"
+REGISTER_FROM_MAIL = DEFAULT_FROM_EMAIL
 EMAIL_PORT = 25
 #EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # real
