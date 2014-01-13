@@ -76,16 +76,15 @@ def register(request):
                 rt.save()
 
                 email_message = u"""
-You have registered an account at dfektlan.no.
+Du har registrert en konto på dfektlan.no.
 
-To use the account you need to verify it. You can do this by visiting the link below.
+For å bruke denne kontoen må du aktivere den. Du kan aktivere den ved å besøke linken under.
 
 http://%s/auth/verify/%s/
 
-Note that tokens have a valid lifetime of 24 hours. If you do not use this
-link within 24 hours, it will be invalid, and you will need to use the password
-recovery option to get your account verified.
-""" % (request.META['HTTP_HOST'], token)
+Aktiveringslinken er kun aktiv i 24 timer, etter dette vil du måtte bruke Reset Password for
+å få en ny link.
+""" %    (request.META['HTTP_HOST'], token)
 
                 send_mail('Verify your account', email_message, settings.REGISTER_FROM_MAIL, [user.email,])
 
@@ -143,14 +142,18 @@ def recover(request):
                 rt.save()
 
                 email_message = u"""
-Du har registrert en konto på dfektlan.no.
+You have requested a password recovery for the account bound to %s.
 
-For å bruke denne kontoen må du aktivere den. Du kan aktivere den ved å besøke linken under.
+Username: %s
 
-http://%s/auth/verify/%s/
+If you did not ask for this password recovery, please ignore this email.
 
-Aktiveringslinken er kun aktiv i 24 timer, etter dette vil du måtte bruke Reset Password for
-å få en ny link.
+Otherwise, click the link below to reset your password;
+http://%s/auth/set_password/%s/
+
+Note that tokens have a valid lifetime of 24 hours. If you do not use this
+link within 24 hours, it will be invalid, and you will need to use the password
+recovery option again to get your account verified.
 """ % (email, user.username, request.META['HTTP_HOST'], token)
 
 
