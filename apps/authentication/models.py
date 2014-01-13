@@ -15,6 +15,6 @@ class RegisterToken(models.Model):
 
     @property
     def is_valid(self):
-        valid_period = timezone.make_aware(datetime.timedelta(days=1), timezone.get_default_timezone())
+        valid_period = datetime.timedelta(days=1)
         now = timezone.make_aware(datetime.datetime.now(), timezone.get_default_timezone())
-        return now < self.created + valid_period 
+        return now < self.created + valid_period
