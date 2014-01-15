@@ -1,12 +1,11 @@
 from apps.crew.models import Application, CrewMember, CrewTeam
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth.models import Group
-from forms import ApplicationAdminForm, ApplicationForm
+from forms import ApplicationAdminForm, ApplicationForm, RegisterRFIDForm
 from django.contrib import messages
 from django.http import HttpResponse
 from apps.event.models import LanEvent
-
+from apps.userprofile.models import SiteUser
 
 LATEST_EVENT = LanEvent.objects.filter(current=True)[0]
 
@@ -80,16 +79,37 @@ def new_application(request, application_id=None):
         form = ApplicationForm(instance=application)
     return render(request, 'crew/new_application.html', {'form': form,})
 
-
+@login_required
 def crew(request):
     crewteams = CrewTeam.objects.all()
     return render(request, 'crew/crew.html', {'crewteams': crewteams})
 
-
+@login_required
 def crewteam(request, crewteam_id):
     crewteam = CrewTeam.objects.get(pk=crewteam_id)
     members = crewteam.members.all()
     return render(request, 'crew/crewteam.html', {'members': members, 'crewteam': crewteam})
+
+
+@login_required
+@user_passes_test(lambda u: u.is_chief())
+def register_rfid(request):
+    if request.POST:
+        form = RegisterRFIDForm(request.POST)
+        clean = form.cleaned_data
+        if form.is_valid():
+            user = SiteUser.objects.filter(nickname=clean.username)[0]
+            user.rfid = clean.rfid
+            user.save()
+            messages.success(request, "RFID successfully updated")
+            return redirect(register_rfid)
+        else:
+            messages.error(request, "RFID unsuccessfully updated")
+            return redirect(register_rfid)
+    else:
+        form = RegisterRFIDForm()
+
+    return render(request, 'crew/register_rfid.html', {form: form})
 
 
 def add_to_crewteam(aid):
@@ -106,3 +126,5 @@ def check_for_application(user):
         return user.application_set.all().latest()
     else:
         return None
+
+

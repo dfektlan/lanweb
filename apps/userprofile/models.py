@@ -6,7 +6,7 @@ from apps.event.models import LanEvent
 
 class SiteUser(AbstractUser):
     
-    nickname = models.CharField(_(u'Nickname'), max_length=200)
+    nickname = models.CharField(_(u'Brukernavn'), max_length=200)
     date_of_birth = models.DateField(_(u'Fødselsdag'),blank=False, null=True)
     phone = models.CharField(_(u'Telefonnummer'), max_length=16)
     skype = models.CharField(_(u'Skype'), max_length = 200,blank=True, null=True)
