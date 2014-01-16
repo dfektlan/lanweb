@@ -44,7 +44,7 @@ class RegisterForm(forms.Form):
     username = forms.CharField(label="Brukernavn", max_length=20)
     first_name = forms.CharField(label="Fornavn", max_length=50)
     last_name = forms.CharField(label="Etternavn", max_length=50)
-    date_of_birth = forms.DateField(label=u"Fødselsdag", initial=datetime.date.today, input_formats=['%d/%m/%Y'])
+    date_of_birth = forms.DateField(label=u"Fødselsdag", initial=datetime.datetime.now().__format__('%d/%m/%Y'), input_formats=['%d/%m/%Y'])
     email = forms.EmailField(label="Epost", max_length=50)
     password = forms.CharField(widget=forms.PasswordInput(render_value=False), label="Passord")
     repeat_password = forms.CharField(widget=forms.PasswordInput(render_value=False), label="Gjenta passord")
