@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('apps.crew.views',
     url(r'^$', 'crew', name='crew'),
+    url(r'^rfid$', 'register_rfid', name='register_rfid'),
     url(r'^(?P<crewteam_id>\d+)/$', 'crewteam', name='crewteam'),
     url(r'^application/overview', 'overview', name='overview'),
     url(r'^application/look/(?P<application_id>\d+)/$', 'look', name='look'),

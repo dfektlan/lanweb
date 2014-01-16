@@ -9,8 +9,8 @@ from apps.userprofile.models import SiteUser
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(), label="Username", max_length=50)
-    password = forms.CharField(widget=forms.PasswordInput(render_value=False), label="Password")
+    username = forms.CharField(widget=forms.TextInput(), label="Brukernavn", max_length=50)
+    password = forms.CharField(widget=forms.PasswordInput(render_value=False), label="Passord")
     user = None
 
     def clean(self):
@@ -39,21 +39,22 @@ class LoginForm(forms.Form):
             return True
         return False
 
+
 class RegisterForm(forms.Form):
-    username = forms.CharField(label="Nickname", max_length=20)
-    first_name = forms.CharField(label="First name", max_length=50)
-    last_name = forms.CharField(label="Last name", max_length=50)
-    date_of_birth = forms.DateField(label="Date of birth", initial=datetime.date.today)
-    email = forms.EmailField(label="Email", max_length=50)
-    password = forms.CharField(widget=forms.PasswordInput(render_value=False), label="Password")
-    repeat_password = forms.CharField(widget=forms.PasswordInput(render_value=False), label="Repeat password")
-    address = forms.CharField(label="Address", max_length=50)
-    zip_code = forms.CharField(label="ZIP code", max_length=4)
-    town = forms.CharField(label="Town", max_length=20)
-    country = forms.CharField(label="Country", max_length=20)
-    phone = forms.CharField(label="Phone number", max_length=20)
-    skype = forms.CharField(label="Skype User", max_length=20)
-    steam = forms.CharField(label="Steam User", max_length=20)
+    username = forms.CharField(label="Brukernavn", max_length=20)
+    first_name = forms.CharField(label="Fornavn", max_length=50)
+    last_name = forms.CharField(label="Etternavn", max_length=50)
+    date_of_birth = forms.DateField(label=u"Fødselsdag", initial=datetime.datetime.now().__format__('%d/%m/%Y'), input_formats=['%d/%m/%Y'])
+    email = forms.EmailField(label="Epost", max_length=50)
+    password = forms.CharField(widget=forms.PasswordInput(render_value=False), label="Passord")
+    repeat_password = forms.CharField(widget=forms.PasswordInput(render_value=False), label="Gjenta passord")
+    address = forms.CharField(label="Adresse", max_length=50)
+    zip_code = forms.CharField(label="Postnummer", max_length=4)
+    town = forms.CharField(label="By", max_length=20)
+    country = forms.CharField(label="Land", max_length=20, initial="Norge")
+    phone = forms.CharField(label="Telefonnummer", max_length=20)
+    skype = forms.CharField(label="Skype", max_length=20, required=False)
+    steam = forms.CharField(label="Steam", max_length=20, required=False)
 
     def clean(self):
         super(RegisterForm, self).clean()
