@@ -96,20 +96,23 @@ def crewteam(request, crewteam_id):
 def register_rfid(request):
     if request.POST:
         form = RegisterRFIDForm(request.POST)
-        clean = form.cleaned_data
         if form.is_valid():
-            user = SiteUser.objects.filter(nickname=clean.username)[0]
-            user.rfid = clean.rfid
+            print "yay"
+            print form.cleaned_data
+            user = SiteUser.objects.filter(nickname=form.cleaned_data['username'])[0]
+            user.rfid = form.cleaned_data['rfid']
             user.save()
             messages.success(request, "RFID successfully updated")
             return redirect(register_rfid)
         else:
-            messages.error(request, "RFID unsuccessfully updated")
-            return redirect(register_rfid)
+            print "ney"
+            print form.cleaned_data
+            #messages.error(request, "RFID unsuccessfully updated")
+            #return redirect(register_rfid)
     else:
         form = RegisterRFIDForm()
 
-    return render(request, 'crew/register_rfid.html', {form: form})
+    return render(request, 'crew/register_rfid.html', {'form': form, })
 
 
 def add_to_crewteam(aid):

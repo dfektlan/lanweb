@@ -6,13 +6,19 @@
 dfektLAN - Registrer RFID kort
 {% endblock title %}
 
+
 {% block content %}
 {% csrf_token %}
     <div class="col-md-9">
-            <form action="" method="post">
+        <form action="" method="post" name="rfidform">
             {% csrf_token %}
             {{ form|crispy }}
             <button class="btn btn-primary" type="submit">Send</button>
         </form>
     </div>
+
+    <script type="text/javascript" language="JavaScript">
+        document.forms['rfidform'].elements['username'].focus();
+    </script>
+
 {% endblock content%}
