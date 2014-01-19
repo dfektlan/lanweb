@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
+
+{% block head %}
+    <link href="{{ STATIC_URL }}css/bootstrap-datepicker.css" rel="stylesheet">
+    <script src="{{ STATIC_URL }}js/bootstrap-datepicker.js"></script>
+{% endblock head %}
+
 {% block title %}
 dfekt LAN - Register
 {% endblock title %}
@@ -46,4 +52,11 @@ dfekt LAN - Register
 
         });//document.ready
     </script>
+<script>
+    $(function() {
+    $( "#datepicker" ).datepicker({
+    format: 'dd/mm/yyyy',
+    });
+  });
+  </script>
 {% endblock content %}
