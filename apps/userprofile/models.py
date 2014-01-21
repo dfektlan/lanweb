@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext as _
 from apps.event.models import LanEvent
 
+
 class SiteUser(AbstractUser):
     
     nickname = models.CharField(_(u'Brukernavn'), max_length=200)
@@ -31,12 +32,12 @@ class SiteUser(AbstractUser):
         current_event = LanEvent.objects.filter(current=True)[0]
 
         #check if the user is in a crew team
-        if len(self.crewteam_set.all()) == 0:
+        if len(self.crewmember_set.all()) == 0:
             return False
 
         # if in crew team, is it for the current event?
-        for crewteam in self.crewteam_set.all():
-            if crewteam.event == current_event:
+        for member in self.crewmember_set.all():
+            if member.event == current_event:
                 return True
         return False
 
