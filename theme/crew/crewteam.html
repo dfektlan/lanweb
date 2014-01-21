@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load gravatar_url_resolver %}
+
 
 {% block title %}
 dfektLAN - Crew
@@ -7,19 +9,26 @@ dfektLAN - Crew
 {% block content %}
 {% csrf_token %}
     <div class="col-md-9">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <a href="{% url 'crewteam' crewteam.id %}"><h3 class="panel-title">{{ crewteam.name }}</h3></a>
-                </div>
-                <div class="panel-body">
-                </div>
-                 <ul class="list-group">
+        <a href="{%  url 'crewteam' crewteam.id %}">
+            <h2>{{ crewteam.name }}</h2>
+        </a>
+        <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Navn</th>
+                            <th>Telefon</th>
+                        </tr>
+                    </thead>
                     {% for member in members %}
-                        <a href="{% url 'profile' member.user.id %}">
-                            <li class="list-group-item">{{ member.user.first_name }} {{ member.user.last_name }}<span class="pull-right">{{  member.user.phone }}</span></li>
-                        </a>
+                        {% get_gravatar_url member.user 40 as gravatar_url %}
+                        <tr onclick="document.location = '{% url 'profile' member.user.id %}'">
+                            <td><span><img class="" src="{{ gravatar_url }}"></span></td>
+                            <td><span class="">{{ member.user.first_name }} {{ member.user.last_name }}</span></td>
+                            <td><span class="pull-right">{{  member.user.phone }}</span></td>
+                        </tr>
                     {% endfor %}
-                 </ul>
+                 </table>
             </div>
     </div>
 {% endblock content%}
