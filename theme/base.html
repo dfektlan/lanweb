@@ -37,27 +37,29 @@
             <div>
                 {% get_latest_lanevent %}
             </div>
-            <hr>
-            <h4>Navigation</h4>
-            <ul class="nav nav-pills nav-stacked">
-                {% if user.is_superuser %}
-                    <li><a href="{% url 'admin:index' %}">Admin</a></li>
-                    <hr>
-                {% endif %}
-                {% if user.is_chief %}
-                    <li><a href="{% url 'application_overview' %}">Crew søknader</a></li>
-                    <hr>
-                {% endif %}
-                {% if user.is_crew %}
-                    {% for crew in user.crewmember_set.all.0.crewteam_set.all %}
-                        <li><a href="{% url 'crewteam' crew.id %}">{{ crew.name }}</a></li>
-                    {% endfor %}
-                    <li><a href="{% url 'crew' %}">Crews</a></li>
-                    <li class="disabled"><a href="#">Kreditt: {{ user.crewmember_set.all.0.credit }}</a></li>
-                {% endif %}
-                {% block sidebar_specific %}
-                {% endblock sidebar_specific %}
-            </ul>
+            {% if user.is_authenticated %}
+                <hr>
+                <h4>Navigation</h4>
+                <ul class="nav nav-pills nav-stacked">
+                    {% if user.is_superuser %}
+                        <li><a href="{% url 'admin:index' %}">Admin</a></li>
+                        <hr>
+                    {% endif %}
+                    {% if user.is_chief %}
+                        <li><a href="{% url 'application_overview' %}">Crew søknader</a></li>
+                        <hr>
+                    {% endif %}
+                    {% if user.is_crew %}
+                        {% for crew in user.crewmember_set.all.0.crewteam_set.all %}
+                            <li><a href="{% url 'crewteam' crew.id %}">{{ crew.name }}</a></li>
+                        {% endfor %}
+                        <li><a href="{% url 'crew' %}">Crews</a></li>
+                        <li class="disabled"><a href="#">Kreditt: {{ user.crewmember_set.all.0.credit }}</a></li>
+                    {% endif %}
+                    {% block sidebar_specific %}
+                    {% endblock sidebar_specific %}
+                </ul>
+            {% endif %}
             <hr>
             <div>
                 <h4><a href="{% url "sponsor_index" %}">Sponsorer:</a></h4>
