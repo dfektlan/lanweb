@@ -9,13 +9,13 @@
     <div class="col-md-9">
         <div class="row">
             <h1> {{post.title}} </h1>
-            <div class="col-md-5">
+            <div class="col-md-9">
                 <p>
-                    Posted on
+                    Publisert den
                     <time datetime="{{post.created|date:'d.m.Y H:i'}}">
                     {{post.created|date:'d.m.Y H:i'}}
                     </time>
-                    by <a href="#"> {{post.author}} </a>
+                    av <a href="#"> {{post.author}} </a>
                 </p>
                 <p> {{post.summary}} </p>
                 <p> {{post.content|dfekt_markdown }} </p>
