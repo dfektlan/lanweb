@@ -8,22 +8,24 @@ dfektLAN - Games
     <div class="col-md-9">
 
         <ul class="nav nav-tabs" id="MyTab">
-        <li class="active"><a href="#tall" data-toggle="tab">tall</a></li>
-        <li><a href="#en" data-toggle="tab">en</a></li>
-        <li><a href="#to" data-toggle="tab">to</a></li>
+        <li class="active"><a href="#all" data-toggle="tab">All</a></li>
+        {% for g in all_games %}
+            <li><a href="#{{ g.pk }}" data-toggle="tab">{{ g.title }}</a></li>
+        {% endfor %}
         </ul>
 
         <div class="tab-content">
-           <div class="tab-pane fade in active" id="tall">
-                <p>TALL</p>
+           <div class="tab-pane fade in active" id="all">
+                <p>ALL</p>
+               <p>{{ tournaments }}</p>
             </div>
-            <div class="tab-pane fade" id="en">
-                <p>EN</p>
-            </div>
-            <div class="tab-pane fade" id="to">
-                <p>TO</p>
-            </div>
-
+            {% for key,value in tournaments.items %}
+                <div class="tab-pane fade" id="{{ key.pk }}">
+                    {% for t in value %}
+                       <p>{{ t.title }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
         </div>
 
     </div>
