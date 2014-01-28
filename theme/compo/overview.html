@@ -6,8 +6,8 @@ dfektLAN - Games
 
 {% block content %}
     <div class="col-md-9">
-
-        <ul class="nav nav-tabs" id="MyTab">
+        <h1>Compoer</h1>
+        <ul class="nav nav-tabs" id="gameTabs">
         <li class="active"><a href="#all" data-toggle="tab">All</a></li>
         {% for g in all_games %}
             <li><a href="#{{ g.pk }}" data-toggle="tab">{{ g.title }}</a></li>
@@ -15,15 +15,45 @@ dfektLAN - Games
         </ul>
 
         <div class="tab-content">
-           <div class="tab-pane fade in active" id="all">
-                <p>ALL</p>
-               <p>{{ tournaments }}</p>
+            <div class="tab-pane fade in active" id="all">
+                <table id="allGames" class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Tittel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for value in tournaments.values %}
+                            {% for t in value %}
+                                <tr>
+                                    <td>{{ t.status }}</td>
+                                    <td>{{ t.title }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
+
             {% for key,value in tournaments.items %}
                 <div class="tab-pane fade" id="{{ key.pk }}">
-                    {% for t in value %}
-                       <p>{{ t.title }}</p>
-                    {% endfor %}
+                    <table id="allGames" class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Tittel</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for t in value %}
+                                <tr>
+                                    <td>{{ t.status }}</td>
+                                    <td>{{ t.title }}</td>
+                                </tr>
+                            {% endfor %}
+                        </body>
+                    </table>
                 </div>
             {% endfor %}
         </div>
@@ -31,12 +61,12 @@ dfektLAN - Games
     </div>
 
     <script>
-        $('#MyTab').click(function (e) {
+        $('#gameTabs').click(function (e) {
             e.preventDefault();
             $(this).tab('show');
         })
         $(function () {
-            $('#MyTab a:first').tab('show');
+            $('#gameTabs a:first').tab('show');
         })
         $('a[data-toggle="tab"]').on('shown', function (e) {
             e.target
@@ -44,14 +74,3 @@ dfektLAN - Games
         })
     </script>
 {% endblock content %}
-
-<!-- {% for g in all_games %}
-            <li><a href="#{{ g.title }}">{{ g.title }}</a></li>
-        {% endfor %}
-
-         {% for g in all_games %}
-            <div class="tab-content" id="{{ g.title }}">
-                <p>{{ tournaments.g }}</p>
-            </div>
-        {% endfor %}
-        -->
