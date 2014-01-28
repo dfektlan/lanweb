@@ -139,6 +139,8 @@ INSTALLED_APPS = (
 )
 
 AUTH_USER_MODEL = 'userprofile.SiteUser'
+LOGIN_URL = '/auth/login/'
+LOGIN_REDIRECT_URL = '/auth/login/'
 
 
 
