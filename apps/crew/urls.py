@@ -9,4 +9,6 @@ urlpatterns = patterns('apps.crew.views',
     url(r'^application/user', 'user_overview', name='user_overview'),
     url(r'^application/new', 'new_application', name='new_application'),
     url(r'^application/edit/(?P<application_id>\d+)/$', 'new_application', name='edit_application'),
+    url(r'^application/delete/(?P<application_id>\d+)/$', 'del_application', name='del_application'),
+
 )
