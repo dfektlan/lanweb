@@ -136,6 +136,7 @@ INSTALLED_APPS = (
     'apps.sponsor',
     'apps.news',
     'apps.pos',
+    'apps.compo',
 )
 
 AUTH_USER_MODEL = 'userprofile.SiteUser'

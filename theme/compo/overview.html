@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}
+dfektLAN - Games
+{% endblock title %}
+
+{% block content %}
+    <div class="col-md-9">
+
+        <ul class="nav nav-tabs" id="MyTab">
+        <li class="active"><a href="#tall" data-toggle="tab">tall</a></li>
+        <li><a href="#en" data-toggle="tab">en</a></li>
+        <li><a href="#to" data-toggle="tab">to</a></li>
+        </ul>
+
+        <div class="tab-content">
+           <div class="tab-pane fade in active" id="tall">
+                <p>TALL</p>
+            </div>
+            <div class="tab-pane fade" id="en">
+                <p>EN</p>
+            </div>
+            <div class="tab-pane fade" id="to">
+                <p>TO</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        $('#MyTab').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        })
+        $(function () {
+            $('#MyTab a:first').tab('show');
+        })
+        $('a[data-toggle="tab"]').on('shown', function (e) {
+            e.target
+            e.relatedTarget
+        })
+    </script>
+{% endblock content %}
+
+<!-- {% for g in all_games %}
+            <li><a href="#{{ g.title }}">{{ g.title }}</a></li>
+        {% endfor %}
+
+         {% for g in all_games %}
+            <div class="tab-content" id="{{ g.title }}">
+                <p>{{ tournaments.g }}</p>
+            </div>
+        {% endfor %}
+        -->

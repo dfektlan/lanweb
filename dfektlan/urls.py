@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^sponsor/',  include('apps.sponsor.urls')),
     url(r'^auth/',  include('apps.authentication.urls')),
     url(r'^pos/',  include('apps.pos.urls')),
+    url(r'^compo/',  include('apps.compo.urls')),
 )
 #Fix for flatpages urls
 urlpatterns += patterns('django.contrib.flatpages.views',
