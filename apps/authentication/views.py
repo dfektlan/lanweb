@@ -51,7 +51,7 @@ def register(request):
                 
                 # Create user
                 user = SiteUser(
-                    username=cleaned['username'], 
+                    username=cleaned['username'].lower(),
                     nickname=cleaned['username'],
                     first_name=cleaned['first_name'], 
                     last_name=cleaned['last_name'],

@@ -99,7 +99,7 @@ def register_rfid(request):
         if form.is_valid():
             print "yay"
             print form.cleaned_data
-            user = SiteUser.objects.filter(nickname=form.cleaned_data['username'])[0]
+            user = SiteUser.objects.filter(username=form.cleaned_data['username'].lower())[0]
             user.rfid = form.cleaned_data['rfid']
             user.save()
             messages.success(request, "RFID successfully updated")

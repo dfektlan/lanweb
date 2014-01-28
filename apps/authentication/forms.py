@@ -17,7 +17,7 @@ class LoginForm(forms.Form):
         if self._errors:
             return
     
-        user = auth.authenticate(username=self.cleaned_data['username'], password=self.cleaned_data['password'])
+        user = auth.authenticate(username=self.cleaned_data['username'].lower(), password=self.cleaned_data['password'])
 
         if user:
             if user.is_active:
@@ -30,7 +30,7 @@ class LoginForm(forms.Form):
 
     def login(self, request):
         try:
-            SiteUser.objects.get(username=request.POST['username'])
+            SiteUser.objects.get(username=request.POST['username'].lower())
         except:
             return False
         if self.is_valid():
