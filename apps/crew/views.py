@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from apps.event.models import LanEvent
 from apps.userprofile.models import SiteUser
+from apps.userprofile.views import profile
 
 LATEST_EVENT = LanEvent.objects.filter(current=True)[0]
 
@@ -78,6 +79,18 @@ def new_application(request, application_id=None):
     else:
         form = ApplicationForm(instance=application)
     return render(request, 'crew/new_application.html', {'form': form,})
+
+
+def del_application(request, application_id=None):
+    app = get_object_or_404(Application, pk=application_id)
+
+    if app.user == request.user:
+        app.delete()
+        messages.success(request, u'The application has been deleted')
+    else:
+        messages.error(request, u'This is not your application, you cannot delete it')
+    return redirect(profile)
+
 
 @login_required
 def crew(request):

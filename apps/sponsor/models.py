@@ -25,7 +25,5 @@ class Sponsor(models.Model):
         else:
             return self.logo_img.url
 
-
-
     def __unicode__(self):
         return self.name
