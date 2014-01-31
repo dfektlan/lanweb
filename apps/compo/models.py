@@ -15,9 +15,8 @@ class Game(models.Model):
 class Tournament(models.Model):
     stat = (
         (0, u'OPEN'),
-        (1, u'CLOSED'),
-        (2, u'IN PROGRESS'),
-        (3, u'FINISHED')
+        (1, u'IN PROGRESS'),
+        (2, u'FINISHED')
     )
 
     title = models.CharField(_(u'Tittel'), max_length=30)
