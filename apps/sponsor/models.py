@@ -16,14 +16,18 @@ class Sponsor(models.Model):
 
     @property
     def image(self):
+        placeholder = "http://placekitten.com/300/150"
+
         if self.logo_svg:
             file_ext = self.logo_svg.name.split(os.path.basename('.'))[1]
             if file_ext == "svg" or file_ext == "svgz":
                 return self.logo_svg.url
             else:
-                return self.logo_img.url
-        else:
+                return placeholder
+        elif self.logo_img:
             return self.logo_img.url
+        else:
+            return placeholder
 
     def __unicode__(self):
         return self.name
