@@ -34,6 +34,8 @@ class Tournament(models.Model):
     event = models.ForeignKey(LanEvent)
     game = models.ForeignKey(Game)
 
+    def status_text(self):
+        return self.status[1]
 
     def __unicode__(self):
         return self.title

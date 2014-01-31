@@ -27,7 +27,7 @@ dfektLAN - Games
                         {% for value in tournaments.values %}
                             {% for t in value %}
                                 <tr>
-                                    <td>{{ t.status }}</td>
+                                    <td>{{ t.get_status_display }}</td>
                                     <td>{{ t.title }}</td>
                                 </tr>
                             {% endfor %}
@@ -48,7 +48,7 @@ dfektLAN - Games
                         <tbody>
                             {% for t in value %}
                                 <tr>
-                                    <td>{{ t.status }}</td>
+                                    <td>{{ t.get_status_display }}</td>
                                     <td>{{ t.title }}</td>
                                 </tr>
                             {% endfor %}
@@ -57,20 +57,6 @@ dfektLAN - Games
                 </div>
             {% endfor %}
         </div>
-
+    
     </div>
-
-    <script>
-        $('#gameTabs').click(function (e) {
-            e.preventDefault();
-            $(this).tab('show');
-        })
-        $(function () {
-            $('#gameTabs a:first').tab('show');
-        })
-        $('a[data-toggle="tab"]').on('shown', function (e) {
-            e.target
-            e.relatedTarget
-        })
-    </script>
 {% endblock content %}
