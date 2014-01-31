@@ -169,6 +169,13 @@ recovery option again to get your account verified.
 
         return render(request, 'auth/recover.html', {'form': form})
 
+
+def users(request):
+    u = SiteUser.objects.all()
+
+    return render(request, 'auth/users.html', {'u': u})
+
+
 def set_password(request, token=None): 
     if request.user.is_authenticated():
         return HttpResponseRedirect('/')
