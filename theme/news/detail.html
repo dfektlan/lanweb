@@ -16,6 +16,11 @@
                     {{post.created|date:'d.m.Y H:i'}}
                     </time>
                     av <a href="#"> {{post.author}} </a>
+                    {% if user.is_superuser %}
+                    <span class="pull-right">
+                        <a href="{% url 'admin:news_post_change' post.id %}">Edit</a>
+                    </span>
+                    {% endif %}
                 </p>
                 <p> {{post.summary}} </p>
                 <p> {{post.content|dfekt_markdown }} </p>
