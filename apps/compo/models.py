@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from apps.compo.views import tournament
 from apps.event.models import LanEvent
 from django.conf import settings
 from django.utils.translation import ugettext as _
