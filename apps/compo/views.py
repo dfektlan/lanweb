@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from apps.event.models import LanEvent
-from apps.compo.models import Game,Tournament,Participant,Team
+from apps.compo.models import Game, Tournament, Participant, Team
 
 
 LATEST_EVENT = LanEvent.objects.filter(current=True)[0]
@@ -15,4 +15,5 @@ def overview(request):
 
 def tournament(request, tournament_id=None):
     tournament = get_object_or_404(Tournament, pk=tournament_id)
-    return render(request, 'compo/tournament.html', {'tournament':tournament})
+    participants = Participant.objects.filter(tournament=tournament_id)
+    return render(request, 'compo/tournament.html', {'tournament':tournament, 'participants':participants})
