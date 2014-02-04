@@ -8,11 +8,17 @@ dfektLAN - Tournament
     <div class="col-md-9">
         <h1>{{ tournament.title }}</h1>
         <div class="col-md-8">
+            {% if tournament.get_status_display == "FINISHED" %}
+                <h4>Resultat</h4>
+                <p>1., 2., 3. -plass osv osv</p>
+            {% endif %}
             <h4>Beskrivelse</h4>
-            <p>Bacon ipsum dolor sit amet flank leberkas cow chicken meatball short loin boudin, porchetta beef rump turkey. Strip steak brisket frankfurter turducken, rump shank bacon ribeye landjaeger tenderloin ham hock jowl leberkas boudin chicken. Turducken tri-tip ham hock, biltong capicola pig chicken meatball pork belly cow bresaola. Tongue porchetta spare ribs tri-tip turkey pork loin. Prosciutto filet mignon shoulder beef spare ribs shank flank chuck drumstick bacon tenderloin landjaeger pastrami ground round cow. Tongue rump kevin ham strip steak ground round. Prosciutto ground round pork belly landjaeger kielbasa, tail strip steak pork loin ham tongue.</p>
+            <p>{{ tournament.description }}</p>
         </div>
         <div class="col-md-3">
-        <button type="button" class="btn btn-primary btn-lg btn-block">Meld deg på</button>
+            {% if tournament.get_status_display == "OPEN" %}
+                <button type="button" class="btn btn-primary btn-lg btn-block">Meld deg på</button>
+            {% endif %}
             <h4>Deltagere</h4>
             {% for p in participants %}
                 <p>{{ p }}</p>

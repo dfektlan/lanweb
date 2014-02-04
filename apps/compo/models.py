@@ -3,6 +3,7 @@ from django.db import models
 from apps.event.models import LanEvent
 from django.conf import settings
 from django.utils.translation import ugettext as _
+import datetime
 
 class Game(models.Model):
     title = models.CharField(_(u'Tittel'), max_length=30)
@@ -33,8 +34,13 @@ class Tournament(models.Model):
     event = models.ForeignKey(LanEvent)
     game = models.ForeignKey(Game)
 
-    def status_text(self):
-        return self.status[1]
+    def set_status(self):
+        if self.reg_stop > datetime.now():
+            self.status = 0
+        elif self.start_time < datetime.now():
+            self.status = 1
+        elif self.stop_time < datetime.now():
+            self.status = 2
 
     def __unicode__(self):
         return self.title

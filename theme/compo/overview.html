@@ -29,13 +29,13 @@ dfektLAN - Games
                                 <tr>
                                     <td>{{ t.title }}</td>
                                     {% if t.get_status_display == "OPEN" %}
-                                        <td><button type="button" class="btn btn-primary btn-xs">Påmelding</button></td>
+                                        <td><button type="button" class="btn btn-success btn-xs">Påmelding</button></td>
                                     {% endif %}
                                     {% if t.get_status_display == "IN PROGRESS" %}
                                         <td><button type="button" class="btn btn-primary btn-xs" disabled="disabled">In game</button></td>
                                     {% endif %}
                                     {% if t.get_status_display == "FINISHED" %}
-                                        <td><button type="button" class="btn btn-primary btn-xs"disabled="disabled">Fullført</button></td>
+                                        <td><button type="button" class="btn btn-primary btn-xs">Se resultat</button></td>
                                     {% endif %}
                                 </tr>
                             {% endfor %}
