@@ -42,6 +42,22 @@ class Tournament(models.Model):
         elif self.stop_time < datetime.now():
             self.status = 2
 
+    def get_participants(self):
+        participants = Participant.objects.filter(tournament=self)
+        users = []
+        teams = []
+        for p in participants:
+            if self.use_teams:
+                teams.append(p.team)
+            else:
+                users.append(p.user)
+        return teams if self.use_teams else users
+
+    def has_participant(self, user):
+        participants = self.get_participants()
+        return True if user in participants else False
+
+
     def __unicode__(self):
         return self.title
 

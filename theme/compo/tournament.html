@@ -17,7 +17,14 @@ dfekt LAN - Tournament
         </div>
         <div class="col-md-3">
             {% if tournament.get_status_display == "OPEN" %}
-                <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#register">Meld deg på</button>
+                {% if tournament.use_teams %}
+                    <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#register">Meld deg på</button>
+                {% endif %}
+                {% if not tournament.use_teams %}
+                    <a href="{% url 'register_to_tournament' tournament.id %}">
+                        <button type="button" class="btn btn-primary btn-lg btn-block">Meld deg på</button>
+                    </a>
+                {% endif %}
             {% endif %}
             <h4>Deltagere</h4>
             <ul>
