@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title%}
+Kredit
+{% endblock title %}
+
+
+{% block content %}
+    <div class="col-md-9">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button class="btn btn-primary" type="submit">Send</button>
+        </form>
+    </div>
+
+
+    <script language="javascript">
+        $(document).ready(function(){
+            var all = $("input[name='all']");
+            var members = $("select[name='crewmember']");
+            all.on("click", function(){
+                if (all.is(":checked")) {
+                    members.prop("disabled", true)
+                } else {
+                    members.prop("disabled", false)
+                }
+            })
+
+        })
+
+    </script>
+{% endblock content %}
