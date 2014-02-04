@@ -111,18 +111,18 @@ def register_rfid(request):
     if request.POST:
         form = RegisterRFIDForm(request.POST)
         if form.is_valid():
-            print "yay"
-            print form.cleaned_data
-            user = SiteUser.objects.filter(username=form.cleaned_data['username'].lower())[0]
-            user.rfid = form.cleaned_data['rfid']
-            user.save()
-            messages.success(request, "RFID successfully updated")
+            user = form.cleaned_data['username']
+            if SiteUser.objects.filter(username=user.lower()).count() != 0:
+                user = SiteUser.objects.get(username=user.lower())
+                user.rfid = form.cleaned_data['rfid']
+                user.save()
+                messages.success(request, "RFID successfully updated")
+            else:
+                messages.error(request, "RFID unsuccessfully updated, %s does not exist." % user)
             return redirect(register_rfid)
         else:
-            print "ney"
-            print form.cleaned_data
-            #messages.error(request, "RFID unsuccessfully updated")
-            #return redirect(register_rfid)
+            messages.error(request, "RFID unsuccessfully updated")
+            return redirect(register_rfid)
     else:
         form = RegisterRFIDForm()
 

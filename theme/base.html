@@ -73,7 +73,7 @@
                 {% for message in messages %}
                         <div class="col-md-9">
                             <div class="alert alert-block fade in {% if message.tags %}
-                        {% if message.tags == 'alert-error' %} alert-danger {% else %}
+                        {% if message.tags == 'error' %} alert-danger {% else %}
                         alert-{{ message.tags }}{% endif %}{% endif %}">
                                 <a class="close" data-dismiss="alert" href="#">×</a>
                                 <p>{{ message }}</p>

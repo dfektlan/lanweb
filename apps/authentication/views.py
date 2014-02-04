@@ -98,6 +98,7 @@ Aktiveringslinken er kun aktiv i 24 timer, etter dette vil du måtte bruke Reset
 
         return render(request, 'auth/register.html', {'form': form, })
 
+
 def verify(request, token):
     if request.user.is_authenticated():
         return HttpResponseRedirect('/')
