@@ -1,8 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from models import Application
-from apps.userprofile.models import SiteUser
-import re
+from models import Application, CrewMember
 
 
 class ApplicationAdminForm(ModelForm):
@@ -19,5 +17,12 @@ class ApplicationForm(ModelForm):
 
 class RegisterRFIDForm(forms.Form):
     username = forms.CharField(label="Brukernavn", max_length=20)
-    rfid = forms.CharField(label="RFID", max_length=30)
+    rfid = forms.IntegerField(label="RFID")
+
+
+class CreditToCrewForm(forms.Form):
+    crewmember = forms.ModelChoiceField(CrewMember.objects.all(), label="Crewmedlem")
+    all = forms.BooleanField(label="Alle crew medlemmer?", required=False)
+    credit = forms.IntegerField(label="Kredit")
+
 

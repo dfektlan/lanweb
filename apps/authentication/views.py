@@ -98,6 +98,7 @@ Aktiveringslinken er kun aktiv i 24 timer, etter dette vil du måtte bruke Reset
 
         return render(request, 'auth/register.html', {'form': form, })
 
+
 def verify(request, token):
     if request.user.is_authenticated():
         return HttpResponseRedirect('/')
@@ -168,6 +169,13 @@ recovery option again to get your account verified.
             form = RecoveryForm()
 
         return render(request, 'auth/recover.html', {'form': form})
+
+
+def users(request):
+    u = SiteUser.objects.all()
+
+    return render(request, 'auth/users.html', {'u': u})
+
 
 def set_password(request, token=None): 
     if request.user.is_authenticated():
