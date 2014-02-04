@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-dfektLAN - Tournament
+dfekt LAN - Tournament
 {% endblock title %}
 
 {% block content %}
@@ -17,12 +17,34 @@ dfektLAN - Tournament
         </div>
         <div class="col-md-3">
             {% if tournament.get_status_display == "OPEN" %}
-                <button type="button" class="btn btn-primary btn-lg btn-block">Meld deg på</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#register">Meld deg på</button>
             {% endif %}
             <h4>Deltagere</h4>
-            {% for p in participants %}
-                <p>{{ p }}</p>
-            {% endfor %}
+            <ul>
+                {% for p in participants %}
+                    <li><a class="text-info" href="{% url 'profile' p.user.id %}">{{ p }}</a></li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
+
+<!-- register-modal -->
+<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="registerModalLabel">Påmelding</h4>
+      </div>
+      <div class="modal-body">
+        Kanskje vi kan bruke denne til å registrere lag til compo? ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
+        <button type="button" class="btn btn-primary">Meld på!</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}
+

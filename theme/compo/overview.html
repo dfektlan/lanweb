@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-dfektLAN - Games
+dfekt LAN - Games
 {% endblock title %}
 
 {% block content %}
@@ -26,7 +26,7 @@ dfektLAN - Games
                     <tbody>
                         {% for value in tournaments.values %}
                             {% for t in value %}
-                                <tr>
+                                <tr onclick="document.location = '{% url 'tournament' t.id %}'">
                                     <td>{{ t.title }}</td>
                                     {% if t.get_status_display == "OPEN" %}
                                         <td><a href="{% url 'tournament' t.id %}" class="btn btn-success btn-xs" role="button">Påmelding</a></td>
@@ -55,7 +55,7 @@ dfektLAN - Games
                         </thead>
                         <tbody>
                             {% for t in value %}
-                                <tr>
+                                <tr  onclick="document.location = '{% url 'tournament' t.id %}'">
                                     <td>{{ t.title }}</td>
                                     {% if t.get_status_display == "OPEN" %}
                                         <td><a href="{% url 'tournament' t.id %}" class="btn btn-success btn-xs" role="button">Påmelding</a></td>
