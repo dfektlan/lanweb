@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block title %}
 dfekt LAN - Tournament
@@ -18,6 +19,7 @@ dfekt LAN - Tournament
         <div class="col-md-3">
             {% if tournament.get_status_display == "OPEN" %}
                 {% if tournament.use_teams %}
+                    <--! Need to check if user is logged in before this button can be used -->
                     <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#register">Meld deg på</button>
                 {% endif %}
                 {% if not tournament.use_teams %}
@@ -45,21 +47,10 @@ dfekt LAN - Tournament
       </div>
       <div class="modal-body">
         Kanskje vi kan bruke denne til å registrere lag til compo? ...
-          <p> </p>
-          <input type="text" class="form-control" placeholder="Skriv inn lagnavn">
-          <p> </p>
-          <form class="form-inline" role="form">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Skriv inn brukernavn">
-          </div>
-          <button type="submit" class="btn btn-default">Legg til</button>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
         </form>
-        <p> </p>
-        <ul>
-            <li>Liste med brukere på laget</li>
-            <li>etterhvert som de legges til.. ?</li>
-        </ul>
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>

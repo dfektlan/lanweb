@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from apps.event.models import LanEvent
 from apps.compo.models import Game, Tournament, Participant, Team
 from django.contrib import messages
+from forms import RegisterTeamForm
 from django.core.urlresolvers import reverse
 
 LATEST_EVENT = LanEvent.objects.filter(current=True)[0]
@@ -19,7 +20,9 @@ def overview(request):
 def tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     participants = Participant.objects.filter(tournament=tournament_id)
-    return render(request, 'compo/tournament.html', {'tournament': tour, 'participants': participants})
+    form = RegisterTeamForm()
+    print form
+    return render(request, 'compo/tournament.html', {'tournament': tour, 'participants': participants, 'form':form})
 
 
 def register_to_tournament(request, tournament_id=None):
