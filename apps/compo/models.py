@@ -51,3 +51,6 @@ class Participant(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
     team = models.ForeignKey(Team, null=True, blank=True)
     tournament = models.ForeignKey(Tournament)
+
+    def __unicode__(self):
+        return self.user.nickname if self.user else self.team.title
