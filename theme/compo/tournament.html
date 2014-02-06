@@ -52,7 +52,11 @@ dfekt LAN - Tournament
                                 <div id="{{ p }}" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <strong>{{ p.team.teamleader.nickname }}</strong>
-                                        {{ p.team.members.get.nickname }}
+                                        <ul class="list-unstyled">
+                                            {% for member in p.team.members.all %}
+                                                <li>{{ member.nickname }}</li>
+                                            {% endfor %}
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

@@ -48,12 +48,17 @@ def make_participant(user, tour):
 
 
 def make_team_participant(user, form, tour):
+    print "------------------------"
+    print form.cleaned_data['teamname']
+    print form.cleaned_data['username']
+    print "------------------------"
     team = Team()
     participant = Participant()
     team.teamleader = user
     team.title = form.cleaned_data['teamname']
     team.save()
-    team.members.add(form.cleaned_data['username'])
+    for user in form.cleaned_data['username']:
+        team.members.add(user)
     participant.team = team
     participant.tournament = tour
     participant.save()

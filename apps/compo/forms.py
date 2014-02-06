@@ -9,5 +9,6 @@ from apps.userprofile.models import SiteUser
 
 class RegisterTeamForm(forms.Form):
     teamname = forms.CharField(label='Lagnavn', max_length=30)
-    username = forms.ModelChoiceField(SiteUser.objects.all(), label='Brukernavn')
+    username = forms.ModelMultipleChoiceField(SiteUser.objects.all())
+    #username = forms.ModelChoiceField(SiteUser.objects.all(), label='Brukernavn')
     #username = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=USERS)
