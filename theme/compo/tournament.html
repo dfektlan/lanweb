@@ -19,21 +19,52 @@ dfekt LAN - Tournament
         <div class="col-md-3">
             {% if tournament.get_status_display == "OPEN" %}
                 {% if tournament.use_teams %}
-                    <--! Need to check if user is logged in before this button can be used -->
-                    <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#register">Meld deg på</button>
-                {% endif %}
-                {% if not tournament.use_teams %}
+
+                    <--! Need to check if user already is in a team -->
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'check_user' tournament.id %}">
+                            <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#register">Meld deg på</button>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'check_user' tournament.id %}">
+                            <button type="button" class="btn btn-primary btn-lg btn-block">Meld deg på</button>
+                        </a>
+                    {% endif %}
+
+                {% else %}
                     <a href="{% url 'register_to_tournament' tournament.id %}">
                         <button type="button" class="btn btn-primary btn-lg btn-block">Meld deg på</button>
                     </a>
                 {% endif %}
             {% endif %}
             <h4>Deltagere</h4>
-            <ul>
-                {% for p in participants %}
-                    <li><a class="text-info" href="{% url 'profile' p.user.id %}">{{ p }}</a></li>
-                {% endfor %}
-            </ul>
+                {% if tournament.use_teams %}
+                    {% for p in participants %}
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#{{ p }}">
+                                            {{ p }}
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="{{ p }}" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <strong>{{ p.team.teamleader.nickname }}</strong>
+                                        {{ p.team.members.get.nickname }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <ul>
+                        {% for p in participants %}
+                            <li><a class="text-info" href="{% url 'profile' p.user.id %}">{{ p }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
         </div>
     </div>
 
@@ -50,11 +81,11 @@ dfekt LAN - Tournament
         <form method="post">
             {% csrf_token %}
             {{ form|crispy }}
-        </form>
       </div>
       <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Meld på!</button>
+        </form>
         <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
-        <button type="button" class="btn btn-primary">Meld på!</button>
       </div>
     </div>
   </div>

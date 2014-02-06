@@ -5,6 +5,7 @@ from django.conf import settings
 from django.utils.translation import ugettext as _
 import datetime
 
+
 class Game(models.Model):
     title = models.CharField(_(u'Tittel'), max_length=30)
     description = models.TextField(_(u'Beskrivelse'))
@@ -12,6 +13,7 @@ class Game(models.Model):
 
     def __unicode__(self):
         return self.title
+
 
 class Tournament(models.Model):
     stat = (
@@ -57,9 +59,9 @@ class Tournament(models.Model):
         participants = self.get_participants()
         return True if user in participants else False
 
-
     def __unicode__(self):
         return self.title
+
 
 class Team(models.Model):
     title = models.CharField(_(u'Lagnavn'), max_length=30)
@@ -68,6 +70,7 @@ class Team(models.Model):
 
     def __unicode__(self):
         return self.title
+
 
 class Participant(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
