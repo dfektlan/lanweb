@@ -25,6 +25,7 @@ def tournament(request, tournament_id=None):
         form = RegisterTeamForm(request.POST, request=request)
         if form.is_valid():
             make_team_participant(request, form, tour)
+            return redirect('tournament', tournament_id)
     else:
         form = RegisterTeamForm(request=request)
     return render(request, 'compo/tournament.html', {'tournament': tour, 'participants': participants,
@@ -96,11 +97,11 @@ def remove_participant(request, tournament_id=None):
         for team in participants:
             if request.user in team.members.all():
                 team.members.remove(request.user)
-                messages.success(request, u'You was removed from the team')
+                messages.success(request, u'You was removed from the team "' + team.title +'"')
     else:
         print participants
         participant = Participant.objects.get(user=request.user, tournament=tournament_id)
         participant.delete()
         print participants
-        messages.success(request, u'You was unregistered from this tournament')
+        messages.success(request, u'You were unregistered from this tournament')
     return redirect('tournament', tournament_id)

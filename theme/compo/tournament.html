@@ -32,9 +32,7 @@ dfekt LAN - Tournament
                         <button type="button" class="btn btn-danger btn-lg btn-block">Meld deg av</button>
                     </a>
                 {% elif tournament.use_teams %}
-                    <a href="{% url 'check_user' tournament.id %}">
                         <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#register">Meld deg på</button>
-                    </a>
                 {% else %}
                     <a href="{% url 'register_to_tournament' tournament.id %}">
                         <button type="button" class="btn btn-primary btn-lg btn-block">Meld deg på</button>
@@ -92,7 +90,7 @@ dfekt LAN - Tournament
             {{ form|crispy }}
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Meld på!</button>
+          <button type="submit" class="btn btn-primary">Meld på!</button>
         </form>
         <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
       </div>
