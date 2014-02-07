@@ -41,6 +41,7 @@ def register_to_tournament(request, tournament_id=None):
     else:
         make_participant(request.user, tour)
         messages.success(request, u'You have successfully register for this tournament')
+
     return redirect('tournament', tournament_id)
 
 
@@ -70,6 +71,7 @@ def make_participant(user, tour):
 
 
 def make_team_participant(request, form, tour):
+    request.user.is_teamleader(tour) #MIDLERTIDILG
     team = Team()
     participant = Participant()
     team.teamleader = request.user
@@ -98,10 +100,13 @@ def remove_participant(request, tournament_id=None):
             if request.user in team.members.all():
                 team.members.remove(request.user)
                 messages.success(request, u'You was removed from the team "' + team.title +'"')
+            #elif request.user == team.teamleader:
+            #    team.delete()
+            #    messages.error(request, u'You have deleted the team "' + team.title +'"')
+            elif request.user.is_teamleader(tour):
+                print 'TEAMLEADER'
     else:
-        print participants
         participant = Participant.objects.get(user=request.user, tournament=tournament_id)
         participant.delete()
-        print participants
         messages.success(request, u'You were unregistered from this tournament')
     return redirect('tournament', tournament_id)

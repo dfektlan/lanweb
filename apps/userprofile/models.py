@@ -45,3 +45,11 @@ class SiteUser(AbstractUser):
         if len(self.crew_set.all()) > 0:
             return True
         return False
+
+    def is_teamleader(self, tournament):
+        print '--------------'
+        leaderlist = self.team_set.all()
+        print 'leaderlist:'
+        print leaderlist
+        for i in leaderlist:
+            print i
