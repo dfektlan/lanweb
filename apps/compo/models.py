@@ -55,10 +55,6 @@ class Tournament(models.Model):
                 users.append(p.user)
         return teams if self.use_teams else users
 
-    def has_participant(self, request):
-        participants = self.get_participants()
-        return True if request.user in participants else False
-
     def __unicode__(self):
         return self.title
 

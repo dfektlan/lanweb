@@ -24,6 +24,9 @@ dfekt LAN - Tournament
             {% if tournament.get_status_display == "OPEN" %}
                 {% if tournament.use_teams %}
 
+                    {% if is_participant %}
+                        svdbvivnoanbsovnbddn
+                    {% endif %}
                     <--! Need to check if user already is in a team -->
                     {% if user.is_authenticated %}
                         <a href="{% url 'check_user' tournament.id %}">
@@ -36,7 +39,7 @@ dfekt LAN - Tournament
                     {% endif %}
 
                 {% else %}
-                    {% if tournament.has_participant %}
+                    {% if is_participant %}
                         red UNregister-button
                     {% endif %}
                     <a href="{% url 'register_to_tournament' tournament.id %}">
@@ -46,21 +49,21 @@ dfekt LAN - Tournament
             {% endif %}
             <h4>Deltagere</h4>
                 {% if tournament.use_teams %}
-                    {% for p in participants %}
+                    {% for team in participants %}
                         <div class="panel-group" id="accordion">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#{{ p.id }}">
-                                            {{ p }}
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#{{ team.id }}">
+                                            {{ team }}
                                         </a>
                                     </h4>
                                 </div>
-                                <div id="{{ p.id }}" class="panel-collapse collapse">
+                                <div id="{{ team.id }}" class="panel-collapse collapse">
                                     <div class="panel-body">
-                                        <strong>{{ p.team.teamleader.nickname }}</strong>
+                                        <strong>{{ team.teamleader.nickname }}</strong>
                                         <ul class="list-unstyled">
-                                            {% for member in p.team.members.all %}
+                                            {% for member in team.members.all %}
                                                 <li>{{ member.nickname }}</li>
                                             {% endfor %}
                                         </ul>
@@ -71,8 +74,8 @@ dfekt LAN - Tournament
                     {% endfor %}
                 {% else %}
                     <ul>
-                        {% for p in participants %}
-                            <li><a class="text-info" href="{% url 'profile' p.user.id %}">{{ p }}</a></li>
+                        {% for user in participants %}
+                            <li><a class="text-info" href="{% url 'profile' user.id %}">{{ user.nickname }}</a></li>
                         {% endfor %}
                     </ul>
                 {% endif %}

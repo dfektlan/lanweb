@@ -19,14 +19,16 @@ def overview(request):
 
 def tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
-    participants = Participant.objects.filter(tournament=tournament_id)
+    participants = tour.get_participants()
+    is_participant = has_participant(tour, request.user)
     if request.POST:
         form = RegisterTeamForm(request.POST, request=request)
         if form.is_valid():
             make_team_participant(request, form, tour)
     else:
         form = RegisterTeamForm(request=request)
-    return render(request, 'compo/tournament.html', {'tournament': tour, 'participants': participants, 'form': form})
+    return render(request, 'compo/tournament.html', {'tournament': tour, 'participants': participants,
+                                                     'form': form, 'is_participant': is_participant})
 
 
 def register_to_tournament(request, tournament_id=None):
@@ -40,6 +42,17 @@ def register_to_tournament(request, tournament_id=None):
         messages.success(request, u'You have successfully register for this tournament')
     return redirect('tournament', tournament_id)
 
+
+def has_participant(tour, user):
+    participants = tour.get_participants()
+    for p in participants:
+        if user in p.members.all():
+            return True
+    # participants = Participant.objects.filter(tournament=tournament_id)
+    # is_participant = True if request.user in participants else False
+    # for participant in participants:
+    #     if request.user in participant.team.members.all():
+    #         is_participant = True
 
 def make_participant(user, tour):
     p = Participant()
