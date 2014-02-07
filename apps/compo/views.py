@@ -35,7 +35,7 @@ def register_to_tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     if not request.user.is_authenticated():
         messages.error(request, u'You must log in to register for a tournament')
-    elif tour.has_participant(request):
+    elif has_participant(tour, request.user):
         messages.error(request, u'You are already signed up for this tournament')
     else:
         make_participant(request.user, tour)
@@ -99,7 +99,8 @@ def remove_participant(request, tournament_id=None):
                 messages.success(request, u'You was removed from the team')
     else:
         print participants
-        participants.remove(request.user)
+        participant = Participant.objects.get(user=request.user, tournament=tournament_id)
+        participant.delete()
         print participants
         messages.success(request, u'You was unregistered from this tournament')
     return redirect('tournament', tournament_id)
