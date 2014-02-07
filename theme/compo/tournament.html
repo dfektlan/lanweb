@@ -44,12 +44,12 @@ dfekt LAN - Tournament
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#{{ p }}">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#{{ p.id }}">
                                             {{ p }}
                                         </a>
                                     </h4>
                                 </div>
-                                <div id="{{ p }}" class="panel-collapse collapse">
+                                <div id="{{ p.id }}" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <strong>{{ p.team.teamleader.nickname }}</strong>
                                         <ul class="list-unstyled">

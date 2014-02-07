@@ -21,11 +21,11 @@ def tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     participants = Participant.objects.filter(tournament=tournament_id)
     if request.POST:
-        form = RegisterTeamForm(request.POST)
+        form = RegisterTeamForm(request.POST, request=request)
         if form.is_valid():
-            make_team_participant(request.user, form, tour)
+            make_team_participant(request, form, tour)
     else:
-        form = RegisterTeamForm()
+        form = RegisterTeamForm(request=request)
     return render(request, 'compo/tournament.html', {'tournament': tour, 'participants': participants, 'form': form})
 
 
@@ -37,6 +37,7 @@ def register_to_tournament(request, tournament_id=None):
         messages.error(request, u'You are already signed up for this tournament')
     else:
         make_participant(request.user, tour)
+        messages.success(request, u'You have successfully register for this tournament')
     return redirect('tournament', tournament_id)
 
 
@@ -47,21 +48,23 @@ def make_participant(user, tour):
     p.save()
 
 
-def make_team_participant(user, form, tour):
+def make_team_participant(request, form, tour):
     print "------------------------"
     print form.cleaned_data['teamname']
     print form.cleaned_data['username']
     print "------------------------"
     team = Team()
     participant = Participant()
-    team.teamleader = user
+    team.teamleader = request.user
     team.title = form.cleaned_data['teamname']
     team.save()
     for user in form.cleaned_data['username']:
         team.members.add(user)
     participant.team = team
     participant.tournament = tour
+    team.save()
     participant.save()
+    messages.success(request, u'You have successfully registered your team for this tournament')
 
 
 def check_user(request, tournament_id=None):
