@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+dfektLAN - Stream: {{ stream.name }}
+{% endblock title %}
+
+{% block content %}
+{% csrf_token %}
+    <ul class="nav nav-tabs">
+        {% for key, value in link.items %}
+            <li><a href="{% url 'stream' key %}">{{ value.1 }}</a></li>
+        {%  endfor %}
+    </ul>
+
+
+    <div class="col-md-9">
+        {{ stream }}
+    </div>
+{% endblock content%}
