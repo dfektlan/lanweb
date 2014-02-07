@@ -80,9 +80,18 @@ def check_user(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     if not request.user.is_authenticated():
         messages.error(request, u'You must log in to register for a tournament')
-    elif tour.has_participant(request):
+    elif has_participant(tour, request.user):
         messages.error(request, u'You are already signed up for this tournament')
+        remove_teammember(request.user, tour)
     return redirect('tournament', tournament_id)
+
+
+def remove_teammember(user, tour):
+    participants = tour.get_participants()
+    for team in participants:
+        if user in team.members.all():
+            team.members.remove(user)
+
 
 
 # OBS! Sjekk innlogging før registrering av team
