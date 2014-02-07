@@ -33,7 +33,7 @@ def register_to_tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     if not request.user.is_authenticated():
         messages.error(request, u'You must log in to register for a tournament')
-    elif tour.has_participant(request.user):
+    elif tour.has_participant(request):
         messages.error(request, u'You are already signed up for this tournament')
     else:
         make_participant(request.user, tour)
@@ -49,10 +49,6 @@ def make_participant(user, tour):
 
 
 def make_team_participant(request, form, tour):
-    print "------------------------"
-    print form.cleaned_data['teamname']
-    print form.cleaned_data['username']
-    print "------------------------"
     team = Team()
     participant = Participant()
     team.teamleader = request.user
@@ -60,9 +56,9 @@ def make_team_participant(request, form, tour):
     team.save()
     for user in form.cleaned_data['username']:
         team.members.add(user)
+    team.save()
     participant.team = team
     participant.tournament = tour
-    team.save()
     participant.save()
     messages.success(request, u'You have successfully registered your team for this tournament')
 
@@ -71,7 +67,7 @@ def check_user(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     if not request.user.is_authenticated():
         messages.error(request, u'You must log in to register for a tournament')
-    elif tour.has_participant(request.user):
+    elif tour.has_participant(request):
         messages.error(request, u'You are already signed up for this tournament')
     return redirect('tournament', tournament_id)
 
