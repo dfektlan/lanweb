@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
+{% block include %}
+<script type="text/javascript">$('#register').on('shown.bs.modal', function() { $("#id_username").chosen(); });</script>
+{% endblock %}
+
 {% block title %}
 dfekt LAN - Tournament
 {% endblock title %}
