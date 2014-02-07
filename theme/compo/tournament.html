@@ -22,32 +22,25 @@ dfekt LAN - Tournament
         </div>
         <div class="col-md-3">
             {% if tournament.get_status_display == "OPEN" %}
-                {% if tournament.use_teams %}
 
-                    {% if is_participant %}
-                        <a href="{% url 'check_user' tournament.id %}">
-                            <button type="button" class="btn btn-danger btn-lg btn-block">Meld deg av</button>
-                        </a>
-                    {% endif %}
-                    <--! Need to check if user already is in a team -->
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'check_user' tournament.id %}">
-                            <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#register">Meld deg på</button>
-                        </a>
-                    {% else %}
-                        <a href="{% url 'check_user' tournament.id %}">
-                            <button type="button" class="btn btn-primary btn-lg btn-block">Meld deg på</button>
-                        </a>
-                    {% endif %}
-
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'check_user' tournament.id %}">
+                        <button type="button" class="btn btn-primary btn-lg btn-block">Meld deg på</button>
+                    </a>
+                {% elif is_participant %}
+                    <a href="{% url 'remove_participant' tournament.id %}">
+                        <button type="button" class="btn btn-danger btn-lg btn-block">Meld deg av</button>
+                    </a>
+                {% elif tournament.use_teams %}
+                    <a href="{% url 'check_user' tournament.id %}">
+                        <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#register">Meld deg på</button>
+                    </a>
                 {% else %}
-                    {% if is_participant %}
-                        red UNregister-button
-                    {% endif %}
                     <a href="{% url 'register_to_tournament' tournament.id %}">
                         <button type="button" class="btn btn-primary btn-lg btn-block">Meld deg på</button>
                     </a>
                 {% endif %}
+
             {% endif %}
             <h4>Deltagere</h4>
                 {% if tournament.use_teams %}

@@ -45,14 +45,21 @@ def register_to_tournament(request, tournament_id=None):
 
 def has_participant(tour, user):
     participants = tour.get_participants()
-    for p in participants:
-        if user in p.members.all():
-            return True
+    if tour.use_teams:
+        for p in participants:
+            if user in p.members.all():
+                return True
+    else:
+        for p in participants:
+            if user == p:
+                return True
+    return False
     # participants = Participant.objects.filter(tournament=tournament_id)
     # is_participant = True if request.user in participants else False
     # for participant in participants:
     #     if request.user in participant.team.members.all():
     #         is_participant = True
+
 
 def make_participant(user, tour):
     p = Participant()
@@ -77,21 +84,22 @@ def make_team_participant(request, form, tour):
 
 
 def check_user(request, tournament_id=None):
-    tour = get_object_or_404(Tournament, pk=tournament_id)
     if not request.user.is_authenticated():
         messages.error(request, u'You must log in to register for a tournament')
-    elif has_participant(tour, request.user):
-        messages.error(request, u'You are already signed up for this tournament')
-        remove_teammember(request.user, tour)
     return redirect('tournament', tournament_id)
 
 
-def remove_teammember(user, tour):
+def remove_participant(request, tournament_id=None):
+    tour = get_object_or_404(Tournament, pk=tournament_id)
     participants = tour.get_participants()
-    for team in participants:
-        if user in team.members.all():
-            team.members.remove(user)
-
-
-
-# OBS! Sjekk innlogging før registrering av team
+    if tour.use_teams:
+        for team in participants:
+            if request.user in team.members.all():
+                team.members.remove(request.user)
+                messages.success(request, u'You was removed from the team')
+    else:
+        print participants
+        participants.remove(request.user)
+        print participants
+        messages.success(request, u'You was unregistered from this tournament')
+    return redirect('tournament', tournament_id)
