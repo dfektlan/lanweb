@@ -2,12 +2,11 @@
 
 
 {% block head %}
-    <script src="{{ STATIC_URL }}js/jquery.fitvids.js"></script>
     <script>
+    // MUCH BAD SO HACK
     $(document).ready(function(){
-    // Target your .container, .wrapper, .post, etc.
-    $("#twitch-video").fitVids();
-  });
+        $("#live_embed_player_flash").height($("#live_embed_player_flash").width()*0.5625);
+    })
 </script>
 {% endblock head %}
 

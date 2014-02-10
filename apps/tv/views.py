@@ -13,8 +13,8 @@ def stream(request, stream_id=None):
     if stream_id is None:
         stream_id = 1
 
-    #d = get_stream_as_dict(channels[int(stream_id)][0])
-    d = {'stream': None}
+    d = get_stream_as_dict(channels[int(stream_id)][0])
+
 
     if d:
         pprint.pprint(d)
