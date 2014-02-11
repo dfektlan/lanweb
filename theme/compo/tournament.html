@@ -13,6 +13,7 @@ dfekt LAN - Tournament
     <div class="col-md-9">
         <h1>{{ tournament.title }}</h1>
         <div class="col-md-8">
+        <span class="badge pull-right" class="label label-default">Tournament starts in {{ tournament.start_time|timeuntil }}</span>
             {% if tournament.get_status_display == "FINISHED" %}
                 <h4>Resultat</h4>
                 <p>1., 2., 3. -plass osv osv</p>
@@ -22,7 +23,6 @@ dfekt LAN - Tournament
         </div>
         <div class="col-md-3">
             {% if tournament.get_status_display == "OPEN" %}
-
                 {% if not user.is_authenticated %}
                     <a href="{% url 'check_user' tournament.id %}">
                         <button type="button" class="btn btn-primary btn-lg btn-block">Meld deg på</button>
