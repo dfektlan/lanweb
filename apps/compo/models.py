@@ -4,6 +4,7 @@ from apps.event.models import LanEvent
 from django.conf import settings
 from django.utils.translation import ugettext as _
 import datetime
+from django.utils.timezone import now
 
 
 class Game(models.Model):
@@ -37,11 +38,13 @@ class Tournament(models.Model):
     game = models.ForeignKey(Game)
 
     def set_status(self):
-        if self.reg_stop > datetime.now():
+        if self.reg_start > now():
             self.status = 0
-        elif self.start_time < datetime.now():
+        if self.reg_stop > now():
             self.status = 1
-        elif self.stop_time < datetime.now():
+        if self.start_time > now():
+            self.status = 1
+        if self.stop_time > now():
             self.status = 2
 
     def get_participants(self):

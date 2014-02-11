@@ -5,6 +5,9 @@ from apps.compo.models import Game, Tournament, Participant, Team
 from django.contrib import messages
 from forms import RegisterTeamForm
 from django.contrib.auth.decorators import login_required
+from datetime import datetime, timedelta
+from django.utils.timezone import now
+
 
 LATEST_EVENT = LanEvent.objects.filter(current=True)[0]
 
@@ -19,14 +22,20 @@ def overview(request):
 
 def tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
+    print "--------------"
+    print tour.start_time
+    print "--------------"
+    print now()
+    print "=============="
+    td = now() > tour.start_time
+    print td
+    print "--------------"
     participants = tour.get_participants()
     is_participant = has_participant(tour, request.user)
     #should move is_teamleader to SiteUser PS. verdens styggeste if-setning?
     is_teamleader = False
     if request.user.is_authenticated() and not request.user.is_anonymous() and tour.use_teams:
                 is_teamleader = request.user.is_teamleader.all()
-    print is_teamleader
-    print request.user.is_authenticated
     if request.POST:
         form = RegisterTeamForm(request.POST, request=request)
         if form.is_valid():
