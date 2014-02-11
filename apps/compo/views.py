@@ -25,6 +25,7 @@ def tournament(request, tournament_id=None):
     if request.POST:
         form = RegisterTeamForm(request.POST, request=request)
         if form.is_valid():
+            #intention is to just say form.save() here and remove make_team_participant()
             make_team_participant(request, form, tour)
             return redirect('tournament', tournament_id)
     else:
@@ -71,9 +72,9 @@ def make_team_participant(request, form, tour):
     team = Team()
     participant = Participant()
     team.teamleader = request.user
-    team.title = form.cleaned_data['teamname']
+    team.title = form.cleaned_data['title']
     team.save()
-    for user in form.cleaned_data['username']:
+    for user in form.cleaned_data['members']:
         team.members.add(user)
     team.save()
     participant.team = team
