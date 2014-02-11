@@ -5,6 +5,8 @@ from django.conf import settings
 from django.utils.translation import ugettext as _
 import datetime
 from django.utils.timezone import now
+from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Game(models.Model):
@@ -40,12 +42,12 @@ class Tournament(models.Model):
     def set_status(self):
         if self.reg_start > now():
             self.status = 0
-        if self.reg_stop > now():
-            self.status = 1
-        if self.start_time > now():
+        if self.reg_stop > now() or self.start_time > now():
             self.status = 1
         if self.stop_time > now():
             self.status = 2
+        print "Status set"
+        print self.status
 
     def get_participants(self):
         participants = Participant.objects.filter(tournament=self)
@@ -78,3 +80,10 @@ class Participant(models.Model):
 
     def __unicode__(self):
         return self.user.nickname if self.user else self.team.title
+
+
+
+#Validators for admin (example)
+def validate_status(value):
+    if value % 2 != 0:
+        raise ValidationError(u'%s is not an even number' % value)

@@ -22,14 +22,6 @@ def overview(request):
 
 def tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
-    print "--------------"
-    print tour.start_time
-    print "--------------"
-    print now()
-    print "=============="
-    td = now() > tour.start_time
-    print td
-    print "--------------"
     participants = tour.get_participants()
     is_participant = has_participant(tour, request.user)
     #should move is_teamleader to SiteUser PS. verdens styggeste if-setning?
