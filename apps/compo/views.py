@@ -21,7 +21,6 @@ def tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     participants = tour.get_participants()
     is_participant = has_participant(tour, request.user)
-    #is_teamleader = request.user.is_teamleader(tour)
     is_teamleader = request.user.is_teamleader.all()
     if request.POST:
         form = RegisterTeamForm(request.POST, request=request)
@@ -30,8 +29,6 @@ def tournament(request, tournament_id=None):
             return redirect('tournament', tournament_id)
     else:
         form = RegisterTeamForm(request=request)
-    print 'is_teamleader'
-    print is_teamleader
     return render(request, 'compo/tournament.html', {'tournament': tour, 'participants': participants,
                                                      'form': form, 'is_participant': is_participant,
                                                      'is_teamleader': is_teamleader})
@@ -61,11 +58,6 @@ def has_participant(tour, user):
             if user == p:
                 return True
     return False
-    # participants = Participant.objects.filter(tournament=tournament_id)
-    # is_participant = True if request.user in participants else False
-    # for participant in participants:
-    #     if request.user in participant.team.members.all():
-    #         is_participant = True
 
 
 def make_participant(user, tour):
@@ -103,15 +95,13 @@ def remove_participant(request, tournament_id=None):
         for team in participants:
             if request.user in team.members.all():
                 team.members.remove(request.user)
-                messages.success(request, u'You was removed from the team "' + team.title +'"')
-            #elif request.user == team.teamleader:
-            #    team.delete()
-            #    messages.error(request, u'You have deleted the team "' + team.title +'"')
+                messages.success(request, u'You were removed from the team "' + team.title +'"')
         if request.user.is_teamleader.all():
-            print 'TEAMLEADER'
-            print request.user.is_teamleader.all()
             for team in request.user.is_teamleader.all():
+                #promt "are you sure you want to delete the team..?"
                 team.delete()
+                messages.success(request, u'You have deleted the team "' + team.title + '"')
+
     else:
         participant = Participant.objects.get(user=request.user, tournament=tournament_id)
         participant.delete()

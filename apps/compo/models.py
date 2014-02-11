@@ -62,7 +62,7 @@ class Tournament(models.Model):
 class Team(models.Model):
     title = models.CharField(_(u'Lagnavn'), max_length=30)
     teamleader = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="is_teamleader")
-    members = models.ManyToManyField(settings.AUTH_USER_MODEL, null=True, blank=True)
+    members = models.ManyToManyField(settings.AUTH_USER_MODEL, null=True, blank=True, related_name="is_teammember")
 
     def __unicode__(self):
         return self.title
