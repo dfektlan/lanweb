@@ -46,10 +46,8 @@ class SiteUser(AbstractUser):
             return True
         return False
 
-    def is_teamleader(self, tournament):
-        print '--------------'
+    def is_teamleader(self):
         leaderlist = self.team_set.all()
-        print 'leaderlist:'
+        print 'leaderlist'
         print leaderlist
-        for i in leaderlist:
-            print i
+        return leaderlist

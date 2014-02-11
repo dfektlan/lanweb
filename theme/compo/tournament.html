@@ -27,7 +27,7 @@ dfekt LAN - Tournament
                     <a href="{% url 'check_user' tournament.id %}">
                         <button type="button" class="btn btn-primary btn-lg btn-block">Meld deg på</button>
                     </a>
-                {% elif is_participant %}
+                {% elif is_participant or is_teamleader %}
                     <a href="{% url 'remove_participant' tournament.id %}">
                         <button type="button" class="btn btn-danger btn-lg btn-block">Meld deg av</button>
                     </a>

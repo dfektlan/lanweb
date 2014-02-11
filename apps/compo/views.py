@@ -21,6 +21,8 @@ def tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     participants = tour.get_participants()
     is_participant = has_participant(tour, request.user)
+    #is_teamleader = request.user.is_teamleader(tour)
+    is_teamleader = request.user.is_teamleader.all()
     if request.POST:
         form = RegisterTeamForm(request.POST, request=request)
         if form.is_valid():
@@ -28,8 +30,11 @@ def tournament(request, tournament_id=None):
             return redirect('tournament', tournament_id)
     else:
         form = RegisterTeamForm(request=request)
+    print 'is_teamleader'
+    print is_teamleader
     return render(request, 'compo/tournament.html', {'tournament': tour, 'participants': participants,
-                                                     'form': form, 'is_participant': is_participant})
+                                                     'form': form, 'is_participant': is_participant,
+                                                     'is_teamleader': is_teamleader})
 
 
 def register_to_tournament(request, tournament_id=None):
@@ -71,7 +76,6 @@ def make_participant(user, tour):
 
 
 def make_team_participant(request, form, tour):
-    request.user.is_teamleader(tour) #MIDLERTIDILG
     team = Team()
     participant = Participant()
     team.teamleader = request.user
@@ -103,8 +107,11 @@ def remove_participant(request, tournament_id=None):
             #elif request.user == team.teamleader:
             #    team.delete()
             #    messages.error(request, u'You have deleted the team "' + team.title +'"')
-            elif request.user.is_teamleader(tour):
-                print 'TEAMLEADER'
+        if request.user.is_teamleader.all():
+            print 'TEAMLEADER'
+            print request.user.is_teamleader.all()
+            for team in request.user.is_teamleader.all():
+                team.delete()
     else:
         participant = Participant.objects.get(user=request.user, tournament=tournament_id)
         participant.delete()
