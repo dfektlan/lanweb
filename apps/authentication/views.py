@@ -52,10 +52,10 @@ def register(request):
                 # Create user
                 user = SiteUser(
                     username=cleaned['username'].lower(),
-                    nickname=cleaned['username'],
+                    nickname=cleaned['username'].lower(),
                     first_name=cleaned['first_name'], 
                     last_name=cleaned['last_name'],
-                    email=cleaned['email'],
+                    email=cleaned['email'].lower(),
                     date_of_birth=cleaned['date_of_birth'],
                     zip_code=cleaned['zip_code'],
                     address=cleaned['address'],
@@ -127,7 +127,7 @@ def recover(request):
         if request.method == 'POST':
             form = RecoveryForm(request.POST)
             if form.is_valid():
-                email = form.cleaned_data['email']
+                email = form.cleaned_data['email'].lower()
                 users = SiteUser.objects.filter(email=email)
 
                 if len(users) == 0:
