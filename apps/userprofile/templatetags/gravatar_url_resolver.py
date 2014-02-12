@@ -18,6 +18,5 @@ def get_gravatar_url(context, user, size):
     gravatar_url = "https://www.gravatar.com/avatar/" + hash + "?"    
     gravatar_url += urllib.urlencode({'d': default, 's':str(size)})    
     
-    print(hash)
 
     return gravatar_url
