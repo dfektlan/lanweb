@@ -19,8 +19,8 @@ dfektLAN - Stream: {{ stream.name }}
     <div class="col-md-9">
         <div class="row">
             <ul class="nav nav-tabs">
-                {% for key, value in link.items %}
-                    <li><a href="{% url 'stream' key %}">{{ value.1 }}</a></li>
+                {% for id, displayName in link %}
+                    <li><a href="{% url 'stream' id %}">{{ displayName }}</a></li>
                 {%  endfor %}
             </ul>
         </div>

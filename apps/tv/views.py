@@ -1,27 +1,29 @@
 from django.shortcuts import render
+from apps.tv.models import Channel
 import requests
 
 import pprint
 
-channels = {
-    1: ['dfektlan', "dfekt LAN 1"],
-    2: ['dfektlan2', "dfekt LAN 2"]
-}
+#channels = {
+#    1: ['dfektlan', "dfekt LAN 1"],
+#    2: ['dfektlan2', "dfekt LAN 2"]
+#}
 
 
 def stream(request, stream_id=None):
+    channels = Channel.objects.all()
     if stream_id is None:
         stream_id = 1
 
-    d = get_stream_as_dict(channels[int(stream_id)][0])
-
+    channel = channels.get(pk=stream_id)
+    print channel.channelName
+    d = get_stream_as_dict(channel.channelName)
+    pprint.pprint(d)
 
     if d:
-        pprint.pprint(d)
-
         stream = {
-            'name': get_name(d),
-            'key': channels[int(stream_id)][0],
+            'name': channel.displayName,
+            'key': channel.channelName,
             'game': get_game(d),
             'status': get_status(d),
             'viewers': get_status(d),
@@ -30,15 +32,19 @@ def stream(request, stream_id=None):
 
     else:
         stream = {
-            'name': channels[int(stream_id)][1],
-            'key': channels[int(stream_id)][0],
+            'name': channel.displayName,
+            'key': channel.channelName,
             'game': 'Offline',
             'status': 'Offline',
             'viewers': 0,
             'views': 'Offline',
         }
 
-    return render(request, 'tv/index.html', {'stream': stream, 'link': channels})
+    links = []
+    for channel in channels:
+        links.append((channel.pk, channel.displayName))
+
+    return render(request, 'tv/index.html', {'stream': stream, 'link': links})
 
 
 def get_stream_as_dict(channel):
