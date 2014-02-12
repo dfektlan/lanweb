@@ -38,6 +38,7 @@ class Tournament(models.Model):
     stop_time = models.DateTimeField(_(u'Sluttid'))
     event = models.ForeignKey(LanEvent)
     game = models.ForeignKey(Game)
+    challonge_url = models.CharField(_(u'Challonge URL'), max_length=30)
 
     def set_status(self):
         if self.reg_start > now():
