@@ -31,7 +31,7 @@ class Tournament(models.Model):
     status = models.SmallIntegerField(_(u'Status'), choices=stat, default=0)
     use_teams = models.BooleanField(_(u'Lag?'), default=False)
     max_participants = models.IntegerField(_(u'Max deltagere'))
-    max_pr_team = models.IntegerField(_(u'Max pr. lag'))
+    max_pr_team = models.IntegerField(_(u'Max pr. lag (uten lagleder)'))
     reg_start = models.DateTimeField(_(u'Påmeldingsstart'))
     reg_stop = models.DateTimeField(_(u'Påmeldingsslutt'))
     start_time = models.DateTimeField(_(u'Starttid'))
@@ -47,6 +47,7 @@ class Tournament(models.Model):
             self.status = 1
         if self.stop_time > now():
             self.status = 2
+        self.save()
         print "Status set"
         print self.status
 

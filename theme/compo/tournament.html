@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block include %}
-<script type="text/javascript">$('#register').on('shown.bs.modal', function() { $("#id_members").chosen(); });</script>
+<script type="text/javascript">$('#register').on('shown.bs.modal', function() { $("#id_members").chosen({max_selected_options: {{ tournament.max_pr_team }} }); });</script>
 {% endblock %}
 
 {% block title %}
@@ -85,7 +85,9 @@ dfekt LAN - Tournament
         <h4 class="modal-title" id="registerModalLabel">Påmelding</h4>
       </div>
       <div class="modal-body">
-        Kanskje vi kan bruke denne til å registrere lag til compo? ...
+          Registrer ditt lag!
+          Skriv inn et lagnavn, og begynn å skrive inn deltagere.
+          Maksimalt antall deltagere til denne turneringen er {{ tournament.max_pr_team }}
         <form method="post">
             {% csrf_token %}
             {{ form|crispy }}
