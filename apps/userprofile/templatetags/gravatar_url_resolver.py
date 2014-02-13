@@ -29,9 +29,9 @@ def save_all_gravatars(size):
 
     for u in users:
         url = get_gravatar_url("derp", u, size)
+        print url
         r = requests.get(url)
         if r.status_code == requests.codes.ok:
+            print r.status_code
             with iopen(u.first_name + "_" + u.last_name + ".jpg", 'wb') as file:
                 file.write(r.content)
-    else:
-        return False
