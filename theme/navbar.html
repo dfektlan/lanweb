@@ -45,6 +45,8 @@
                     {% for page in event_pages %}
                         <li><a href="{{ page.url }}">{{ page.title }}</a></li>
                     {% endfor %}
+                    <li><a href="{% url 'stream' 1 %}">Stream</a></li>
+                    <li><a href="{% url 'tournament_overview' %}">Turneringer</a></li>
                 </ul>
               </li>
               <li class="dropdown">
