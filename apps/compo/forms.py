@@ -20,6 +20,7 @@ class RegisterTeamForm(ModelForm):
         super(RegisterTeamForm, self).__init__(*args, **kwargs)
         unwanted_users = [self.request.user]
         for user in SiteUser.objects.all():
+            # cannot be all() need to be somthing like if user.is_teamleader.filter(participant__tournament=tour) or user.is_teammember.filter(participant__tournament=tour):
             if user.is_teamleader.all() or user.is_teammember.all():
                 unwanted_users.append(user)
         self.fields['members'].queryset = SiteUser.objects.exclude(id__in=[o.id for o in unwanted_users])

@@ -4,9 +4,6 @@ from apps.event.models import LanEvent
 from apps.compo.models import Game, Tournament, Participant, Team
 from django.contrib import messages
 from forms import RegisterTeamForm
-from django.contrib.auth.decorators import login_required
-from datetime import datetime, timedelta
-from django.utils.timezone import now
 
 
 LATEST_EVENT = LanEvent.objects.filter(current=True)[0]
@@ -30,7 +27,7 @@ def tournament(request, tournament_id=None):
     #should move is_teamleader to SiteUser PS. verdens styggeste if-setning?
     is_teamleader = False
     if request.user.is_authenticated() and not request.user.is_anonymous() and tour.use_teams:
-                is_teamleader = request.user.is_teamleader.all()
+                is_teamleader = request.user.is_teamleader.filter(participant__tournament=tour)
     if request.POST:
         form = RegisterTeamForm(request.POST, request=request)
         if form.is_valid():
@@ -80,8 +77,10 @@ def make_participant(user, tour):
 def make_team_participant(request, form, tour):
     team = Team()
     participant = Participant()
-    team.teamleader = request.user
+    #if form.cleaned_data['title'] in Participant.objects.filter(tournament=tour):
+    #    messages.error(request, u'This teamname is already taken')
     team.title = form.cleaned_data['title']
+    team.teamleader = request.user
     team.save()
     for user in form.cleaned_data['members']:
         team.members.add(user)
@@ -106,8 +105,8 @@ def remove_participant(request, tournament_id=None):
             if request.user in team.members.all():
                 team.members.remove(request.user)
                 messages.success(request, u'You were removed from the team "' + team.title +'"')
-        if request.user.is_teamleader.all():
-            for team in request.user.is_teamleader.all():
+        if request.user.is_teamleader.filter(participant__tournament=tour):
+            for team in request.user.is_teamleader.filter(participant__tournament=tour):
                 #promt "are you sure you want to delete the team..?"
                 team.delete()
                 messages.success(request, u'You have deleted the team "' + team.title + '"')
