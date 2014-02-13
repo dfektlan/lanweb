@@ -28,11 +28,17 @@ dfekt LAN - Games
                             {% for t in value %}
                                 <tr onclick="document.location = '{% url 'tournament' t.id %}'">
                                     <td>{{ t.title }}</td>
+                                    {% if t.get_status_display == "CLOSED" %}
+                                        <td><a href="{% url 'tournament' t.id %}" class="btn btn-success btn-xs" role="button" disabled="disabled">Åpner snart..</a></td>
+                                    {% endif %}
                                     {% if t.get_status_display == "OPEN" %}
                                         <td><a href="{% url 'tournament' t.id %}" class="btn btn-success btn-xs" role="button">Påmelding</a></td>
                                     {% endif %}
-                                    {% if t.get_status_display == "IN PROGRESS" %}
-                                        <td><a href="{% url 'tournament' t.id %}" class="btn btn-primary btn-xs" role="button" disabled="disabled">In game</a></td>
+                                    {% if t.get_status_display == "ABOUT_TO_START" %}
+                                        <td><a href="{% url 'tournament' t.id %}" class="btn btn-primary btn-xs" role="button" disabled="disabled">Begynner straks..</a></td>
+                                    {% endif %}
+                                    {% if t.get_status_display == "IN_PROGRESS" %}
+                                        <td><a href="{% url 'tournament' t.id %}" class="btn btn-primary btn-xs" role="button" disabled="disabled">Pågår</a></td>
                                     {% endif %}
                                     {% if t.get_status_display == "FINISHED" %}
                                         <td><a href="{% url 'tournament' t.id %}" class="btn btn-primary btn-xs" role="button">Se resultat</a></td>
@@ -57,11 +63,17 @@ dfekt LAN - Games
                             {% for t in value %}
                                 <tr  onclick="document.location = '{% url 'tournament' t.id %}'">
                                     <td>{{ t.title }}</td>
+                                    {% if t.get_status_display == "CLOSED" %}
+                                        <td><a href="{% url 'tournament' t.id %}" class="btn btn-success btn-xs" role="button"disabled="disabled">Åpner snart..</a></td>
+                                    {% endif %}
                                     {% if t.get_status_display == "OPEN" %}
                                         <td><a href="{% url 'tournament' t.id %}" class="btn btn-success btn-xs" role="button">Påmelding</a></td>
                                     {% endif %}
-                                    {% if t.get_status_display == "IN PROGRESS" %}
-                                        <td><a href="{% url 'tournament' t.id %}" class="btn btn-primary btn-xs" role="button" disabled="disabled">In game</a></td>
+                                    {% if t.get_status_display == "ABOUT_TO_START" %}
+                                        <td><a href="{% url 'tournament' t.id %}" class="btn btn-primary btn-xs" role="button" disabled="disabled">Begynner straks..</a></td>
+                                    {% endif %}
+                                    {% if t.get_status_display == "IN_PROGRESS" %}
+                                        <td><a href="{% url 'tournament' t.id %}" class="btn btn-primary btn-xs" role="button" disabled="disabled">Pågår</a></td>
                                     {% endif %}
                                     {% if t.get_status_display == "FINISHED" %}
                                         <td><a href="{% url 'tournament' t.id %}" class="btn btn-primary btn-xs" role="button">Se resultat</a></td>

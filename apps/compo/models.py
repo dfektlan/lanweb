@@ -3,8 +3,8 @@ from django.db import models
 from apps.event.models import LanEvent
 from django.conf import settings
 from django.utils.translation import ugettext as _
-import datetime
-from django.utils.timezone import now
+from django.utils import timezone
+from datetime import datetime
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -20,9 +20,11 @@ class Game(models.Model):
 
 class Tournament(models.Model):
     stat = (
-        (0, u'OPEN'),
-        (1, u'IN PROGRESS'),
-        (2, u'FINISHED')
+        (0, u'CLOSED'),
+        (1, u'OPEN'),
+        (2, u'ABOUT_TO_START'),
+        (3, u'IN_PROGRESS'),
+        (4, u'FINISHED')
     )
 
     title = models.CharField(_(u'Tittel'), max_length=30)
@@ -41,12 +43,24 @@ class Tournament(models.Model):
     challonge_url = models.CharField(_(u'Challonge URL'), max_length=30)
 
     def set_status(self):
-        if self.reg_start > now():
+        print "--------------------------------timezone.now()"
+        print timezone.now()
+        print "--------------------------------datetime.now()"
+        print datetime.now()
+        print "--------------------------------timezone.localtime(timezone.now())"
+        print timezone.localtime(timezone.now())
+        print "------------"
+        now = timezone.localtime(timezone.now())
+        if self.reg_start > now: # registrering ikke åpnet
             self.status = 0
-        if self.reg_stop > now() or self.start_time > now():
+        if self.reg_start < now: # registrering åpnet
             self.status = 1
-        if self.stop_time > now():
+        if self.reg_stop < now and self.start_time > now: # registrering lukket og turnering ikke startet
             self.status = 2
+        if self.reg_stop < now and self.start_time < now: # registrering lukket og turnering startet
+            self.status = 3
+        if self.stop_time < now:
+            self.status = 4
         self.save()
         print "Status set"
         print self.status

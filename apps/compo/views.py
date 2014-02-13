@@ -17,13 +17,15 @@ def overview(request):
     tournament_dict = {}
     for g in all_games:
         tournament_dict[g] = all_tournaments.filter(game=g)
+        for t in tournament_dict[g]:
+            t.set_status()
     return render(request, 'compo/overview.html', {'tournaments':tournament_dict, 'all_games':all_games})
 
 
 def tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
-    #tour.set_status()
     participants = tour.get_participants()
+    #status = tour.get_status()
     is_participant = has_participant(tour, request.user)
     #should move is_teamleader to SiteUser PS. verdens styggeste if-setning?
     is_teamleader = False

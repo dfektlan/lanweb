@@ -12,18 +12,22 @@ dfekt LAN - Tournament
 {% block content %}
     <div class="col-md-9">
         <h1>{{ tournament.title }}</h1>
-        {% if tournament.get_status_display == "FINISHED" or tournament.get_status_display == "IN PROGRESS" %}
+        {% if tournament.get_status_display == "FINISHED" or tournament.get_status_display == "IN_PROGRESS" %}
             <iframe id="challonge" src="http://challonge.com/{{ tournament.challonge_url }}/module?theme=1&show_final_results=1" width="100%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
         {% endif %}
         <div class="col-md-8">
-            {% if tournament.get_status_display == "OPEN" %}
+            {% if tournament.get_status_display == "CLOSED" %}
+                <span class="badge pull-right" class="label label-default">Registration starts in {{ tournament.start_time|timeuntil }}</span>
+            {% elif tournament.get_status_display == "OPEN" or tournament.get_status_display == "ABOUT_TO_START" %}
                 <span class="badge pull-right" class="label label-default">Tournament starts in {{ tournament.start_time|timeuntil }}</span>
             {% endif %}
             <h4>Beskrivelse</h4>
             <p>{{ tournament.description }}</p>
         </div>
         <div class="col-md-3">
-            {% if tournament.get_status_display == "OPEN" %}
+            {% if tournament.get_status_display == "CLOSED" %}
+                <button type="button" class="btn btn-primary btn-lg btn-block" disabled="disabled">Meld deg på</button>
+            {% elif tournament.get_status_display == "OPEN" %}
                 {% if not user.is_authenticated %}
                     <a href="{% url 'check_user' tournament.id %}">
                         <button type="button" class="btn btn-primary btn-lg btn-block">Meld deg på</button>
