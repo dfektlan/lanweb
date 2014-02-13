@@ -22,20 +22,19 @@ def overview(request):
 def tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     participants = tour.get_participants()
-    #status = tour.get_status()
     is_participant = has_participant(tour, request.user)
     #should move is_teamleader to SiteUser PS. verdens styggeste if-setning?
     is_teamleader = False
     if request.user.is_authenticated() and not request.user.is_anonymous() and tour.use_teams:
                 is_teamleader = request.user.is_teamleader.filter(participant__tournament=tour)
     if request.POST:
-        form = RegisterTeamForm(request.POST, request=request)
+        form = RegisterTeamForm(request.POST, tour=tour, request=request)
         if form.is_valid():
             #intention is to just say form.save() here and remove make_team_participant()
             make_team_participant(request, form, tour)
             return redirect('tournament', tournament_id)
     else:
-        form = RegisterTeamForm(request=request)
+        form = RegisterTeamForm(tour=tour, request=request)
     return render(request, 'compo/tournament.html', {'tournament': tour, 'participants': participants,
                                                      'form': form, 'is_participant': is_participant,
                                                      'is_teamleader': is_teamleader})
@@ -77,6 +76,7 @@ def make_participant(user, tour):
 def make_team_participant(request, form, tour):
     team = Team()
     participant = Participant()
+    # Unike teamtitle? not working.. -_-
     #if form.cleaned_data['title'] in Participant.objects.filter(tournament=tour):
     #    messages.error(request, u'This teamname is already taken')
     team.title = form.cleaned_data['title']

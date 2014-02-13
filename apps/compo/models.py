@@ -43,14 +43,6 @@ class Tournament(models.Model):
     challonge_url = models.CharField(_(u'Challonge URL'), max_length=30)
 
     def set_status(self):
-        print "--------------------------------timezone.now()"
-        print timezone.now()
-        print "--------------------------------datetime.now()"
-        print datetime.now()
-        print "--------------------------------timezone.localtime(timezone.now())"
-        print timezone.localtime(timezone.now())
-        print "------------"
-        now = timezone.localtime(timezone.now())
         if self.reg_start > now: # registrering ikke åpnet
             self.status = 0
         if self.reg_start < now: # registrering åpnet
@@ -62,8 +54,6 @@ class Tournament(models.Model):
         if self.stop_time < now:
             self.status = 4
         self.save()
-        print "Status set"
-        print self.status
 
     def get_participants(self):
         participants = Participant.objects.filter(tournament=self)
