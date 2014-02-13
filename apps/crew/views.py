@@ -79,7 +79,7 @@ def new_application(request, application_id=None):
         return redirect(user_overview)
     else:
         form = ApplicationForm(instance=application)
-    return render(request, 'crew/new_application.html', {'form': form,})
+    return render(request, 'crew/new_application.html', {'form': form, })
 
 
 def del_application(request, application_id=None):
