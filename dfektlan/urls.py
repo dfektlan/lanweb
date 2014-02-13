@@ -22,6 +22,8 @@ urlpatterns = patterns('',
     url(r'^auth/',  include('apps.authentication.urls')),
     url(r'^pos/',  include('apps.pos.urls')),
     url(r'^compo/',  include('apps.compo.urls')),
+    url(r'^tv/',  include('apps.tv.urls')),
+
 )
 #Fix for flatpages urls
 urlpatterns += patterns('django.contrib.flatpages.views',

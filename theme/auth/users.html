@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load gravatar_url_resolver %}
+
+
+{% block title%}
+Brukere
+{% endblock title %}
+
+
+{% block content %}
+    <div class="col-md-9">
+        <h1>Brukere</h1>
+            <table class="table table-bordered table-responsive">
+                <tr>
+                    <th>#</th>
+                    <th>Navn</th>
+                    <th>Epost</th>
+                    <th>Telefon</th>
+                </tr>
+                {% for user in u %}
+                    <tr onclick="document.location = '{% url 'profile' user.id %}'">
+                        {% get_gravatar_url user 30 as gravatar_url %}
+                        <td><img src="{{ gravatar_url }}" width="30"></td>
+                        <td>{{ user.first_name }} {{ user.last_name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.phone }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+    </div>
+{% endblock content %}

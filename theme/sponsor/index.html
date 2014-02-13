@@ -11,7 +11,7 @@ Sponsorer
         <h1>Sponsorer</h1>
         {% for sponsor in sponsors %}
             <div class="jumobotron">
-                <a href="{{ sponsor.url }}"><img src="{{ sponsor.logo.url }}" width="100%"></a>
+                <a href="{{ sponsor.url }}" target="_blank" ><img src="{{ sponsor.image }}" width="100%"></a>
                 <p>{{ sponsor.description|dfekt_markdown }}</p>
             </div>
         {% endfor %} 

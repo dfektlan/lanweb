@@ -1,11 +1,13 @@
 from apps.crew.models import Application, CrewMember, CrewTeam
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
-from forms import ApplicationAdminForm, ApplicationForm, RegisterRFIDForm
+from forms import ApplicationAdminForm, ApplicationForm, RegisterRFIDForm, CreditToCrewForm
 from django.contrib import messages
 from django.http import HttpResponse
 from apps.event.models import LanEvent
 from apps.userprofile.models import SiteUser
+from apps.userprofile.views import profile
+
 
 LATEST_EVENT = LanEvent.objects.filter(current=True)[0]
 
@@ -77,7 +79,19 @@ def new_application(request, application_id=None):
         return redirect(user_overview)
     else:
         form = ApplicationForm(instance=application)
-    return render(request, 'crew/new_application.html', {'form': form,})
+    return render(request, 'crew/new_application.html', {'form': form, })
+
+
+def del_application(request, application_id=None):
+    app = get_object_or_404(Application, pk=application_id)
+
+    if app.user == request.user:
+        app.delete()
+        messages.success(request, u'The application has been deleted')
+    else:
+        messages.error(request, u'This is not your application, you cannot delete it')
+    return redirect(profile)
+
 
 @login_required
 def crew(request):
@@ -97,22 +111,42 @@ def register_rfid(request):
     if request.POST:
         form = RegisterRFIDForm(request.POST)
         if form.is_valid():
-            print "yay"
-            print form.cleaned_data
-            user = SiteUser.objects.filter(nickname=form.cleaned_data['username'])[0]
-            user.rfid = form.cleaned_data['rfid']
-            user.save()
-            messages.success(request, "RFID successfully updated")
+            user = form.cleaned_data['username']
+            if SiteUser.objects.filter(username=user.lower()).count() != 0:
+                user = SiteUser.objects.get(username=user.lower())
+                user.rfid = form.cleaned_data['rfid']
+                user.save()
+                messages.success(request, "RFID successfully updated")
+            else:
+                messages.error(request, "RFID unsuccessfully updated, %s does not exist." % user)
             return redirect(register_rfid)
         else:
-            print "ney"
-            print form.cleaned_data
-            #messages.error(request, "RFID unsuccessfully updated")
-            #return redirect(register_rfid)
+            messages.error(request, "RFID unsuccessfully updated")
+            return redirect(register_rfid)
     else:
         form = RegisterRFIDForm()
 
     return render(request, 'crew/register_rfid.html', {'form': form, })
+
+@login_required
+@user_passes_test(lambda u: u.is_chief())
+def credit(request):
+    if request.POST:
+        form = CreditToCrewForm(request.POST)
+        if form.is_valid():
+            if form.cleaned_data['all']:
+                crewmembers = CrewMember.objects.filter(event=LATEST_EVENT)
+                for member in crewmembers:
+                    member.add_credit(form.cleaned_data['credit'])
+                messages.success(request, "The amount %s was added to every user for event %s" % (form.cleaned_data['credit'], LATEST_EVENT.name))
+            else:
+                crewmember = form.cleaned_data['crewmember']
+                crewmember.add_credit(form.cleaned_data['credit'])
+                messages.success(request, "The amount %s was added to %s for event %s" % (form.cleaned_data['credit'], crewmember.__unicode__(), LATEST_EVENT.name))
+    else:
+        form = CreditToCrewForm()
+
+    return render(request, 'crew/credit.html', {'form': form})
 
 
 def add_to_crewteam(aid):

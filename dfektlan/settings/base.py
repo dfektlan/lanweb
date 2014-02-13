@@ -137,9 +137,12 @@ INSTALLED_APPS = (
     'apps.news',
     'apps.pos',
     'apps.compo',
+    'apps.tv',
 )
 
 AUTH_USER_MODEL = 'userprofile.SiteUser'
+LOGIN_URL = '/auth/login/'
+LOGIN_REDIRECT_URL = '/auth/login/'
 
 
 

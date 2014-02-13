@@ -23,6 +23,10 @@ class CrewMember(models.Model):
     def __unicode__(self):
         return "Crew: " + self.user.first_name + " " + self.user.last_name
 
+    def add_credit(self, cred):
+        self.credit += cred
+        self.save()
+
 
 class CrewTeam(models.Model):
     crew = models.ForeignKey(Crew, null=False)

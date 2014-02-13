@@ -44,6 +44,7 @@
                 <ul class="nav nav-pills nav-stacked">
                     {% if user.is_superuser %}
                         <li><a href="{% url 'admin:index' %}">Admin</a></li>
+                        <li><a href="{% url 'users' %}">Brukere</a></li>
                         <hr>
                     {% endif %}
                     {% if user.is_chief %}
@@ -69,36 +70,37 @@
             <hr>
         </div>
 
-        {% if messages %}
-            {% for message in messages %}
-                <div class="col-md-9">
-                    <div class="alert alert-block fade in alert-{{ message.tags }}">
-                        <a class="close" data-dismiss="alert" href="#">×</a>
-                        <p>{{ message }}</p>
-                    </div>
-                </div>
-            {% endfor %}
-        {% endif %}
+                   {% if messages %}
+                {% for message in messages %}
+                        <div class="col-md-9">
+                            <div class="alert alert-block fade in {% if message.tags %}
+                        {% if message.tags == 'error' %} alert-danger {% else %}
+                        alert-{{ message.tags }}{% endif %}{% endif %}">
+                                <a class="close" data-dismiss="alert" href="#">×</a>
+                                <p>{{ message }}</p>
+                            </div>
+                        </div>
+                {% endfor %}
+            {% endif %}
 
 
         {% block content %}
         {% endblock content %}
+    
+    <div class="container">
 
+      <hr>
 
-        <div class="container">
+      <footer>
+        <div class="row">
+          <div class="col-lg-12">
+            <p>Copyright &copy; dfekt LAN {% now "Y" %} | Laget av <a href="http://kradalby.no" target="_blank" >Kristoffer Dalby</a> og <a href="http://github.com/thormartin91" target="_blank" >Thor Martin Abrahamsen</a></p>
+            <p>Funnet en feil på siden? Send en mail til <a href="mailto:kradalby@dfektlan.no">kradalby@dfektlan.no</a></p>
+          </div>
+        </div>
+      </footer>
 
-            <hr>
-
-            <footer>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <p>Copyright &copy; dfekt LAN 2013 | Laget av <a href="http://kradalby.no">Kristoffer Dalby</a> og <a href="http://github.com/thormartin91">Thor Martin Abrahamsen</a></p>
-                        <p>Funnet en feil på siden? Send en mail til <a href="mailto:kradalby@dfektlan.no">kradalby@dfektlan.no</a></p>
-                    </div>
-                </div>
-            </footer>
-
-        </div><!-- /.container -->
+    </div><!-- /.container -->
 
         <!-- JavaScript -->
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>

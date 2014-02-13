@@ -9,4 +9,5 @@ urlpatterns = patterns('apps.authentication.views',
         url(r'^verify/(\w+)/$', 'verify'),
         url(r'^recover/$', 'recover', name='auth_recover'),
         url(r'^set_password/(\w+)/$', 'set_password', name='auth_set_password'),
+        url(r'^users/$', 'users', name='users'),
 )
