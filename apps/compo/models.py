@@ -35,7 +35,7 @@ class Tournament(models.Model):
     use_teams = models.BooleanField(_(u'Bruk lag?'), default=False)
     max_pr_team = models.IntegerField(_(u'Max pr. lag (uten lagleder)'))
     reg_start = models.DateTimeField(_(u'Påmeldings- start'))
-    reg_stop = models.DateTimeField(_(u'Påmeldings- slutt'))
+    reg_stop = models.DateTimeField(_(u'Påmeldings- slutt'))#, validators=[MinValueValidator(reg_start)])
     start_time = models.DateTimeField(_(u'Turnerings- start'))
     stop_time = models.DateTimeField(_(u'Turnerings- slutt'))
     event = models.ForeignKey(LanEvent)
@@ -43,6 +43,7 @@ class Tournament(models.Model):
     challonge_url = models.CharField(_(u'Challonge URL'), max_length=30)
 
     def set_status(self):
+        now = timezone.localtime(timezone.now())
         if self.reg_start > now: # registrering ikke åpnet
             self.status = 0
         if self.reg_start < now: # registrering åpnet
@@ -86,7 +87,6 @@ class Participant(models.Model):
 
     def __unicode__(self):
         return self.user.nickname if self.user else self.team.title
-
 
 
 #Validators for admin (example)
