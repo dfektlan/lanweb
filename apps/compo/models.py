@@ -3,8 +3,8 @@ from django.db import models
 from apps.event.models import LanEvent
 from django.conf import settings
 from django.utils.translation import ugettext as _
-import datetime
-from django.utils.timezone import now
+from django.utils import timezone
+from datetime import datetime
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -20,36 +20,41 @@ class Game(models.Model):
 
 class Tournament(models.Model):
     stat = (
-        (0, u'OPEN'),
-        (1, u'IN PROGRESS'),
-        (2, u'FINISHED')
+        (0, u'CLOSED'),
+        (1, u'OPEN'),
+        (2, u'ABOUT_TO_START'),
+        (3, u'IN_PROGRESS'),
+        (4, u'FINISHED')
     )
 
     title = models.CharField(_(u'Tittel'), max_length=30)
     description = models.TextField(_(u'Beskrivelse'))
-    open = models.BooleanField(_(u'påmelding'), default=False)
     status = models.SmallIntegerField(_(u'Status'), choices=stat, default=0)
-    use_teams = models.BooleanField(_(u'Lag?'), default=False)
+    open = models.BooleanField(_(u'Påmelding kreves?'), default=False)
     max_participants = models.IntegerField(_(u'Max deltagere'))
+    use_teams = models.BooleanField(_(u'Bruk lag?'), default=False)
     max_pr_team = models.IntegerField(_(u'Max pr. lag (uten lagleder)'))
-    reg_start = models.DateTimeField(_(u'Påmeldingsstart'))
-    reg_stop = models.DateTimeField(_(u'Påmeldingsslutt'))
-    start_time = models.DateTimeField(_(u'Starttid'))
-    stop_time = models.DateTimeField(_(u'Sluttid'))
+    reg_start = models.DateTimeField(_(u'Påmeldings- start'))
+    reg_stop = models.DateTimeField(_(u'Påmeldings- slutt'))#, validators=[MinValueValidator(reg_start)])
+    start_time = models.DateTimeField(_(u'Turnerings- start'))
+    stop_time = models.DateTimeField(_(u'Turnerings- slutt'))
     event = models.ForeignKey(LanEvent)
     game = models.ForeignKey(Game)
     challonge_url = models.CharField(_(u'Challonge URL'), max_length=30)
 
     def set_status(self):
-        if self.reg_start > now():
+        now = timezone.localtime(timezone.now())
+        if self.reg_start > now: # registrering ikke åpnet
             self.status = 0
-        if self.reg_stop > now() or self.start_time > now():
+        if self.reg_start < now: # registrering åpnet
             self.status = 1
-        if self.stop_time > now():
+        if self.reg_stop < now and self.start_time > now: # registrering lukket og turnering ikke startet
             self.status = 2
+        if self.reg_stop < now and self.start_time < now: # registrering lukket og turnering startet
+            self.status = 3
+        if self.stop_time < now:
+            self.status = 4
         self.save()
-        print "Status set"
-        print self.status
 
     def get_participants(self):
         participants = Participant.objects.filter(tournament=self)
@@ -82,7 +87,6 @@ class Participant(models.Model):
 
     def __unicode__(self):
         return self.user.nickname if self.user else self.team.title
-
 
 
 #Validators for admin (example)
