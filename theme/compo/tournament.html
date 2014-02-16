@@ -60,10 +60,10 @@ dfekt LAN - Tournament
                                 </div>
                                 <div id="{{ team.id }}" class="panel-collapse collapse">
                                     <div class="panel-body">
-                                        <strong>{{ team.teamleader.nickname }}</strong>
+                                        <strong><a class="text-info" href="{% url 'profile' team.teamleader.id %}">{{ team.teamleader.nickname }}</a></strong>
                                         <ul class="list-unstyled">
                                             {% for member in team.members.all %}
-                                                <li data-toggle="tooltip" title="{{ member }}">{{ member.nickname }}</li>
+                                                <li data-toggle="tooltip" title="{{ member }}"><a class="text-info" href="{% url 'profile' user.id %}">{{ member.nickname }}</a></li>
                                             {% endfor %}
                                         </ul>
                                     </div>
