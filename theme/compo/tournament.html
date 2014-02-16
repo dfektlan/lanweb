@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block include %}
+<script type="text/javascript">$('#register').on('shown.bs.modal', function() { $("#id_members").chosen({max_selected_options: {{ tournament.max_pr_team }} }); });</script>
+{% endblock %}
+
+{% block title %}
+dfekt LAN - Tournament
+{% endblock title %}
+
+{% block content %}
+    <div class="col-md-9">
+        <h1>{{ tournament.title }}</h1>
+        {% if tournament.get_status_display == "FINISHED" or tournament.get_status_display == "IN_PROGRESS" %}
+            <iframe id="challonge" src="http://challonge.com/{{ tournament.challonge_url }}/module?theme=1&show_final_results=1&" width="100%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
+        {% endif %}
+        <div class="col-md-8">
+            {% if tournament.get_status_display == "CLOSED" %}
+                <span class="badge pull-right" class="label label-default">Registration starts in {{ tournament.start_time|timeuntil }}</span>
+            {% elif tournament.get_status_display == "OPEN" or tournament.get_status_display == "ABOUT_TO_START" %}
+                <span class="badge pull-right" class="label label-default">Tournament starts in {{ tournament.start_time|timeuntil }}</span>
+            {% endif %}
+            <h4>Beskrivelse</h4>
+            <p>{{ tournament.description }}</p>
+        </div>
+        <div class="col-md-3">
+            {% if tournament.get_status_display == "CLOSED" %}
+                <button type="button" class="btn btn-primary btn-lg btn-block" disabled="disabled">Meld deg på</button>
+            {% elif tournament.get_status_display == "OPEN" %}
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'check_user' tournament.id %}">
+                        <button type="button" class="btn btn-primary btn-lg btn-block">Meld deg på</button>
+                    </a>
+                {% elif is_participant or is_teamleader %}
+                    <a href="{% url 'remove_participant' tournament.id %}">
+                        <button type="button" class="btn btn-danger btn-lg btn-block">Meld deg av</button>
+                    </a>
+                {% elif tournament.use_teams %}
+                        <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#register">Meld deg på</button>
+                {% else %}
+                    <a href="{% url 'register_to_tournament' tournament.id %}">
+                        <button type="button" class="btn btn-primary btn-lg btn-block">Meld deg på</button>
+                    </a>
+                {% endif %}
+
+            {% endif %}
+            <h4>Deltagere</h4>
+                {% if tournament.use_teams %}
+                    {% for team in participants %}
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#{{ team.id }}">
+                                            {{ team }}
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="{{ team.id }}" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <strong>{{ team.teamleader.nickname }}</strong>
+                                        <ul class="list-unstyled">
+                                            {% for member in team.members.all %}
+                                                <li data-toggle="tooltip" title="{{ member }}">{{ member.nickname }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <ul>
+                        {% for user in participants %}
+                            <li data-toggle="tooltip" title="{{ user }}"><a class="text-info" href="{% url 'profile' user.id %}">{{ user.nickname }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+        </div>
+    </div>
+
+<!-- register-modal -->
+<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="registerModalLabel">Påmelding</h4>
+      </div>
+      <div class="modal-body">
+          Registrer ditt lag!
+          Skriv inn et lagnavn, og begynn å skrive inn deltagere.
+          Maksimalt antall deltagere til denne turneringen er {{ tournament.max_pr_team }} + lagleder (deg).
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+      </div>
+      <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Meld på!</button>
+        </form>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
