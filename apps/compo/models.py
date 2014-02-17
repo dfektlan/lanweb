@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from gi.overrides.keysyms import blank
 from apps.event.models import LanEvent
 from django.conf import settings
 from django.utils.translation import ugettext as _
@@ -32,7 +31,7 @@ class Tournament(models.Model):
     description = models.TextField(_(u'Beskrivelse'))
     status = models.SmallIntegerField(_(u'Status'), choices=stat, default=0)
     open = models.BooleanField(_(u'Påmelding kreves?'), default=False)
-    max_participants = models.IntegerField(_(u'Max deltagere'), blank=True, default=blank)
+    max_participants = models.IntegerField(_(u'Max deltagere'), blank=True, default=0)
     use_teams = models.BooleanField(_(u'Bruk lag?'), default=False)
     max_pr_team = models.IntegerField(_(u'Max pr. lag (uten lagleder)'))
     reg_start = models.DateTimeField(_(u'Påmeldings- start'))
