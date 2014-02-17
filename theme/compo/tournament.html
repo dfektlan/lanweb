@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load markup_tags %}
 
 {% block include %}
 <script type="text/javascript">$('#register').on('shown.bs.modal', function() { $("#id_members").chosen({max_selected_options: {{ tournament.max_pr_team }} }); });</script>
@@ -19,10 +20,10 @@ dfekt LAN - Tournament
             {% if tournament.get_status_display == "CLOSED" %}
                 <span class="badge pull-right" class="label label-default">Registration starts in {{ tournament.start_time|timeuntil }}</span>
             {% elif tournament.get_status_display == "OPEN" or tournament.get_status_display == "ABOUT_TO_START" %}
-                <span class="badge pull-right" class="label label-default">Tournament starts in {{ tournament.start_time|timeuntil }}</span>
+                <span class="badge pull-right" class="label label-default">Registration closes in {{ tournament.reg_stop|timeuntil }}</span>
             {% endif %}
             <h4>Beskrivelse</h4>
-            <p>{{ tournament.description }}</p>
+            <p>{{ tournament.description|dfekt_markdown }}</p>
         </div>
         <div class="col-md-3">
             {% if tournament.get_status_display == "CLOSED" %}
@@ -59,10 +60,10 @@ dfekt LAN - Tournament
                                 </div>
                                 <div id="{{ team.id }}" class="panel-collapse collapse">
                                     <div class="panel-body">
-                                        <strong>{{ team.teamleader.nickname }}</strong>
+                                        <strong><a class="text-info" href="{% url 'profile' team.teamleader.id %}">{{ team.teamleader.nickname }}</a></strong>
                                         <ul class="list-unstyled">
                                             {% for member in team.members.all %}
-                                                <li data-toggle="tooltip" title="{{ member }}">{{ member.nickname }}</li>
+                                                <li data-toggle="tooltip" title="{{ member }}"><a class="text-info" href="{% url 'profile' user.id %}">{{ member.nickname }}</a></li>
                                             {% endfor %}
                                         </ul>
                                     </div>
