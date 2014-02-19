@@ -20,8 +20,8 @@ class Game(models.Model):
 
 class Tournament(models.Model):
     stat = (
-        (0, u'CLOSED'),
-        (1, u'OPEN'),
+        (0, u'OPEN'),
+        (1, u'CLOSED'),
         (2, u'ABOUT_TO_START'),
         (3, u'IN_PROGRESS'),
         (4, u'FINISHED')
@@ -42,12 +42,15 @@ class Tournament(models.Model):
     game = models.ForeignKey(Game)
     challonge_url = models.CharField(_(u'Challonge URL'), max_length=30)
 
+    class Meta:
+        ordering = ['status']
+
     def set_status(self):
         now = timezone.localtime(timezone.now())
         if self.reg_start > now: # registrering ikke åpnet
-            self.status = 0
-        if self.reg_start < now: # registrering åpnet
             self.status = 1
+        if self.reg_start < now: # registrering åpnet
+            self.status = 0
         if self.reg_stop < now and self.start_time > now: # registrering lukket og turnering ikke startet
             self.status = 2
         if self.reg_stop < now and self.start_time < now: # registrering lukket og turnering startet
