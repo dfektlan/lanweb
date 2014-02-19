@@ -148,6 +148,12 @@ def credit(request):
 
     return render(request, 'crew/credit.html', {'form': form})
 
+@login_required
+@user_passes_test(lambda u: u.is_chief())
+def credit_overview(request):
+    crewteams = CrewTeam.objects.all()
+    return render(request, 'crew/credit_overview.html', {'crewteams': crewteams})
+
 
 def add_to_crewteam(aid):
     user = Application.objects.get(pk=aid).user
