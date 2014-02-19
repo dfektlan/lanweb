@@ -8,9 +8,11 @@ from forms import RegisterTeamForm
 
 LATEST_EVENT = LanEvent.objects.filter(current=True)[0]
 
+
 def overview(request):
     all_games = Game.objects.all()
     all_tournaments = Tournament.objects.filter(event=LATEST_EVENT)
+    all_tournaments.order_by('status')
     tournament_dict = {}
     for g in all_games:
         tournament_dict[g] = all_tournaments.filter(game=g)

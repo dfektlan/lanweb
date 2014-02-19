@@ -18,9 +18,11 @@ dfekt LAN - Tournament
         {% endif %}
         <div class="col-md-8">
             {% if tournament.get_status_display == "CLOSED" %}
-                <span class="badge pull-right" class="label label-default">Registration starts in {{ tournament.start_time|timeuntil }}</span>
-            {% elif tournament.get_status_display == "OPEN" or tournament.get_status_display == "ABOUT_TO_START" %}
+                <span class="badge pull-right" class="label label-default">Registration starts in {{ tournament.reg_start|timeuntil }}</span>
+            {% elif tournament.get_status_display == "OPEN"%}
                 <span class="badge pull-right" class="label label-default">Registration closes in {{ tournament.reg_stop|timeuntil }}</span>
+            {% elif tournament.get_status_display == "ABOUT_TO_START" %}
+                <span class="badge pull-right" class="label label-default">Tournament starts in  {{ tournament.start_time|timeuntil }}</span>
             {% endif %}
             <h4>Beskrivelse</h4>
             <p>{{ tournament.description|dfekt_markdown }}</p>
@@ -63,7 +65,7 @@ dfekt LAN - Tournament
                                         <strong><a class="text-info" href="{% url 'profile' team.teamleader.id %}">{{ team.teamleader.nickname }}</a></strong>
                                         <ul class="list-unstyled">
                                             {% for member in team.members.all %}
-                                                <li data-toggle="tooltip" title="{{ member }}"><a class="text-info" href="{% url 'profile' user.id %}">{{ member.nickname }}</a></li>
+                                                <li data-toggle="tooltip" title="{{ member }}"><a class="text-info" href="{% url 'profile' member.id %}">{{ member.nickname }}</a></li>
                                             {% endfor %}
                                         </ul>
                                     </div>
