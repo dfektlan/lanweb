@@ -129,7 +129,6 @@ INSTALLED_APPS = (
     
     #dfektLAN apps
     'apps.authentication',
-    'apps.logistic',
     'apps.userprofile',
     'apps.crew',
     'apps.event',
