@@ -145,6 +145,9 @@ LOGIN_URL = '/auth/login/'
 LOGIN_REDIRECT_URL = '/auth/login/'
 
 
+API_LIMIT_PER_PAGE = 0
+
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
