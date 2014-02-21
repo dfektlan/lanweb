@@ -129,7 +129,6 @@ INSTALLED_APPS = (
     
     #dfektLAN apps
     'apps.authentication',
-    'apps.logistic',
     'apps.userprofile',
     'apps.crew',
     'apps.event',
@@ -138,6 +137,8 @@ INSTALLED_APPS = (
     'apps.pos',
     'apps.compo',
     'apps.tv',
+    'apps.logi',
+
 )
 
 AUTH_USER_MODEL = 'userprofile.SiteUser'

@@ -8,32 +8,23 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'ItemGroup'
-        db.create_table(u'logistic_itemgroup', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=200)),
-        ))
-        db.send_create_signal(u'logistic', ['ItemGroup'])
-
         # Adding model 'Item'
-        db.create_table(u'logistic_item', (
+        db.create_table(u'logi_item', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('itemgroup', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['logistic.ItemGroup'])),
-            ('brand', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('product_model', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('description', self.gf('django.db.models.fields.CharField')(max_length=30)),
-            ('holder', self.gf('django.db.models.fields.related.ForeignKey')(default=None, related_name='Holder', null=True, blank=True, to=orm['userprofile.SiteUser'])),
-            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=150, blank=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=60)),
+            ('quantity', self.gf('django.db.models.fields.IntegerField')()),
+            ('location', self.gf('django.db.models.fields.CharField')(max_length=40)),
+            ('box', self.gf('django.db.models.fields.CharField')(max_length=40)),
+            ('description', self.gf('django.db.models.fields.TextField')()),
+            ('status', self.gf('django.db.models.fields.SmallIntegerField')(default=0)),
+            ('owner', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['crew.Crew'])),
         ))
-        db.send_create_signal(u'logistic', ['Item'])
+        db.send_create_signal(u'logi', ['Item'])
 
 
     def backwards(self, orm):
-        # Deleting model 'ItemGroup'
-        db.delete_table(u'logistic_itemgroup')
-
         # Deleting model 'Item'
-        db.delete_table(u'logistic_item')
+        db.delete_table(u'logi_item')
 
 
     models = {
@@ -57,20 +48,24 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'logistic.item': {
-            'Meta': {'object_name': 'Item'},
-            'brand': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'description': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'holder': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'related_name': "'Holder'", 'null': 'True', 'blank': 'True', 'to': u"orm['userprofile.SiteUser']"}),
+        u'crew.crew': {
+            'Meta': {'object_name': 'Crew'},
+            'chief': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['userprofile.SiteUser']", 'null': 'True', 'blank': 'True'}),
+            'date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'description': ('django.db.models.fields.TextField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '150', 'blank': 'True'}),
-            'itemgroup': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['logistic.ItemGroup']"}),
-            'product_model': ('django.db.models.fields.CharField', [], {'max_length': '200'})
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '30'})
         },
-        u'logistic.itemgroup': {
-            'Meta': {'object_name': 'ItemGroup'},
+        u'logi.item': {
+            'Meta': {'object_name': 'Item'},
+            'box': ('django.db.models.fields.CharField', [], {'max_length': '40'}),
+            'description': ('django.db.models.fields.TextField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '200'})
+            'location': ('django.db.models.fields.CharField', [], {'max_length': '40'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '60'}),
+            'owner': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['crew.Crew']"}),
+            'quantity': ('django.db.models.fields.IntegerField', [], {}),
+            'status': ('django.db.models.fields.SmallIntegerField', [], {'default': '0'})
         },
         u'userprofile.siteuser': {
             'Meta': {'object_name': 'SiteUser'},
@@ -91,9 +86,9 @@ class Migration(SchemaMigration):
             'nickname': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
             'phone': ('django.db.models.fields.CharField', [], {'max_length': '16'}),
-            'rfid': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'skype': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
-            'steam': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
+            'rfid': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '100', 'blank': 'True'}),
+            'skype': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
+            'steam': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'town': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'}),
@@ -101,4 +96,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['logistic']
+    complete_apps = ['logi']
