@@ -137,6 +137,8 @@ INSTALLED_APPS = (
     'apps.pos',
     'apps.compo',
     'apps.tv',
+    'apps.logi',
+
 )
 
 AUTH_USER_MODEL = 'userprofile.SiteUser'
