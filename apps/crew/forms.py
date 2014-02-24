@@ -32,7 +32,7 @@ class RegisterRFIDForm(forms.Form):
 
 
 class CreditToCrewForm(forms.Form):
-    crewmember = forms.ModelChoiceField(CrewMember.objects.all(), label="Crewmedlem")
+    crewmember = forms.ModelChoiceField(CrewMember.objects.all(), label="Crewmedlem", required=False)
     all = forms.BooleanField(label="Alle crew medlemmer?", required=False)
     credit = forms.IntegerField(label="Kredit")
 
