@@ -69,6 +69,8 @@ def register(request):
                 user.set_password(cleaned['password'])
                 user.is_active = False
                 user.save()
+                user.setNameNotRetard()
+
 
                 # Create the registration token
                 token = uuid.uuid4().hex

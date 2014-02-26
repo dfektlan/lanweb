@@ -139,10 +139,17 @@ def credit(request):
                 for member in crewmembers:
                     member.add_credit(form.cleaned_data['credit'])
                 messages.success(request, "The amount %s was added to every user for event %s" % (form.cleaned_data['credit'], LATEST_EVENT.name))
-            else:
-                crewmember = form.cleaned_data['crewmember']
-                crewmember.add_credit(form.cleaned_data['credit'])
-                messages.success(request, "The amount %s was added to %s for event %s" % (form.cleaned_data['credit'], crewmember.__unicode__(), LATEST_EVENT.name))
+            elif form.cleaned_data['crewmember']:
+                for member in form.cleaned_data['crewmember']:
+                    member.add_credit(form.cleaned_data['credit'])
+
+                messages.success(request, "The amount %s was added to %s for event %s" % (form.cleaned_data['credit'], "selected users", LATEST_EVENT.name))
+            elif form.cleaned_data['crew']:
+                for c in form.cleaned_data['crew']:
+                    for member in c.members.all():
+                        member.add_credit(form.cleaned_data['credit'])
+                messages.success(request, "The amount %s was added to %s for event %s" % (form.cleaned_data['credit'], "selected users", LATEST_EVENT.name))
+
     else:
         form = CreditToCrewForm()
 

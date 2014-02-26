@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
+{% block include %}
+<script type="text/javascript">
+    $("select[name='crewmember']").chosen()
+    $("select[name='crew']").chosen()
+
+</script>
+{% endblock %}
 
 {% block title%}
-Kredit
+dfekt LAN - Gi Gatepoeng
 {% endblock title %}
 
 
@@ -21,11 +28,14 @@ Kredit
         $(document).ready(function(){
             var all = $("input[name='all']");
             var members = $("select[name='crewmember']");
+            var crews = $("select[name='crew']");
             all.on("click", function(){
                 if (all.is(":checked")) {
                     members.prop("disabled", true)
+                    crews.prop("disabled", true)
                 } else {
                     members.prop("disabled", false)
+                    crews.prop("disabled", false)
                 }
             })
 
