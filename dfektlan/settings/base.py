@@ -87,6 +87,7 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
+    'apps.sessionprofile.middleware.SessionProfileMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -116,6 +117,7 @@ INSTALLED_APPS = (
     'south',
     'crispy_forms',
     'tastypie',
+    'apps.sessionprofile',
 
     #Django apps
     'django.contrib.auth',
