@@ -140,9 +140,32 @@ def remove_participant(request, tournament_id=None):
 def create_tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     slug = "dfektLAN_" + (str(date.today()) + "_" + re.sub(r"[^a-zA-Z0-9_-]", '', tour.title)).replace('-', '_')
-    tour.challonge_id = str(challonge.tournaments.create(tour.title, slug, tournament_type=str(tour.get_challonge_type_display()))['id'])
-    print "ID: " + tour.challonge_id
-    for p in tour.get_participants():
-        challonge.participants.create(tour.challonge_id, p)
-    tour.save()
+    try:
+        tour.challonge_id = str(challonge.tournaments.create(tour.title, slug, tournament_type=str(tour.get_challonge_type_display()))['id'])
+        messages.success(request, u'Challonge!-tournament successfully created')
+        for p in tour.get_participants():
+            challonge.participants.create(tour.challonge_id, p)
+        tour.save()
+    except:
+        messages.error(request, u'OPS! Challonge!-tournament was not created..')
+    return redirect('tournament', tournament_id)
+
+
+def start_tournament(request, tournament_id=None):
+    tour = get_object_or_404(Tournament, pk=tournament_id)
+    try:
+        challonge.tournaments.start(tour.challonge_id)
+        messages.success(request, u'Challonge!-tournament successfully started')
+    except:
+        messages.error(request, u'OPS! Have you created the Challonge!-tournament?')
+    return redirect('tournament', tournament_id)
+
+
+def destroy_tournament(request, tournament_id=None):
+    tour = get_object_or_404(Tournament, pk=tournament_id)
+    try:
+        challonge.tournaments.destroy(tour.challonge_id)
+        messages.success(request, u'Challonge!-tournament successfully destroyed')
+    except:
+        messages.error(request, u'OPS! Have you created the Challonge!-tournament?')
     return redirect('tournament', tournament_id)

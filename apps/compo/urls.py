@@ -7,5 +7,7 @@ urlpatterns = patterns('apps.compo.views',
     url(r'^tournament/check/(?P<tournament_id>\d+)/$', 'check_user', name='check_user'),
     url(r'^tournament/remove/(?P<tournament_id>\d+)/$', 'remove_participant', name='remove_participant'),
     url(r'^tournament/create/(?P<tournament_id>\d+)/$', 'create_tournament', name='create_tournament'),
+    url(r'^tournament/start/(?P<tournament_id>\d+)/$', 'start_tournament', name='start_tournament'),
+    url(r'^tournament/destroy/(?P<tournament_id>\d+)/$', 'destroy_tournament', name='destroy_tournament'),
 
 )
