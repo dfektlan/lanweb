@@ -13,14 +13,23 @@ dfekt LAN - Tournament
 {% block content %}
     <div class="col-md-9">
         <h1>{{ tournament.title }}</h1>
+        {% if tournament.get_status_display == "ABOUT_TO_START" and user.is_crew %}
+            <h4>Administrer</h4>
+            <a href="{% url 'create_tournament' tournament.id %}">
+                <button type="button" class="btn btn-success btn-lg">Lag Challonge!-turnering</button>
+            </a>
+            <iframe id="challonge" src="{{ challonge_url }}/module?theme=1&show_final_results=1&" width="100%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
+        {% endif %}
         {% if tournament.get_status_display == "FINISHED" or tournament.get_status_display == "IN_PROGRESS" %}
-            <iframe id="challonge" src="http://challonge.com/{{ tournament.challonge_url }}/module?theme=1&show_final_results=1&" width="100%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
+            <img src="{{ challonge_image }}">
         {% endif %}
         <div class="col-md-8">
             {% if tournament.get_status_display == "CLOSED" %}
                 <span class="badge pull-right" class="label label-default">Registration starts in {{ tournament.start_time|timeuntil }}</span>
-            {% elif tournament.get_status_display == "OPEN" or tournament.get_status_display == "ABOUT_TO_START" %}
+            {% elif tournament.get_status_display == "OPEN" %}
                 <span class="badge pull-right" class="label label-default">Registration closes in {{ tournament.reg_stop|timeuntil }}</span>
+            {% elif tournament.get_status_display == "ABOUT_TO_START" %}
+                <span class="badge pull-right" class="label label-default">Tournament starts in {{ tournament.start_time|timeuntil }}</span>
             {% endif %}
             <h4>Beskrivelse</h4>
             <p>{{ tournament.description|dfekt_markdown }}</p>
@@ -63,7 +72,7 @@ dfekt LAN - Tournament
                                         <strong><a class="text-info" href="{% url 'profile' team.teamleader.id %}">{{ team.teamleader.nickname }}</a></strong>
                                         <ul class="list-unstyled">
                                             {% for member in team.members.all %}
-                                                <li data-toggle="tooltip" title="{{ member }}"><a class="text-info" href="{% url 'profile' user.id %}">{{ member.nickname }}</a></li>
+                                                <li data-toggle="tooltip" title="{{ member }}"><a class="text-info" href="{% url 'profile' member.id %}">{{ member.nickname }}</a></li>
                                             {% endfor %}
                                         </ul>
                                     </div>

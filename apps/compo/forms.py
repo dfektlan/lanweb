@@ -25,3 +25,8 @@ class RegisterTeamForm(ModelForm):
                     user.is_teammember.filter(participant__tournament=tour):
                 unwanted_users.append(user)
         self.fields['members'].queryset = SiteUser.objects.exclude(id__in=[o.id for o in unwanted_users])
+
+
+#class Challonge(ModelForm):
+    #CHOICES = ["Single Elimination", "Double Elimination", "Round Robin", "Swiss"]
+    #type = forms.CharField(label='Type', max_length=30)

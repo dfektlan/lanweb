@@ -4,9 +4,14 @@ from apps.event.models import LanEvent
 from apps.compo.models import Game, Tournament, Participant, Team
 from django.contrib import messages
 from forms import RegisterTeamForm
+import challonge
+import re
+from datetime import date
 
 
+challonge.set_credentials('dfektlan', 'EmOkMBJWRbH1Ouf2dwvY5rm6MJMuIkTubWQfDK6f')
 LATEST_EVENT = LanEvent.objects.filter(current=True)[0]
+
 
 def overview(request):
     all_games = Game.objects.all()
@@ -21,6 +26,16 @@ def overview(request):
 
 def tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
+    #if tour.status == 'ABOUT_TO_START' or tour.status == 'IN_PROGRESS':
+    #challonge_id = create_tournament(tour)
+    #challonge_url = challonge.tournaments.show(challonge_id)['full-challonge-url']
+    try:
+        challonge_image = challonge.tournaments.show(tour.challonge_id)['live-image-url']
+        challonge_url = challonge.tournaments.show(tour.challonge_id)['full-challonge-url']
+    except:
+        print "Shit got excepted"
+        challonge_image = ""
+        challonge_url = ""
     participants = tour.get_participants()
     is_participant = has_participant(tour, request.user)
     #should move is_teamleader to SiteUser PS. verdens styggeste if-setning?
@@ -35,9 +50,13 @@ def tournament(request, tournament_id=None):
             return redirect('tournament', tournament_id)
     else:
         form = RegisterTeamForm(tour=tour, request=request)
-    return render(request, 'compo/tournament.html', {'tournament': tour, 'participants': participants,
-                                                     'form': form, 'is_participant': is_participant,
-                                                     'is_teamleader': is_teamleader})
+    return render(request, 'compo/tournament.html', {'tournament': tour,
+                                                     'participants': participants,
+                                                     'form': form,
+                                                     'is_participant': is_participant,
+                                                     'is_teamleader': is_teamleader,
+                                                     'challonge_image': challonge_image,
+                                                     'challonge_url': challonge_url})
 
 
 def register_to_tournament(request, tournament_id=None):
@@ -115,4 +134,15 @@ def remove_participant(request, tournament_id=None):
         participant = Participant.objects.get(user=request.user, tournament=tournament_id)
         participant.delete()
         messages.success(request, u'You were unregistered from this tournament')
+    return redirect('tournament', tournament_id)
+
+
+def create_tournament(request, tournament_id=None):
+    tour = get_object_or_404(Tournament, pk=tournament_id)
+    slug = "dfektLAN_" + (str(date.today()) + "_" + re.sub(r"[^a-zA-Z0-9_-]", '', tour.title)).replace('-', '_')
+    tour.challonge_id = str(challonge.tournaments.create(tour.title, slug, tournament_type=str(tour.get_challonge_type_display()))['id'])
+    print "ID: " + tour.challonge_id
+    for p in tour.get_participants():
+        challonge.participants.create(tour.challonge_id, p)
+    tour.save()
     return redirect('tournament', tournament_id)
