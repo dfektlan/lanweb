@@ -26,9 +26,6 @@ def overview(request):
 
 def tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
-    #if tour.status == 'ABOUT_TO_START' or tour.status == 'IN_PROGRESS':
-    #challonge_id = create_tournament(tour)
-    #challonge_url = challonge.tournaments.show(challonge_id)['full-challonge-url']
     try:
         challonge_image = challonge.tournaments.show(tour.challonge_id)['live-image-url']
         challonge_url = challonge.tournaments.show(tour.challonge_id)['full-challonge-url']
@@ -95,7 +92,7 @@ def make_participant(user, tour):
 def make_team_participant(request, form, tour):
     team = Team()
     participant = Participant()
-    # Unike teamtitle? not working.. -_-
+    # Unike teamtitle? not working.. -_- required for Challonge!
     #if form.cleaned_data['title'] in Participant.objects.filter(tournament=tour):
     #    messages.error(request, u'This teamname is already taken')
     team.title = form.cleaned_data['title']
@@ -142,10 +139,10 @@ def create_tournament(request, tournament_id=None):
     slug = "dfektLAN_" + (str(date.today()) + "_" + re.sub(r"[^a-zA-Z0-9_-]", '', tour.title)).replace('-', '_')
     try:
         tour.challonge_id = str(challonge.tournaments.create(tour.title, slug, tournament_type=str(tour.get_challonge_type_display()))['id'])
+        tour.save()
         messages.success(request, u'Challonge!-tournament successfully created')
         for p in tour.get_participants():
             challonge.participants.create(tour.challonge_id, p)
-        tour.save()
     except:
         messages.error(request, u'OPS! Challonge!-tournament was not created..')
     return redirect('tournament', tournament_id)

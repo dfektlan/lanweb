@@ -13,8 +13,9 @@ dfekt LAN - Tournament
 {% block content %}
     <div class="col-md-9">
         <h1>{{ tournament.title }}</h1>
-        {% if tournament.get_status_display == "ABOUT_TO_START" and user.is_crew %}
+        {% if tournament.get_status_display == "ABOUT_TO_START" or tournament.get_status_display == "IN_PROGRESS" and user.is_crew %}
             <h4>Administrer Challonge!-turnering</h4>
+            <p>Herfra kan du opprette, starte og slette Challonge!-turneringen. Score kan settes i vinduet nedenfor etter at turneringen er startet.</p>
             <a href="{% url 'create_tournament' tournament.id %}">
                 <button type="button" class="btn btn-success btn-lg">Lag</button>
             </a>
@@ -25,7 +26,6 @@ dfekt LAN - Tournament
                 <button type="button" class="btn btn-danger btn-lg">Slett</button>
             </a>
             <iframe id="challonge" src="{{ challonge_url }}/module?theme=1&show_final_results=1&" width="100%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
-            <img src="{{ challonge_image }}">
         {% endif %}
         {% if tournament.get_status_display == "FINISHED" or tournament.get_status_display == "IN_PROGRESS" %}
             <img src="{{ challonge_image }}">
