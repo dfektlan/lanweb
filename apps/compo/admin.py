@@ -7,7 +7,7 @@ class GameAdmin(admin.ModelAdmin):
 
 
 class TournamentAdmin(admin.ModelAdmin):
-    exclude = ['status', 'open', 'max_participants']
+    exclude = ['status', 'open', 'max_participants', 'challonge_id']
 
 
 class ParticipantAdmin(admin.ModelAdmin):

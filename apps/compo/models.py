@@ -47,7 +47,6 @@ class Tournament(models.Model):
     stop_time = models.DateTimeField(_(u'Turnerings- slutt'))
     event = models.ForeignKey(LanEvent)
     game = models.ForeignKey(Game)
-    #challonge_url = models.CharField(_(u'Challonge URL'), max_length=30)
     challonge_id = models.CharField(max_length=10,default="")
     challonge_type = models.SmallIntegerField(_(u'Gametype (Challonge)'), choices=type, default=0)
 
