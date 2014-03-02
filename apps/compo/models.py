@@ -42,13 +42,24 @@ class Tournament(models.Model):
     use_teams = models.BooleanField(_(u'Bruk lag?'), default=False)
     max_pr_team = models.IntegerField(_(u'Max pr. lag (uten lagleder)'))
     reg_start = models.DateTimeField(_(u'Påmeldings- start'))
-    reg_stop = models.DateTimeField(_(u'Påmeldings- slutt'))#, validators=[MinValueValidator(reg_start)])
+    reg_stop = models.DateTimeField(_(u'Påmeldings- slutt')) #, validators=[MinValueValidator(reg_start)])
     start_time = models.DateTimeField(_(u'Turnerings- start'))
     stop_time = models.DateTimeField(_(u'Turnerings- slutt'))
     event = models.ForeignKey(LanEvent)
     game = models.ForeignKey(Game)
     challonge_id = models.CharField(max_length=10,default="")
     challonge_type = models.SmallIntegerField(_(u'Gametype (Challonge)'), choices=type, default=0)
+
+    def clean(self):
+        if self.reg_stop < self.reg_start:
+            raise ValidationError(u'Registration stops before it starts')
+        if self.start_time < self.reg_stop:
+            raise ValidationError(u'Tournament starts before registration closes')
+        if self.stop_time < self.start_time:
+            raise ValidationError(u'Tournament ends before it starts')
+        orig = Tournament.objects.get(pk=self.pk)
+        if orig.use_teams != self.use_teams and orig.get_participants():
+            raise ValidationError(u'Cannot change to/from team. This tournament already has participants')
 
     def set_status(self):
         now = timezone.localtime(timezone.now())
