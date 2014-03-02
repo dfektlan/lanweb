@@ -16,6 +16,7 @@ dfekt LAN - Tournament
         {% if tournament.get_status_display == "ABOUT_TO_START" or tournament.get_status_display == "IN_PROGRESS" and user.is_crew %}
             <h4>Administrer Challonge!-turnering</h4>
             <p>Herfra kan du opprette, starte og slette Challonge!-turneringen. Score kan settes i vinduet nedenfor etter at turneringen er startet.</p>
+            
             <a href="{% url 'create_tournament' tournament.id %}">
                 <button type="button" class="btn btn-success btn-lg">Lag</button>
             </a>
@@ -111,7 +112,7 @@ dfekt LAN - Tournament
           Maksimalt antall deltagere til denne turneringen er {{ tournament.max_pr_team }} + lagleder (deg).
         <form method="post">
             {% csrf_token %}
-            {{ form|crispy }}
+            {{ team_form|crispy }}
       </div>
       <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Meld på!</button>

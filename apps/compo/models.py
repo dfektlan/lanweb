@@ -106,9 +106,3 @@ class Participant(models.Model):
 
     def __unicode__(self):
         return self.user.nickname if self.user else self.team.title
-
-
-#Validators for admin (example)
-def validate_status(value):
-    if value % 2 != 0:
-        raise ValidationError(u'%s is not an even number' % value)

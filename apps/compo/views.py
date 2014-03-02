@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from apps.event.models import LanEvent
 from apps.compo.models import Game, Tournament, Participant, Team
 from django.contrib import messages
-from forms import RegisterTeamForm
+from forms import RegisterTeamForm, ChallongeForm
 import challonge
 import re
 from datetime import date
@@ -40,16 +40,17 @@ def tournament(request, tournament_id=None):
     if request.user.is_authenticated() and not request.user.is_anonymous() and tour.use_teams:
                 is_teamleader = request.user.is_teamleader.filter(participant__tournament=tour)
     if request.POST:
-        form = RegisterTeamForm(request.POST, tour=tour, request=request)
-        if form.is_valid():
+        team_form = RegisterTeamForm(request.POST, tour=tour, request=request)
+        if team_form.is_valid():
             #intention is to just say form.save() here and remove make_team_participant()
-            make_team_participant(request, form, tour)
+            make_team_participant(request, team_form, tour)
             return redirect('tournament', tournament_id)
     else:
-        form = RegisterTeamForm(tour=tour, request=request)
+        team_form = RegisterTeamForm(tour=tour, request=request)
+    #challonge_form = ChallongeForm(request)
     return render(request, 'compo/tournament.html', {'tournament': tour,
                                                      'participants': participants,
-                                                     'form': form,
+                                                     'team_form': team_form,
                                                      'is_participant': is_participant,
                                                      'is_teamleader': is_teamleader,
                                                      'challonge_image': challonge_image,
