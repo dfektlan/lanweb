@@ -167,3 +167,16 @@ def destroy_tournament(request, tournament_id=None):
     except:
         messages.error(request, u'OPS! Have you created the Challonge!-tournament?')
     return redirect('tournament', tournament_id)
+
+
+def finalize_tournament(request, tournament_id=None):
+    tour = get_object_or_404(Tournament, pk=tournament_id)
+    #tour.status = u'FINISHED'
+    #tour.save()
+    #messages.success(request, u'Turneringen er avsluttet')
+    #try:
+    #    challonge.tournaments.publish(tour.challonge_id)
+    #    messages.success(request, u'Challonge!-tournament successfully published')
+    #except:
+    #    messages.error(request, u'OPS! Have you created the Challonge!-tournament?')
+    return redirect('tournament', tournament_id)
