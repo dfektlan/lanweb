@@ -11,6 +11,7 @@ dummy = []
 class RegisterTeamForm(ModelForm):
     #teamname = forms.CharField(label='Lagnavn', max_length=30)
     #username = forms.ModelMultipleChoiceField(dummy)
+    #action_url = 'add_team'
     class Meta:
         model = Team
         exclude = ('teamleader',)

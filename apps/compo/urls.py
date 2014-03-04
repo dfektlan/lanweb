@@ -10,5 +10,6 @@ urlpatterns = patterns('apps.compo.views',
     url(r'^tournament/start/(?P<tournament_id>\d+)/$', 'start_tournament', name='start_tournament'),
     url(r'^tournament/destroy/(?P<tournament_id>\d+)/$', 'destroy_tournament', name='destroy_tournament'),
     url(r'^tournament/finalize/(?P<tournament_id>\d+)/$', 'finalize_tournament', name='finalize_tournament'),
+    url(r'^tournament/(?P<tournament_id>\d+)/add_team/$', 'add_team', name='add_team'),
 
 )

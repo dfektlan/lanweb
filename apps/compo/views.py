@@ -27,7 +27,6 @@ def overview(request):
 def tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     tour.set_status()
-    print tour.get_status_display()
     try:
         challonge_image = challonge.tournaments.show(tour.challonge_id)['live-image-url']
         challonge_url = challonge.tournaments.show(tour.challonge_id)['full-challonge-url']
@@ -41,15 +40,8 @@ def tournament(request, tournament_id=None):
     is_teamleader = False
     if request.user.is_authenticated() and not request.user.is_anonymous() and tour.use_teams:
                 is_teamleader = request.user.is_teamleader.filter(participant__tournament=tour)
-    if request.POST:
-        team_form = RegisterTeamForm(request.POST, tour=tour, request=request)
-        if team_form.is_valid():
-            #intention is to just say form.save() here and remove make_team_participant()
-            make_team_participant(request, team_form, tour)
-            return redirect('tournament', tournament_id)
-    else:
-        team_form = RegisterTeamForm(tour=tour, request=request)
-    #challonge_form = ChallongeForm(request)
+    # #challonge_form = ChallongeForm(request)
+    team_form = RegisterTeamForm(tour=tour, request=request)
     return render(request, 'compo/tournament.html', {'tournament': tour,
                                                      'participants': participants,
                                                      'team_form': team_form,
@@ -57,6 +49,17 @@ def tournament(request, tournament_id=None):
                                                      'is_teamleader': is_teamleader,
                                                      'challonge_image': challonge_image,
                                                      'challonge_url': challonge_url})
+
+
+def add_team(request, tournament_id=None):
+    tour = get_object_or_404(Tournament, pk=tournament_id)
+    if request.POST:
+        team_form = RegisterTeamForm(request.POST, tour=tour, request=request)
+        if team_form.is_valid():
+            #intention is to just say form.save() here and remove make_team_participant()
+            make_team_participant(request, team_form, tour)
+            return redirect('tournament', tournament_id)
+    return redirect('tournament', tournament_id)
 
 
 def register_to_tournament(request, tournament_id=None):
@@ -148,7 +151,6 @@ def create_tournament(request, tournament_id=None):
             challonge.participants.create(tour.challonge_id, p)
     except:
         messages.error(request, u'OPS! Challonge!-tournament was not created..')
-    print tour.get_status_display()
     return redirect('tournament', tournament_id)
 
 
@@ -161,7 +163,6 @@ def start_tournament(request, tournament_id=None):
         messages.success(request, u'Challonge!-tournament successfully started')
     except:
         messages.error(request, u'OPS! Have you created the Challonge!-tournament?')
-    print tour.get_status_display()
     return redirect('tournament', tournament_id)
 
 
@@ -174,7 +175,6 @@ def destroy_tournament(request, tournament_id=None):
         messages.success(request, u'Challonge!-tournament successfully destroyed')
     except:
         messages.error(request, u'OPS! Have you created the Challonge!-tournament?')
-    print tour.get_status_display()
     return redirect('tournament', tournament_id)
 
 
@@ -189,5 +189,4 @@ def finalize_tournament(request, tournament_id=None):
     #    messages.success(request, u'Challonge!-tournament successfully published')
     #except:
     #    messages.error(request, u'OPS! Have you created the Challonge!-tournament?')
-    print tour.get_status_display()
     return redirect('tournament', tournament_id)

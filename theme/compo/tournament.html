@@ -15,6 +15,7 @@ dfekt LAN - Tournament
         <h1>{{ tournament.title }}</h1>
         {% if tournament.get_status_display == "ABOUT_TO_START" or tournament.get_status_display == "IN_PROGRESS" %}
             {% if user.is_crew %}
+                <span class="badge pull-right" class="label label-default">Status: {{ tournament.get_status_display }}</span>
                 <h4>Administrer Challonge!-turnering</h4>
                 <p>Herfra kan du opprette, starte og slette Challonge!-turneringen. Score kan settes i vinduet nedenfor etter at turneringen er startet.
                 når alle matcher er ferdig kan du gjøre nødvendige endringer før du trykker "End tournament". Vis deretter resultatet ved å trykke "Vis resultat".</p>
@@ -38,11 +39,11 @@ dfekt LAN - Tournament
         {% endif %}
         <div class="col-md-8">
             {% if tournament.get_status_display == "CLOSED" %}
-                <span class="badge pull-right" class="label label-default">Registration starts in {{ tournament.start_time|timeuntil }}</span>
+                <span class="badge pull-right" class="label label-default">Registration starts in {{ tournament.reg_start|timeuntil }}</span>
             {% elif tournament.get_status_display == "OPEN" %}
                 <span class="badge pull-right" class="label label-default">Registration closes in {{ tournament.reg_stop|timeuntil }}</span>
             {% elif tournament.get_status_display == "ABOUT_TO_START" %}
-                <span class="badge pull-right" class="label label-default">Tournament starts in {{ tournament.start_time|timeuntil }}</span>
+                <span class="badge pull-right" class="label label-default">Tournament is about to start }}</span>
             {% endif %}
             <h4>Beskrivelse</h4>
             <p>{{ tournament.description|dfekt_markdown }}</p>
@@ -115,7 +116,7 @@ dfekt LAN - Tournament
           Registrer ditt lag!
           Skriv inn et lagnavn, og begynn å skrive inn deltagere.
           Maksimalt antall deltagere til denne turneringen er {{ tournament.max_pr_team }} + lagleder (deg).
-        <form method="post">
+        <form method="post" action="add_team/">
             {% csrf_token %}
             {{ team_form|crispy }}
       </div>
