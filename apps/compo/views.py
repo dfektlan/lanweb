@@ -26,6 +26,8 @@ def overview(request):
 
 def tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
+    tour.set_status()
+    print tour.get_status_display()
     try:
         challonge_image = challonge.tournaments.show(tour.challonge_id)['live-image-url']
         challonge_url = challonge.tournaments.show(tour.challonge_id)['full-challonge-url']
@@ -146,6 +148,7 @@ def create_tournament(request, tournament_id=None):
             challonge.participants.create(tour.challonge_id, p)
     except:
         messages.error(request, u'OPS! Challonge!-tournament was not created..')
+    print tour.get_status_display()
     return redirect('tournament', tournament_id)
 
 
@@ -153,9 +156,12 @@ def start_tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     try:
         challonge.tournaments.start(tour.challonge_id)
+        tour.status = 3 # "IN_PROGRESS"
+        tour.save()
         messages.success(request, u'Challonge!-tournament successfully started')
     except:
         messages.error(request, u'OPS! Have you created the Challonge!-tournament?')
+    print tour.get_status_display()
     return redirect('tournament', tournament_id)
 
 
@@ -163,20 +169,25 @@ def destroy_tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     try:
         challonge.tournaments.destroy(tour.challonge_id)
+        tour.status = 2 # "ABOUT_TO_START"
+        tour.save()
         messages.success(request, u'Challonge!-tournament successfully destroyed')
     except:
         messages.error(request, u'OPS! Have you created the Challonge!-tournament?')
+    print tour.get_status_display()
     return redirect('tournament', tournament_id)
 
 
 def finalize_tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
-    #tour.status = u'FINISHED'
-    #tour.save()
-    #messages.success(request, u'Turneringen er avsluttet')
+    tour.status = 4 # "FINISHED"
+    tour.save()
+    messages.success(request, u'Turneringen er avsluttet')
+    # couldn't find anywhere in the API to end/finalize the tournament and get the winners/scores
     #try:
-    #    challonge.tournaments.publish(tour.challonge_id)
+    #    challonge.tournaments.publish(tour.challonge_id, include_participants=1)
     #    messages.success(request, u'Challonge!-tournament successfully published')
     #except:
     #    messages.error(request, u'OPS! Have you created the Challonge!-tournament?')
+    print tour.get_status_display()
     return redirect('tournament', tournament_id)
