@@ -40,15 +40,16 @@ def tournament(request, tournament_id=None):
     is_teamleader = False
     if request.user.is_authenticated() and not request.user.is_anonymous() and tour.use_teams:
                 is_teamleader = request.user.is_teamleader.filter(participant__tournament=tour)
-    # #challonge_form = ChallongeForm(request)
     team_form = RegisterTeamForm(tour=tour, request=request)
+    challonge_form = ChallongeForm(initial={'type': tour.challonge_type})
     return render(request, 'compo/tournament.html', {'tournament': tour,
                                                      'participants': participants,
                                                      'team_form': team_form,
                                                      'is_participant': is_participant,
                                                      'is_teamleader': is_teamleader,
                                                      'challonge_image': challonge_image,
-                                                     'challonge_url': challonge_url})
+                                                     'challonge_url': challonge_url,
+                                                     'challonge_form': challonge_form,})
 
 
 def add_team(request, tournament_id=None):
@@ -59,6 +60,16 @@ def add_team(request, tournament_id=None):
             #intention is to just say form.save() here and remove make_team_participant()
             make_team_participant(request, team_form, tour)
             return redirect('tournament', tournament_id)
+    return redirect('tournament', tournament_id)
+
+
+def set_challonge_type(request, tournament_id=None):
+    tour = get_object_or_404(Tournament, pk=tournament_id)
+    if request.POST:
+        form = ChallongeForm(request.POST)
+        if form.is_valid():
+            tour.challonge_type = form.cleaned_data['type']
+            tour.save()
     return redirect('tournament', tournament_id)
 
 

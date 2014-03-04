@@ -19,6 +19,11 @@ dfekt LAN - Tournament
                 <h4>Administrer Challonge!-turnering</h4>
                 <p>Herfra kan du opprette, starte og slette Challonge!-turneringen. Score kan settes i vinduet nedenfor etter at turneringen er startet.
                 når alle matcher er ferdig kan du gjøre nødvendige endringer før du trykker "End tournament". Vis deretter resultatet ved å trykke "Vis resultat".</p>
+                <form method="post" action="set_challonge_type/">
+                    {% csrf_token %}
+                    {{ challonge_form|crispy }}
+                    <button type="submit" class="btn btn-primary">Velg</button>
+                </form>
                 <a href="{% url 'create_tournament' tournament.id %}">
                     <button type="button" class="btn btn-success btn-lg">Lag</button>
                 </a>
@@ -43,7 +48,7 @@ dfekt LAN - Tournament
             {% elif tournament.get_status_display == "OPEN" %}
                 <span class="badge pull-right" class="label label-default">Registration closes in {{ tournament.reg_stop|timeuntil }}</span>
             {% elif tournament.get_status_display == "ABOUT_TO_START" %}
-                <span class="badge pull-right" class="label label-default">Tournament is about to start }}</span>
+                <span class="badge pull-right" class="label label-default">Tournament is about to start</span>
             {% endif %}
             <h4>Beskrivelse</h4>
             <p>{{ tournament.description|dfekt_markdown }}</p>

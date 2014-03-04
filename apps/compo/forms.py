@@ -29,5 +29,11 @@ class RegisterTeamForm(ModelForm):
 
 
 class ChallongeForm(forms.Form):
-    CHOICES = ["single elimination", "double elimination", "round robin", "swiss"]
-    type = forms.ModelChoiceField(CHOICES, label="Challonge-type")
+    initial = 0
+    CHOICES = (
+        (0, u'single elimination'),
+        (1, u'double elimination'),
+        (2, u'round robin'),
+        (3, u'swiss'),
+    )
+    type = forms.ChoiceField(choices=CHOICES, label="Challonge-type")
