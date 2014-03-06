@@ -27,13 +27,6 @@ class Tournament(models.Model):
         (4, u'FINISHED')
     )
 
-    type = (
-        (0, u'single elimination'),
-        (1, u'double elimination'),
-        (2, u'round robin'),
-        (3, u'swiss')
-    )
-
     title = models.CharField(_(u'Tittel'), max_length=30)
     description = models.TextField(_(u'Beskrivelse'))
     status = models.SmallIntegerField(_(u'Status'), choices=stat, default=0)
@@ -48,7 +41,6 @@ class Tournament(models.Model):
     event = models.ForeignKey(LanEvent)
     game = models.ForeignKey(Game)
     challonge_id = models.CharField(max_length=10,default="")
-    challonge_type = models.SmallIntegerField(_(u'Gametype (Challonge)'), choices=type, default=0)
 
     def clean(self):
         if self.reg_stop < self.reg_start:

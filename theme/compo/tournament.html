@@ -15,28 +15,31 @@ dfekt LAN - Tournament
         <h1>{{ tournament.title }}</h1>
         {% if tournament.get_status_display == "ABOUT_TO_START" or tournament.get_status_display == "IN_PROGRESS" %}
             {% if user.is_crew %}
-                <span class="badge pull-right" class="label label-default">Status: {{ tournament.get_status_display }}</span>
-                <h4>Administrer Challonge!-turnering</h4>
-                <p>Herfra kan du opprette, starte og slette Challonge!-turneringen. Score kan settes i vinduet nedenfor etter at turneringen er startet.
-                når alle matcher er ferdig kan du gjøre nødvendige endringer før du trykker "End tournament". Vis deretter resultatet ved å trykke "Vis resultat".</p>
-                <form method="post" action="set_challonge_type/">
-                    {% csrf_token %}
-                    {{ challonge_form|crispy }}
-                    <button type="submit" class="btn btn-primary">Velg</button>
-                </form>
-                <a href="{% url 'create_tournament' tournament.id %}">
-                    <button type="button" class="btn btn-success btn-lg">Lag</button>
-                </a>
-                <a href="{% url 'start_tournament' tournament.id %}">
-                    <button type="button" class="btn btn-primary btn-lg">Start</button>
-                </a>
-                <a href="{% url 'destroy_tournament' tournament.id %}">
-                    <button type="button" class="btn btn-danger btn-lg">Slett</button>
-                </a>
-                <a href="{% url 'finalize_tournament' tournament.id %}">
-                    <button type="button" class="btn btn-info btn-lg">Vis resultat</button>
-                </a>
-                <iframe id="challonge" src="{{ challonge_url }}/module?theme=1&show_final_results=1&" width="100%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
+                {% if tournament.challonge_id == "" %}
+                {% endif %}
+                    <span class="badge pull-right" class="label label-default">Status: {{ tournament.get_status_display }}</span>
+                    <h4>Administrer Challonge!-turnering</h4>
+                    <p>Herfra kan du opprette, starte og slette Challonge!-turneringen. Score kan settes i vinduet nedenfor etter at turneringen er startet.
+                        OBS! Det kan ta litt tid å lage turneringen. Når alle matcher er ferdig kan du gjøre nødvendige endringer før du trykker "End tournament".
+                        Publiser deretter resultatet ved å trykke "Publiser".</p>
+                    <div class="col-md-4">
+                    <form class="form-inline" method="post" action="create_tournament/">
+                        {% csrf_token %}
+                        {{ challonge_form|crispy }}
+                        <button type="submit" class="btn btn-primary">Velg</button>
+                    </form>
+                    </div>
+                    <a class="btn btn-success btn-lg" href="{% url 'create_tournament' tournament.id %}">Lag</a>
+                    <a href="{% url 'start_tournament' tournament.id %}">
+                        <button type="button" class="btn btn-primary btn-lg">Start</button>
+                    </a>
+                    <a href="{% url 'destroy_tournament' tournament.id %}">
+                        <button type="button" class="btn btn-danger btn-lg">Slett</button>
+                    </a>
+                    <a href="{% url 'finalize_tournament' tournament.id %}">
+                        <button type="button" class="btn btn-info btn-lg">Publiser</button>
+                    </a>
+                    <iframe id="challonge" src="{{ challonge_url }}/module?theme=1&show_final_results=1&" width="100%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
             {% endif %}
         {% endif %}
         {% if tournament.get_status_display == "FINISHED" or tournament.get_status_display == "IN_PROGRESS" %}

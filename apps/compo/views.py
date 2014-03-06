@@ -63,14 +63,6 @@ def add_team(request, tournament_id=None):
     return redirect('tournament', tournament_id)
 
 
-def set_challonge_type(request, tournament_id=None):
-    tour = get_object_or_404(Tournament, pk=tournament_id)
-    if request.POST:
-        form = ChallongeForm(request.POST)
-        if form.is_valid():
-            tour.challonge_type = form.cleaned_data['type']
-            tour.save()
-    return redirect('tournament', tournament_id)
 
 
 def register_to_tournament(request, tournament_id=None):
@@ -151,11 +143,29 @@ def remove_participant(request, tournament_id=None):
     return redirect('tournament', tournament_id)
 
 
+def set_challonge_type(request, tournament_id=None):
+    tour = get_object_or_404(Tournament, pk=tournament_id)
+    if request.POST:
+        form = ChallongeForm(request.POST)
+        if form.is_valid():
+            tour.challonge_type = form.cleaned_data['type']
+            tour.save()
+    return redirect('tournament', tournament_id)
+
+
 def create_tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
+    if request.POST:
+        form = ChallongeForm(request.POST)
+        if form.is_valid():
+            challonge_type = form.cleaned_data['type']
+            print "------------------"
+            print challonge_type
     slug = "dfektLAN_" + (str(date.today()) + "_" + re.sub(r"[^a-zA-Z0-9_-]", '', tour.title)).replace('-', '_')
     try:
-        tour.challonge_id = str(challonge.tournaments.create(tour.title, slug, tournament_type=str(tour.get_challonge_type_display()))['id'])
+        print "test 1"
+        tour.challonge_id = str(challonge.tournaments.create(tour.title, slug, tournament_type=challonge_type)['id'])
+        print "test 2"
         tour.save()
         messages.success(request, u'Challonge!-tournament successfully created')
         for p in tour.get_participants():
