@@ -41,7 +41,7 @@ def tournament(request, tournament_id=None):
     if request.user.is_authenticated() and not request.user.is_anonymous() and tour.use_teams:
                 is_teamleader = request.user.is_teamleader.filter(participant__tournament=tour)
     team_form = RegisterTeamForm(tour=tour, request=request)
-    challonge_form = ChallongeForm(initial={'type': tour.challonge_type})
+    challonge_form = ChallongeForm()
     return render(request, 'compo/tournament.html', {'tournament': tour,
                                                      'participants': participants,
                                                      'team_form': team_form,
@@ -61,8 +61,6 @@ def add_team(request, tournament_id=None):
             make_team_participant(request, team_form, tour)
             return redirect('tournament', tournament_id)
     return redirect('tournament', tournament_id)
-
-
 
 
 def register_to_tournament(request, tournament_id=None):
@@ -143,16 +141,6 @@ def remove_participant(request, tournament_id=None):
     return redirect('tournament', tournament_id)
 
 
-def set_challonge_type(request, tournament_id=None):
-    tour = get_object_or_404(Tournament, pk=tournament_id)
-    if request.POST:
-        form = ChallongeForm(request.POST)
-        if form.is_valid():
-            tour.challonge_type = form.cleaned_data['type']
-            tour.save()
-    return redirect('tournament', tournament_id)
-
-
 def create_tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     if request.POST:
@@ -191,6 +179,7 @@ def destroy_tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     try:
         challonge.tournaments.destroy(tour.challonge_id)
+        tour.challonge_id = ""
         tour.status = 2 # "ABOUT_TO_START"
         tour.save()
         messages.success(request, u'Challonge!-tournament successfully destroyed')
@@ -201,6 +190,7 @@ def destroy_tournament(request, tournament_id=None):
 
 def finalize_tournament(request, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
+    # add som sort of confirmation from user
     tour.status = 4 # "FINISHED"
     tour.save()
     messages.success(request, u'Turneringen er avsluttet')
@@ -211,3 +201,7 @@ def finalize_tournament(request, tournament_id=None):
     #except:
     #    messages.error(request, u'OPS! Have you created the Challonge!-tournament?')
     return redirect('tournament', tournament_id)
+
+
+def undo_finalize(request, tournament_id=None):
+    pass
