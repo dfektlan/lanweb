@@ -104,7 +104,8 @@ def del_application(request, application_id=None):
 @login_required
 def crew(request):
     crewteams = CrewTeam.objects.all()
-    return render(request, 'crew/crew.html', {'crewteams': crewteams})
+    application_count = Application.objects.filter(event=LATEST_EVENT).filter(status=0).count()
+    return render(request, 'crew/crew.html', {'crewteams': crewteams, 'count': application_count})
 
 @login_required
 def crewteam(request, crewteam_id):

@@ -47,10 +47,6 @@
                         <li><a href="{% url 'users' %}">Brukere</a></li>
                         <hr>
                     {% endif %}
-                    {% if user.is_chief %}
-                        <li><a href="{% url 'application_overview' %}">Crewsøknader</a></li>
-                        <hr>
-                    {% endif %}
                     {% if user.is_crew %}
                         {% for crew in user.crewmember_set.all.0.crewteam_set.all %}
                             <li><a href="{% url 'crewteam' crew.id %}">{{ crew.name }}</a></li>
