@@ -51,11 +51,11 @@ def register(request):
                 
                 # Create user
                 user = SiteUser(
-                    username=cleaned['username'], 
-                    nickname=cleaned['username'],
+                    username=cleaned['username'].lower(),
+                    nickname=cleaned['username'].lower(),
                     first_name=cleaned['first_name'], 
                     last_name=cleaned['last_name'],
-                    email=cleaned['email'],
+                    email=cleaned['email'].lower(),
                     date_of_birth=cleaned['date_of_birth'],
                     zip_code=cleaned['zip_code'],
                     address=cleaned['address'],
@@ -69,6 +69,8 @@ def register(request):
                 user.set_password(cleaned['password'])
                 user.is_active = False
                 user.save()
+                user.setNameNotRetard()
+
 
                 # Create the registration token
                 token = uuid.uuid4().hex
@@ -98,6 +100,7 @@ Aktiveringslinken er kun aktiv i 24 timer, etter dette vil du måtte bruke Reset
 
         return render(request, 'auth/register.html', {'form': form, })
 
+
 def verify(request, token):
     if request.user.is_authenticated():
         return HttpResponseRedirect('/')
@@ -126,7 +129,7 @@ def recover(request):
         if request.method == 'POST':
             form = RecoveryForm(request.POST)
             if form.is_valid():
-                email = form.cleaned_data['email']
+                email = form.cleaned_data['email'].lower()
                 users = SiteUser.objects.filter(email=email)
 
                 if len(users) == 0:
@@ -168,6 +171,13 @@ recovery option again to get your account verified.
             form = RecoveryForm()
 
         return render(request, 'auth/recover.html', {'form': form})
+
+
+def users(request):
+    u = SiteUser.objects.all()
+
+    return render(request, 'auth/users.html', {'u': u})
+
 
 def set_password(request, token=None): 
     if request.user.is_authenticated():

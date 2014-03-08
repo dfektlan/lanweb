@@ -8,32 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'ItemGroup'
-        db.create_table(u'logistic_itemgroup', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=200)),
-        ))
-        db.send_create_signal(u'logistic', ['ItemGroup'])
-
-        # Adding model 'Item'
-        db.create_table(u'logistic_item', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('itemgroup', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['logistic.ItemGroup'])),
-            ('brand', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('product_model', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('description', self.gf('django.db.models.fields.CharField')(max_length=30)),
-            ('holder', self.gf('django.db.models.fields.related.ForeignKey')(default=None, related_name='Holder', null=True, blank=True, to=orm['userprofile.SiteUser'])),
-            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=150, blank=True)),
-        ))
-        db.send_create_signal(u'logistic', ['Item'])
+        # Adding field 'Tournament.challonge_url'
+        db.add_column(u'compo_tournament', 'challonge_url',
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=30),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'ItemGroup'
-        db.delete_table(u'logistic_itemgroup')
-
-        # Deleting model 'Item'
-        db.delete_table(u'logistic_item')
+        # Deleting field 'Tournament.challonge_url'
+        db.delete_column(u'compo_tournament', 'challonge_url')
 
 
     models = {
@@ -50,6 +33,45 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
+        u'compo.game': {
+            'Meta': {'object_name': 'Game'},
+            'description': ('django.db.models.fields.TextField', [], {}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'blank': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '30'})
+        },
+        u'compo.participant': {
+            'Meta': {'object_name': 'Participant'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'team': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['compo.Team']", 'null': 'True', 'blank': 'True'}),
+            'tournament': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['compo.Tournament']"}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['userprofile.SiteUser']", 'null': 'True', 'blank': 'True'})
+        },
+        u'compo.team': {
+            'Meta': {'object_name': 'Team'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'members': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'is_teammember'", 'null': 'True', 'symmetrical': 'False', 'to': u"orm['userprofile.SiteUser']"}),
+            'teamleader': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'is_teamleader'", 'to': u"orm['userprofile.SiteUser']"}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '30'})
+        },
+        u'compo.tournament': {
+            'Meta': {'object_name': 'Tournament'},
+            'challonge_url': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
+            'description': ('django.db.models.fields.TextField', [], {}),
+            'event': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['event.LanEvent']"}),
+            'game': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['compo.Game']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'max_participants': ('django.db.models.fields.IntegerField', [], {}),
+            'max_pr_team': ('django.db.models.fields.IntegerField', [], {}),
+            'open': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'reg_start': ('django.db.models.fields.DateTimeField', [], {}),
+            'reg_stop': ('django.db.models.fields.DateTimeField', [], {}),
+            'start_time': ('django.db.models.fields.DateTimeField', [], {}),
+            'status': ('django.db.models.fields.SmallIntegerField', [], {'default': '0'}),
+            'stop_time': ('django.db.models.fields.DateTimeField', [], {}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
+            'use_teams': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
+        },
         u'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
             'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
@@ -57,20 +79,17 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'logistic.item': {
-            'Meta': {'object_name': 'Item'},
-            'brand': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'description': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'holder': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'related_name': "'Holder'", 'null': 'True', 'blank': 'True', 'to': u"orm['userprofile.SiteUser']"}),
+        u'event.lanevent': {
+            'Meta': {'object_name': 'LanEvent'},
+            'current': ('django.db.models.fields.BooleanField', [], {}),
+            'description': ('django.db.models.fields.TextField', [], {}),
+            'end_date': ('django.db.models.fields.DateTimeField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '150', 'blank': 'True'}),
-            'itemgroup': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['logistic.ItemGroup']"}),
-            'product_model': ('django.db.models.fields.CharField', [], {'max_length': '200'})
-        },
-        u'logistic.itemgroup': {
-            'Meta': {'object_name': 'ItemGroup'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '200'})
+            'location': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
+            'numberOfSeats': ('django.db.models.fields.IntegerField', [], {'max_length': '200'}),
+            'price': ('django.db.models.fields.IntegerField', [], {}),
+            'start_date': ('django.db.models.fields.DateTimeField', [], {})
         },
         u'userprofile.siteuser': {
             'Meta': {'object_name': 'SiteUser'},
@@ -92,8 +111,8 @@ class Migration(SchemaMigration):
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
             'phone': ('django.db.models.fields.CharField', [], {'max_length': '16'}),
             'rfid': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'skype': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
-            'steam': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
+            'skype': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
+            'steam': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'town': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'}),
@@ -101,4 +120,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['logistic']
+    complete_apps = ['compo']

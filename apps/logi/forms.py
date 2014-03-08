@@ -1,7 +1,10 @@
+from django import forms
 from django.forms import ModelForm
-from models import Item
+from apps.logi.models import Item
+
 
 class ItemForm(ModelForm):
     class Meta:
         model = Item
-        fields = ['holder']
+
+

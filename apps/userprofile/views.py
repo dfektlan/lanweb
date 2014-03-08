@@ -1,8 +1,6 @@
 from apps.userprofile.models import SiteUser
-from apps.crew.models import Application
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib import messages
+
 
 def profile(request, user_id=None):
     if user_id == None:
@@ -10,4 +8,11 @@ def profile(request, user_id=None):
     else:
         user = SiteUser.objects.get(id=user_id)
     apps = user.application_set.all()
-    return render(request, 'userprofile/profile.html', {'user':user, 'apps':apps})
+    attended = get_all_attended_events(user)
+
+    return render(request, 'userprofile/profile.html', {'user': user, 'apps': apps, 'attended': attended})
+
+
+def get_all_attended_events(user):
+    events_as_crew = user.crewmember_set.all()
+    return events_as_crew
