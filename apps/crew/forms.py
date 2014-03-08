@@ -42,5 +42,11 @@ class CreditToCrewForm(forms.Form):
     credit = forms.IntegerField(label="Gatepoeng")
 
 
+class CrewCardForm(forms.Form):
+    crewmember = forms.ModelMultipleChoiceField(CrewMember.objects.filter(event=LATEST_EVENT), label="Crewmedlem", required=False)
+    all = forms.BooleanField(label="Alle crew medlemmer?", required=False)
+
+
+
 
 
