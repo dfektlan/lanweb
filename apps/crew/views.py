@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.conf import settings
 
 from apps.crew.models import Application, CrewMember, CrewTeam
-from apps.crew.forms import ApplicationAdminForm, ApplicationForm, RegisterRFIDForm, CreditToCrewForm, CrewCardForm
+from apps.crew.forms import ApplicationAdminForm, ApplicationForm, RegisterRFIDForm, CreditToCrewForm, CrewCardForm, AddCrewMemberForm
 from apps.event.models import LanEvent
 from apps.userprofile.models import SiteUser
 from apps.userprofile.views import profile
@@ -208,6 +208,23 @@ def crewcard(request):
         form = CrewCardForm()
 
     return render(request, 'crew/crewcard.html', {'form': form})
+
+
+@login_required
+@user_passes_test(lambda u: u.is_chief())
+def addcrewmember(request):
+    if request.POST:
+        form = AddCrewMemberForm(request.POST)
+        if form.is_valid():
+            for u in form.cleaned_data["users"]:
+                crewmember = CrewMember(user=u, event=LATEST_EVENT)
+                crewmember.save()
+                form.cleaned_data["crewteam"].members.add(crewmember)
+        return redirect(addcrewmember)
+    else:
+        form = AddCrewMemberForm()
+
+    return render(request, "crew/addcrewmember.html", {'form': form })
 
 
 def add_to_crewteam(aid):

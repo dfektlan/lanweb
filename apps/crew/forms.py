@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from models import Application, CrewMember, CrewTeam
 from apps.event.models import LanEvent
+from apps.userprofile.models import SiteUser
 
 LATEST_EVENT = LanEvent.objects.filter(current=True)[0]
 
@@ -46,6 +47,10 @@ class CrewCardForm(forms.Form):
     crewmember = forms.ModelMultipleChoiceField(CrewMember.objects.filter(event=LATEST_EVENT), label="Crewmedlem", required=False)
     all = forms.BooleanField(label="Alle crew medlemmer?", required=False)
 
+
+class AddCrewMemberForm(forms.Form):
+    users = forms.ModelMultipleChoiceField(SiteUser.objects.all(), label="Bruker", required=True)
+    crewteam = forms.ModelChoiceField(CrewTeam.objects.all(), label="Crew", required=True)
 
 
 
