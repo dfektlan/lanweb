@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^compo/',  include('apps.compo.urls')),
     url(r'^tv/',  include('apps.tv.urls')),
     url(r'^logistic/',    include('apps.logi.urls')),
+    url(r'^seatmap/',    include('apps.seatmap.urls')),
 
 
 )

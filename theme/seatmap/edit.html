@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block include %}
+    <script src="{{ STATIC_URL }}js/raphael-min.js"></script>
+{% endblock %}
+
+{% block title%}
+dfekt LAN - Rediger seatmap
+{% endblock title %}
+
+
+{% block content %}
+    <div class="col-md-9">
+        <h1>Seatmap</h1>
+        <div id="seatmap"></div>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button class="btn btn-primary" type="submit">Lagre</button>
+        </form>
+        <button class="btn btn-primary" onclick="createRow()">Lag rad</button>
+    </div>
+
+
+    <script language="javascript">
+        window.onload = function() {
+
+            Raphael.st.draggable = function() {
+                  var me = this,
+                      lx = 0,
+                      ly = 0,
+                      ox = 0,
+                      oy = 0,
+                      moveFnc = function(dx, dy) {
+                          lx = dx + ox;
+                          ly = dy + oy;
+                          me.transform('t' + lx + ',' + ly);
+                      },
+                      startFnc = function() {},
+                      endFnc = function() {
+                          ox = lx;
+                          oy = ly;
+                      };
+
+                  this.drag(moveFnc, startFnc, endFnc);
+                };
+
+            var width = 18;
+            var height = 18;
+            var rows = [];
+
+            var paper = Raphael(document.getElementById("seatmap"), {{ seatmap.width }}, {{ seatmap.height }});
+
+            function dir(object) {
+                stuff = [];
+                for (s in object) {
+                    stuff.push(s);
+                }
+                stuff.sort();
+                return stuff;
+            }
+
+            createRow = function() {
+                var amount = $("#id_amount").val();
+                var x = parseInt($("#id_position_x").val());
+                var y = parseInt($("#id_position_y").val());
+                var orientation = $("#id_orientation option:selected").val()
+
+                if (amount % 2 !== 0) {
+                    alert("The amount of seats needs to be even");
+                } else {
+                    var row = paper.set();
+                    for (var s = 1; s < (amount/2)+1; s++) {
+                        var seatx = x + width;
+                        var seaty = s * height;
+
+                        var seat = paper.rect(seatx, seaty, width, height).attr({stroke: "#000", 'stroke-width': 2, fill: "#0099FF", opacity: .4});
+                        seat.number = s;
+
+                        //seat.mouseover(function(){
+                        //    this.attr("opacity", 1);
+                        //});
+//
+                        //seat.mouseout(function(){
+                        //    this.attr("opacity", .4);
+                        //});
+//
+                        //seat.click(function(){
+                        //    if (this.attrs.fill == "#0099FF") {
+                        //        this.attr("fill", "#8AE65C");
+                        //    } else {
+                        //        this.attr("fill", "#0099FF");
+                        //    }
+                        //});
+
+
+
+                        row.push(seat);
+
+                    }
+                    row.draggable();
+                    rows.push(row);
+                }
+            }
+        }
+
+
+    </script>
+{% endblock content %}

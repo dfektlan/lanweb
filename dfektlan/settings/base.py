@@ -138,6 +138,8 @@ INSTALLED_APPS = (
     'apps.compo',
     'apps.tv',
     'apps.logi',
+    'apps.seatmap',
+
 
 )
 
