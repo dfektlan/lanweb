@@ -45,7 +45,9 @@ dfekt LAN - Tournament
             <a class="btn btn-danger btn-sm pull-right" href="{% url 'start_tournament' tournament.id %}">ANGRE!</a>
         {% endif %}
         {% if tournament.get_status_display == "FINISHED" or tournament.get_status_display == "IN_PROGRESS" %}
-            <img src="{{ challonge_image }}">
+            <div class="test" style="overflow-y: hidden;">
+                <img style="margin-top: -106px;" src="{{ challonge_image }}">
+            </div>
         {% endif %}
         <div class="col-md-8">
             {% if tournament.get_status_display == "CLOSED" %}
