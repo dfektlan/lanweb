@@ -11,7 +11,15 @@ class Seat(models.Model):
         (2, u'Lukket'),
     )
 
+    row = models.ForeignKey("Row")
     status = models.SmallIntegerField(default=2, choices=STATUS)
+    number = models.IntegerField()
+
+    def __unicode__(self):
+        return self.row.seatmap.event.name + " - Row: " + str(self.row.row) + " Seat: " + str(self.number)
+
+    class Meta:
+        unique_together = ("row", "number")
 
 
 class Row(models.Model):
@@ -21,23 +29,25 @@ class Row(models.Model):
         (1, u'Horisontal')
     )
 
+    seatmap = models.ForeignKey("Seatmap")
     row = models.IntegerField()
     orientation = models.SmallIntegerField(default=0, choices=ORIENTATION)
     position_x = models.IntegerField()
     position_y = models.IntegerField()
+
+    def __unicode__(self):
+        return self.seatmap.event.name + " - Row: " + str(self.row)
+
+    class Meta:
+        unique_together = ("seatmap", "row")
 
 
 class Seatmap(models.Model):
     event = models.ForeignKey(LanEvent)
     width = models.IntegerField()
     height = models.IntegerField()
-    rows = models.ManyToManyField(Row, blank=True)
+    #rows = models.ManyToManyField(Row, blank=True)
 
     def __unicode__(self):
         return self.event.name
 
-
-class RowSeat(models.Model):
-    row = models.ForeignKey(Row, null=False)
-    seat = models.ForeignKey(Seat, null=False)
-    number = models.IntegerField()

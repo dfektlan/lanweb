@@ -14,17 +14,191 @@ dfekt LAN - Rediger seatmap
     <div class="col-md-9">
         <h1>Seatmap</h1>
         <div id="seatmap"></div>
-        <form action="" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <button class="btn btn-primary" type="submit">Lagre</button>
-        </form>
-        <button class="btn btn-primary" onclick="createRow()">Lag rad</button>
+        <div id="selected-info">
+            <p>Seat: </p><p id="seat-text"></p>
+            <p>Pos x: </p><p id="pos_x"></p>
+            <p>Pos y: </p><p id="pos_y"></p>
+        </div>
+        <div>
+            <label>Radnummer:</label>
+            <input id="rownumber">
+            <label>Antall plasser:</label>
+            <input id="amount">
+            <label>Rettning:</label>
+            <select id="orientation">
+                <option value="v">Vertikal</option>
+                <option value="h">Horisontal</option>
+            </select>
+        </div>
+        <button id="add_new_row" class="btn btn-primary" onclick="createRow()">Lag rad</button>
+        <button id="remove_selected_row" class="btn btn-primary" onclick="removeRow()">Slett rad</button>
     </div>
 
 
     <script language="javascript">
+        var paper;
+
+        var width = 18;
+        var height = 18;
+        var start_x = 22;
+        var start_y = 22;
+
+
+
+        //var seatmap = {
+        //    rownumber: {
+        //            orientation: 0,
+        //            position_x: 0,
+        //            position_y: 0,
+        //            seats: {
+        //                seatnumber: {
+        //                    status: ""
+        //                }
+        //            }
+        //    }
+        //}
+
+        var seatmap = {}
+
+        function dir(object) {
+            stuff = [];
+            for (s in object) {
+                stuff.push(s);
+            }
+            stuff.sort();
+            return stuff;
+        }
+
+        var clearForm = function() {
+            $("#amount").val("");
+            $("#rownumber").val("");
+        }
+
+        var updateForm = function(seatObject) {
+            var row = seatObject.row;
+            var pos = row["seatset"][0].getBBox();
+            $("#pos_x").text(pos.x);
+            $("#pos_y").text(pos.y);
+            row.position_x = pos.x;
+            row.position_y = pos.y;
+        }
+
+        var removeRow = function() {
+            for (var r in seatmap) {
+                if (seatmap[r]["selected"]) {
+                    seatmap[r]["seatset"].remove();
+                    delete seatmap[r    ];
+                }
+            }
+        }
+
+
+        var createRow = function() {
+            var amount = parseInt($("#amount").val());
+            var x = start_x;
+            var y = start_y;
+            var orientation = $("#orientation").val();
+            var rownumber = parseInt($("#rownumber").val());
+
+            if (rownumber in seatmap) {
+                alert("The rownumber is not unique!");
+                return clearForm();
+            }
+
+            if (amount % 2 !== 0) {
+                alert("The amount of seats needs to be even");
+            } else {
+                seatmap[rownumber] = {}
+                seatmap[rownumber]["orientation"] = orientation;
+                seatmap[rownumber]["position_x"] = x;
+                seatmap[rownumber]["position_y"] = y;
+                seatmap[rownumber]["seatset"] = paper.set();
+                seatmap[rownumber]["seats"] = {};
+                seatmap[rownumber]["selected"] = false;
+
+                if (orientation == "v") {
+                    for (var s = 1; s < (amount/2)+1; s++) {
+                        var seatx = x + width;
+                        var seaty = s * height;
+
+                        var seat = paper.rect(seatx, seaty, width, height).attr({stroke: "#000", 'stroke-width': 2, fill: "#0099FF", opacity: .4});
+                        var seat2 = paper.rect(seatx+width, seaty, width, height).attr({stroke: "#000", 'stroke-width': 2, fill: "#0099FF", opacity: .4});
+                        seat.number = s;
+                        seat2.number = s + (amount/2);
+                        seat.row = seatmap[rownumber];
+                        seat2.row = seatmap[rownumber];
+                        seat.status = 0;
+                        seat2.status = 0;
+
+                        console.log(seat.number, seat2.number);
+
+                        //seat.mouseover(function(){
+                        //});
+    //
+                        //seat.mouseout(function(){
+                        //    this.attr("opacity", .4);
+                        //});
+    //
+                        seat.click(function(){
+                            $("#seat-text").text(this.number);
+                            if (this.attrs.fill == "#0099FF") {
+                                this.attr("fill", "#8AE65C");
+                            } else {
+                                this.attr("fill", "#0099FF");
+                            }
+                        });
+
+                        seat2.click(function(){
+                            $("#seat-text").text(this.number);
+                            if (this.attrs.fill == "#0099FF") {
+                                this.attr("fill", "#8AE65C");
+                            } else {
+                                this.attr("fill", "#0099FF");
+                            }
+                        });
+
+
+
+                        seatmap[rownumber]["seatset"].push(seat);
+                        seatmap[rownumber]["seatset"].push(seat2);
+                        seatmap[rownumber]["seats"][seat.number] = {
+                            status: 0
+                        }
+                        seatmap[rownumber]["seats"][seat2.number] = {
+                            status: 0
+                        }
+                    }
+                } else {
+                    alert("Not yet implemented");
+                }
+
+
+                seatmap[rownumber]["seatset"].draggable();
+                seatmap[rownumber]["seatset"].click(function() {
+                    if (!seatmap[rownumber]["selected"]) {
+                        for (var r in seatmap) {
+                            seatmap[r]["seatset"].attr({opacity:.4});
+                            seatmap[r]["selected"] = false;
+                        }
+                        seatmap[rownumber]["seatset"].attr({opacity:1});
+                        seatmap[rownumber]["selected"] = true;
+                    } else {
+                        seatmap[rownumber]["seatset"].attr({opacity:.4});
+                        seatmap[rownumber]["selected"] = false;
+                    }
+                })
+                console.log(seatmap);
+
+            }
+
+
+
+
+
+        }
+
         window.onload = function() {
+            paper = Raphael(document.getElementById("seatmap"), {{ seatmap.width }}, {{ seatmap.height }});
 
             Raphael.st.draggable = function() {
                   var me = this,
@@ -36,6 +210,7 @@ dfekt LAN - Rediger seatmap
                           lx = dx + ox;
                           ly = dy + oy;
                           me.transform('t' + lx + ',' + ly);
+                          updateForm(this);
                       },
                       startFnc = function() {},
                       endFnc = function() {
@@ -45,66 +220,7 @@ dfekt LAN - Rediger seatmap
 
                   this.drag(moveFnc, startFnc, endFnc);
                 };
-
-            var width = 18;
-            var height = 18;
-            var rows = [];
-
-            var paper = Raphael(document.getElementById("seatmap"), {{ seatmap.width }}, {{ seatmap.height }});
-
-            function dir(object) {
-                stuff = [];
-                for (s in object) {
-                    stuff.push(s);
-                }
-                stuff.sort();
-                return stuff;
-            }
-
-            createRow = function() {
-                var amount = $("#id_amount").val();
-                var x = parseInt($("#id_position_x").val());
-                var y = parseInt($("#id_position_y").val());
-                var orientation = $("#id_orientation option:selected").val()
-
-                if (amount % 2 !== 0) {
-                    alert("The amount of seats needs to be even");
-                } else {
-                    var row = paper.set();
-                    for (var s = 1; s < (amount/2)+1; s++) {
-                        var seatx = x + width;
-                        var seaty = s * height;
-
-                        var seat = paper.rect(seatx, seaty, width, height).attr({stroke: "#000", 'stroke-width': 2, fill: "#0099FF", opacity: .4});
-                        seat.number = s;
-
-                        //seat.mouseover(function(){
-                        //    this.attr("opacity", 1);
-                        //});
-//
-                        //seat.mouseout(function(){
-                        //    this.attr("opacity", .4);
-                        //});
-//
-                        //seat.click(function(){
-                        //    if (this.attrs.fill == "#0099FF") {
-                        //        this.attr("fill", "#8AE65C");
-                        //    } else {
-                        //        this.attr("fill", "#0099FF");
-                        //    }
-                        //});
-
-
-
-                        row.push(seat);
-
-                    }
-                    row.draggable();
-                    rows.push(row);
-                }
-            }
         }
-
 
     </script>
 {% endblock content %}

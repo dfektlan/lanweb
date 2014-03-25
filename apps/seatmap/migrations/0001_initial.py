@@ -11,19 +11,28 @@ class Migration(SchemaMigration):
         # Adding model 'Seat'
         db.create_table(u'seatmap_seat', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('row', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['seatmap.Row'])),
             ('status', self.gf('django.db.models.fields.SmallIntegerField')(default=2)),
+            ('number', self.gf('django.db.models.fields.IntegerField')()),
         ))
         db.send_create_signal(u'seatmap', ['Seat'])
+
+        # Adding unique constraint on 'Seat', fields ['row', 'number']
+        db.create_unique(u'seatmap_seat', ['row_id', 'number'])
 
         # Adding model 'Row'
         db.create_table(u'seatmap_row', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('seatmap', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['seatmap.Seatmap'])),
             ('row', self.gf('django.db.models.fields.IntegerField')()),
             ('orientation', self.gf('django.db.models.fields.SmallIntegerField')(default=0)),
             ('position_x', self.gf('django.db.models.fields.IntegerField')()),
             ('position_y', self.gf('django.db.models.fields.IntegerField')()),
         ))
         db.send_create_signal(u'seatmap', ['Row'])
+
+        # Adding unique constraint on 'Row', fields ['seatmap', 'row']
+        db.create_unique(u'seatmap_row', ['seatmap_id', 'row'])
 
         # Adding model 'Seatmap'
         db.create_table(u'seatmap_seatmap', (
@@ -34,26 +43,14 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'seatmap', ['Seatmap'])
 
-        # Adding M2M table for field rows on 'Seatmap'
-        m2m_table_name = db.shorten_name(u'seatmap_seatmap_rows')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('seatmap', models.ForeignKey(orm[u'seatmap.seatmap'], null=False)),
-            ('row', models.ForeignKey(orm[u'seatmap.row'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['seatmap_id', 'row_id'])
-
-        # Adding model 'RowSeat'
-        db.create_table(u'seatmap_rowseat', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('row', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['seatmap.Row'])),
-            ('seat', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['seatmap.Seat'])),
-            ('number', self.gf('django.db.models.fields.IntegerField')()),
-        ))
-        db.send_create_signal(u'seatmap', ['RowSeat'])
-
 
     def backwards(self, orm):
+        # Removing unique constraint on 'Row', fields ['seatmap', 'row']
+        db.delete_unique(u'seatmap_row', ['seatmap_id', 'row'])
+
+        # Removing unique constraint on 'Seat', fields ['row', 'number']
+        db.delete_unique(u'seatmap_seat', ['row_id', 'number'])
+
         # Deleting model 'Seat'
         db.delete_table(u'seatmap_seat')
 
@@ -62,12 +59,6 @@ class Migration(SchemaMigration):
 
         # Deleting model 'Seatmap'
         db.delete_table(u'seatmap_seatmap')
-
-        # Removing M2M table for field rows on 'Seatmap'
-        db.delete_table(db.shorten_name(u'seatmap_seatmap_rows'))
-
-        # Deleting model 'RowSeat'
-        db.delete_table(u'seatmap_rowseat')
 
 
     models = {
@@ -84,23 +75,19 @@ class Migration(SchemaMigration):
             'start_date': ('django.db.models.fields.DateTimeField', [], {})
         },
         u'seatmap.row': {
-            'Meta': {'object_name': 'Row'},
+            'Meta': {'unique_together': "(('seatmap', 'row'),)", 'object_name': 'Row'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'orientation': ('django.db.models.fields.SmallIntegerField', [], {'default': '0'}),
             'position_x': ('django.db.models.fields.IntegerField', [], {}),
             'position_y': ('django.db.models.fields.IntegerField', [], {}),
-            'row': ('django.db.models.fields.IntegerField', [], {})
+            'row': ('django.db.models.fields.IntegerField', [], {}),
+            'seatmap': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['seatmap.Seatmap']"})
         },
-        u'seatmap.rowseat': {
-            'Meta': {'object_name': 'RowSeat'},
+        u'seatmap.seat': {
+            'Meta': {'unique_together': "(('row', 'number'),)", 'object_name': 'Seat'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'number': ('django.db.models.fields.IntegerField', [], {}),
             'row': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['seatmap.Row']"}),
-            'seat': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['seatmap.Seat']"})
-        },
-        u'seatmap.seat': {
-            'Meta': {'object_name': 'Seat'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'status': ('django.db.models.fields.SmallIntegerField', [], {'default': '2'})
         },
         u'seatmap.seatmap': {
@@ -108,7 +95,6 @@ class Migration(SchemaMigration):
             'event': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['event.LanEvent']"}),
             'height': ('django.db.models.fields.IntegerField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'rows': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['seatmap.Row']", 'symmetrical': 'False'}),
             'width': ('django.db.models.fields.IntegerField', [], {})
         }
     }

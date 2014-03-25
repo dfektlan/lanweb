@@ -11,8 +11,9 @@ class CreateSeatmapForm(forms.Form):
 
 
 class CreateRowForm(forms.Form):
+    rownumber = forms.IntegerField()
     orientation = forms.ChoiceField(choices=Row.ORIENTATION)
     amount = forms.IntegerField()
     position_x = forms.IntegerField()
-    position_z = forms.IntegerField()
+    position_y = forms.IntegerField()
 
