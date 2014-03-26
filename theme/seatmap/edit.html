@@ -3,6 +3,14 @@
 
 {% block include %}
     <script src="{{ STATIC_URL }}js/raphael-min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.djangocsrf.js"></script>
+    <script language="javascript">
+        $.djangocsrf( "enable" );
+    </script>
+
+
+
 {% endblock %}
 
 {% block title%}
@@ -26,16 +34,19 @@ dfekt LAN - Rediger seatmap
             <input id="amount">
             <label>Rettning:</label>
             <select id="orientation">
-                <option value="v">Vertikal</option>
-                <option value="h">Horisontal</option>
+                <option value="0">Vertikal</option>
+                <option value="1">Horisontal</option>
             </select>
         </div>
         <button id="add_new_row" class="btn btn-primary" onclick="createRow()">Lag rad</button>
         <button id="remove_selected_row" class="btn btn-primary" onclick="removeRow()">Slett rad</button>
+        <button id="save_seatmap" class="btn btn-primary">Lagre</button>
     </div>
 
 
     <script language="javascript">
+
+
         var paper;
 
         var width = 18;
@@ -57,8 +68,7 @@ dfekt LAN - Rediger seatmap
         //            }
         //    }
         //}
-
-        var seatmap = {}
+        var seatmap = {{ json_seatmap|safe }};
 
         function dir(object) {
             stuff = [];
@@ -85,13 +95,33 @@ dfekt LAN - Rediger seatmap
 
         var removeRow = function() {
             for (var r in seatmap) {
-                if (seatmap[r]["selected"]) {
-                    seatmap[r]["seatset"].remove();
-                    delete seatmap[r    ];
+                if (seatmap["rows"][r]["selected"]) {
+                    seatmap["rows"][r]["seatset"].remove();
+                    delete seatmap[r];
                 }
             }
         }
 
+        var stripSeatmapCycles = function(sm) {
+            var sm2 = jQuery.extend(true, {}, sm);
+            for (var r in sm2["rows"]) {
+                delete sm2["rows"][r]["seatset"];
+            }
+            return sm2;
+        }
+
+        $("#save_seatmap").click(function() {
+                $.ajax({
+                url: '/seatmap/save/',
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(stripSeatmapCycles(seatmap)),
+                dataType: 'text',
+                success: function(result) {
+                    alert(result.Result);
+                }
+            })
+        });
 
         var createRow = function() {
             var amount = parseInt($("#amount").val());
@@ -100,7 +130,7 @@ dfekt LAN - Rediger seatmap
             var orientation = $("#orientation").val();
             var rownumber = parseInt($("#rownumber").val());
 
-            if (rownumber in seatmap) {
+            if (rownumber in seatmap["rows"]) {
                 alert("The rownumber is not unique!");
                 return clearForm();
             }
@@ -108,15 +138,15 @@ dfekt LAN - Rediger seatmap
             if (amount % 2 !== 0) {
                 alert("The amount of seats needs to be even");
             } else {
-                seatmap[rownumber] = {}
-                seatmap[rownumber]["orientation"] = orientation;
-                seatmap[rownumber]["position_x"] = x;
-                seatmap[rownumber]["position_y"] = y;
-                seatmap[rownumber]["seatset"] = paper.set();
-                seatmap[rownumber]["seats"] = {};
-                seatmap[rownumber]["selected"] = false;
+                seatmap["rows"][rownumber] = {}
+                seatmap["rows"][rownumber]["orientation"] = orientation;
+                seatmap["rows"][rownumber]["position_x"] = x;
+                seatmap["rows"][rownumber]["position_y"] = y;
+                seatmap["rows"][rownumber]["seatset"] = paper.set();
+                seatmap["rows"][rownumber]["seats"] = {};
+                seatmap["rows"][rownumber]["selected"] = false;
 
-                if (orientation == "v") {
+                if (orientation == "0") {
                     for (var s = 1; s < (amount/2)+1; s++) {
                         var seatx = x + width;
                         var seaty = s * height;
@@ -125,12 +155,10 @@ dfekt LAN - Rediger seatmap
                         var seat2 = paper.rect(seatx+width, seaty, width, height).attr({stroke: "#000", 'stroke-width': 2, fill: "#0099FF", opacity: .4});
                         seat.number = s;
                         seat2.number = s + (amount/2);
-                        seat.row = seatmap[rownumber];
-                        seat2.row = seatmap[rownumber];
+                        seat.row = seatmap["rows"][rownumber];
+                        seat2.row = seatmap["rows"][rownumber];
                         seat.status = 0;
                         seat2.status = 0;
-
-                        console.log(seat.number, seat2.number);
 
                         //seat.mouseover(function(){
                         //});
@@ -159,37 +187,40 @@ dfekt LAN - Rediger seatmap
 
 
 
-                        seatmap[rownumber]["seatset"].push(seat);
-                        seatmap[rownumber]["seatset"].push(seat2);
-                        seatmap[rownumber]["seats"][seat.number] = {
+                        seatmap["rows"][rownumber]["seatset"].push(seat);
+                        seatmap["rows"][rownumber]["seatset"].push(seat2);
+                        seatmap["rows"][rownumber]["seats"][seat.number] = {
                             status: 0
                         }
-                        seatmap[rownumber]["seats"][seat2.number] = {
+                        seatmap["rows"][rownumber]["seats"][seat2.number] = {
                             status: 0
                         }
                     }
-                } else {
+                } else if (orientation == "1") {
                     alert("Not yet implemented");
                 }
 
 
-                seatmap[rownumber]["seatset"].draggable();
-                seatmap[rownumber]["seatset"].click(function() {
-                    if (!seatmap[rownumber]["selected"]) {
-                        for (var r in seatmap) {
-                            seatmap[r]["seatset"].attr({opacity:.4});
-                            seatmap[r]["selected"] = false;
+                seatmap["rows"][rownumber]["seatset"].draggable();
+                seatmap["rows"][rownumber]["seatset"].click(function() {
+                    if (!seatmap["rows"][rownumber]["selected"]) {
+                        for (var r in seatmap["rows"]) {
+                            seatmap["rows"][r]["seatset"].attr({opacity:.4});
+                            seatmap["rows"][r]["selected"] = false;
                         }
-                        seatmap[rownumber]["seatset"].attr({opacity:1});
-                        seatmap[rownumber]["selected"] = true;
+                        seatmap["rows"][rownumber]["seatset"].attr({opacity:1});
+                        seatmap["rows"][rownumber]["selected"] = true;
                     } else {
-                        seatmap[rownumber]["seatset"].attr({opacity:.4});
-                        seatmap[rownumber]["selected"] = false;
+                        seatmap["rows"][rownumber]["seatset"].attr({opacity:.4});
+                        seatmap["rows"][rownumber]["selected"] = false;
                     }
                 })
-                console.log(seatmap);
 
             }
+
+
+
+
 
 
 
@@ -219,7 +250,109 @@ dfekt LAN - Rediger seatmap
                       };
 
                   this.drag(moveFnc, startFnc, endFnc);
+
                 };
+
+
+            var drawExistingSeatMap = function() {
+
+                for (var r in seatmap["rows"]) {
+
+                    var x = seatmap["rows"][r].position_x;
+                    var y = seatmap["rows"][r].position_y;
+                    var orientation = seatmap["rows"][r].orientation;
+                    var rownumber = r;
+                    var amount = Object.keys(seatmap["rows"][r]["seats"]).length
+                    seatmap["rows"][r]["seatset"] = paper.set();
+
+
+
+                    if (orientation == "0") {
+                        for (var s = 1; s < (amount/2)+1; s++) {
+                            var seatx = x + width;
+                            var seaty = s * height;
+
+                            var seat = paper.rect(seatx, seaty, width, height).attr({stroke: "#000", 'stroke-width': 2, fill: "#0099FF", opacity: .4});
+                            var seat2 = paper.rect(seatx+width, seaty, width, height).attr({stroke: "#000", 'stroke-width': 2, fill: "#0099FF", opacity: .4});
+                            seat.number = s;
+                            seat2.number = s + (amount/2);
+                            seat.row = seatmap["rows"][r];
+                            seat2.row = seatmap["rows"][r];
+                            seat.status = seatmap["rows"][r]["seats"][seat.number].status;
+                            seat2.status = seatmap["rows"][r]["seats"][seat2.number].status;
+
+                            //seat.mouseover(function(){
+                            //});
+        //
+                            //seat.mouseout(function(){
+                            //    this.attr("opacity", .4);
+                            //});
+        //
+                            seat.click(function(){
+                                $("#seat-text").text(this.number);
+                                if (this.attrs.fill == "#0099FF") {
+                                    this.attr("fill", "#8AE65C");
+                                } else {
+                                    this.attr("fill", "#0099FF");
+                                }
+                            });
+
+                            seat2.click(function(){
+                                $("#seat-text").text(this.number);
+                                if (this.attrs.fill == "#0099FF") {
+                                    this.attr("fill", "#8AE65C");
+                                } else {
+                                    this.attr("fill", "#0099FF");
+                                }
+                            });
+
+
+
+                            seatmap["rows"][r]["seatset"].push(seat);
+                            seatmap["rows"][r]["seatset"].push(seat2);
+                            seatmap["rows"][r]["seats"][seat.number] = {
+                                status: 0
+                            }
+                            seatmap["rows"][r]["seats"][seat2.number] = {
+                                status: 0
+                            }
+                        }
+                    } else if (orientation == "1") {
+                        alert("Not yet implemented");
+                    }
+
+
+                    seatmap["rows"][r]["seatset"].draggable();
+                    console.log(r, 1);
+                    seatmap["rows"][r]["seatset"].click(function() {
+                        if (!seatmap["rows"][r]["selected"]) {
+                            for (var ro in seatmap["rows"]) {
+
+                                //this is a bit ugly
+                                if (ro === "pk") {
+                                    continue;
+                                }
+                                console.log(ro,2);
+                                seatmap["rows"][ro]["seatset"].attr({opacity:.4});
+                                seatmap["rows"][ro]["selected"] = false;
+                            }
+                            console.log(r,3);
+                            seatmap["rows"][r]["seatset"].attr({opacity:1});
+                            seatmap["rows"][r]["selected"] = true;
+                        } else {
+                            seatmap["rows"][r]["seatset"].attr({opacity:.4});
+                            seatmap["rows"][r]["selected"] = false;
+                        }
+                    })
+                }
+            }
+
+
+
+            drawExistingSeatMap();
+
+
+
         }
 
     </script>

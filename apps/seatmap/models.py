@@ -19,6 +19,9 @@ class Seat(models.Model):
         return self.row.seatmap.event.name + " - Row: " + str(self.row.row) + " Seat: " + str(self.number)
 
     class Meta:
+        index_together = [
+            ["row", "number"],
+        ]
         unique_together = ("row", "number")
 
 
@@ -39,6 +42,9 @@ class Row(models.Model):
         return self.seatmap.event.name + " - Row: " + str(self.row)
 
     class Meta:
+        index_together = [
+            ["seatmap", "row"],
+        ]
         unique_together = ("seatmap", "row")
 
 
