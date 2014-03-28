@@ -42,6 +42,8 @@ def save_seatmap(request):
         data = json.loads(request.body)
         seatmap = Seatmap.objects.get(pk=data["pk"])
         del data["pk"]
+
+        #Adding and updateing
         for r in data["rows"]:
             row, created = Row.objects.get_or_create(seatmap=seatmap, row=r, defaults={
                 "position_x": data["rows"][r]["position_x"],
@@ -61,6 +63,19 @@ def save_seatmap(request):
                 if not created:
                     seat.status = data["rows"][r]["seats"][s]["status"]
                     seat.save()
+
+
+        #Deleting
+
+        rows = Row.objects.filter(seatmap=seatmap)
+        for r in rows:
+            if str(r.row) not in data["rows"].keys():
+                r.delete()
+            if str(r.row) in data["rows"].keys():
+                seats = Seat.objects.filter(row=r)
+                for s in seats:
+                    if str(s.number) not in data["rows"][str(r.row)]["seats"]:
+                        s.delete()
 
 
 

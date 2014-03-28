@@ -22,10 +22,22 @@ dfekt LAN - Rediger seatmap
     <div class="col-md-9">
         <h1>Seatmap</h1>
         <div id="seatmap"></div>
-        <div id="selected-info">
-            <p>Seat: </p><p id="seat-text"></p>
-            <p>Pos x: </p><p id="pos_x"></p>
-            <p>Pos y: </p><p id="pos_y"></p>
+        <div id="selected-info" class="row">
+            <table class="table">
+                <tr>
+                    <th>Row</th>
+                    <th>Seat</th>
+                    <th>Pos x</th>
+                    <th>Pos y</th>
+                </tr>
+                <tr>
+                    <td><p id="row-text"></td>
+                    <td><p id="seat-text"></td>
+                    <td><p id="pos_x"></td>
+                    <td><p id="pos_y"></td>
+                </tr>
+
+            </table>
         </div>
         <div>
             <label>Radnummer:</label>
@@ -94,10 +106,10 @@ dfekt LAN - Rediger seatmap
         }
 
         var removeRow = function() {
-            for (var r in seatmap) {
+            for (var r in seatmap["rows"]) {
                 if (seatmap["rows"][r]["selected"]) {
                     seatmap["rows"][r]["seatset"].remove();
-                    delete seatmap[r];
+                    delete seatmap["rows"][r];
                 }
             }
         }
@@ -210,9 +222,11 @@ dfekt LAN - Rediger seatmap
                         }
                         seatmap["rows"][rownumber]["seatset"].attr({opacity:1});
                         seatmap["rows"][rownumber]["selected"] = true;
+                        $("#row-text").text(rownumber);
                     } else {
                         seatmap["rows"][rownumber]["seatset"].attr({opacity:.4});
                         seatmap["rows"][rownumber]["selected"] = false;
+                        $("#row-text").text("");
                     }
                 })
 
@@ -264,6 +278,8 @@ dfekt LAN - Rediger seatmap
                     var rownumber = r;
                     var amount = Object.keys(seatmap["rows"][r]["seats"]).length
                     seatmap["rows"][r]["seatset"] = paper.set();
+                    seatmap["rows"][r]["selected"] = false;
+
 
 
 
@@ -323,27 +339,18 @@ dfekt LAN - Rediger seatmap
 
 
                     seatmap["rows"][r]["seatset"].draggable();
-                    console.log(r, 1);
-                    seatmap["rows"][r]["seatset"].click(function() {
+                    seatmap["rows"][r]["seatset"].click((function(row) {
                         if (!seatmap["rows"][r]["selected"]) {
-                            for (var ro in seatmap["rows"]) {
-
-                                //this is a bit ugly
-                                if (ro === "pk") {
-                                    continue;
-                                }
-                                console.log(ro,2);
-                                seatmap["rows"][ro]["seatset"].attr({opacity:.4});
-                                seatmap["rows"][ro]["selected"] = false;
-                            }
-                            console.log(r,3);
-                            seatmap["rows"][r]["seatset"].attr({opacity:1});
-                            seatmap["rows"][r]["selected"] = true;
+                            var row = r;
+                            console.log(row);
+                            seatmap["rows"][row]["seatset"].attr({opacity:1});
+                            seatmap["rows"][row]["selected"] = true;
                         } else {
-                            seatmap["rows"][r]["seatset"].attr({opacity:.4});
-                            seatmap["rows"][r]["selected"] = false;
+                            console.log("merp");
+                            seatmap["rows"][row]["seatset"].attr({opacity:.4});
+                            seatmap["rows"][row]["selected"] = false;
                         }
-                    })
+                    }(r)));
                 }
             }
 
