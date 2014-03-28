@@ -7,9 +7,9 @@ from forms import RegisterTeamForm, ChallongeForm
 import challonge
 import re
 from datetime import date
+from django.conf import settings
 
-
-challonge.set_credentials('dfektlan', 'EmOkMBJWRbH1Ouf2dwvY5rm6MJMuIkTubWQfDK6f')
+challonge.set_credentials(settings.CHALLONGE_APIUSER, settings.CHALLONGE_APIKEY)
 LATEST_EVENT = LanEvent.objects.filter(current=True)[0]
 
 
@@ -32,7 +32,6 @@ def tournament(request, tournament_id=None):
         challonge_image = challonge.tournaments.show(tour.challonge_id)['live-image-url']
         challonge_url = challonge.tournaments.show(tour.challonge_id)['full-challonge-url']
     except:
-        print "Shit got excepted"
         challonge_image = ""
         challonge_url = ""
     participants = tour.get_participants()
@@ -148,13 +147,9 @@ def create_tournament(request, tournament_id=None):
         form = ChallongeForm(request.POST)
         if form.is_valid():
             challonge_type = form.cleaned_data['type']
-            print "------------------"
-            print challonge_type
     slug = "dfektLAN_" + (str(date.today()) + "_" + re.sub(r"[^a-zA-Z0-9_-]", '', tour.title)).replace('-', '_')
     try:
-        print "test 1"
         tour.challonge_id = str(challonge.tournaments.create(tour.title, slug, tournament_type=challonge_type)['id'])
-        print "test 2"
         tour.save()
         messages.success(request, u'Challonge!-tournament successfully created')
         for p in tour.get_participants():
@@ -203,6 +198,3 @@ def finalize_tournament(request, tournament_id=None):
     #    messages.error(request, u'OPS! Have you created the Challonge!-tournament?')
     return redirect('tournament', tournament_id)
 
-
-def undo_finalize(request, tournament_id=None):
-    pass
