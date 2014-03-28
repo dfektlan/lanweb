@@ -129,7 +129,6 @@ INSTALLED_APPS = (
     
     #dfektLAN apps
     'apps.authentication',
-    'apps.logistic',
     'apps.userprofile',
     'apps.crew',
     'apps.event',
@@ -138,11 +137,16 @@ INSTALLED_APPS = (
     'apps.pos',
     'apps.compo',
     'apps.tv',
+    'apps.logi',
+
 )
 
 AUTH_USER_MODEL = 'userprofile.SiteUser'
 LOGIN_URL = '/auth/login/'
 LOGIN_REDIRECT_URL = '/auth/login/'
+
+
+API_LIMIT_PER_PAGE = 0
 
 
 

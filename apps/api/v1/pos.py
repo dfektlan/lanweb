@@ -69,6 +69,8 @@ class OrderResource(ModelResource):
         authorization = DjangoAuthorization()
         serializer = Serializer(formats=['json', 'jsonp'])
         always_return_data = True
+        max_limit = 0
+        limit = 0
 
     def hydrate(self, bundle):
         bundle.obj.event = LanEvent.objects.filter(current=True)[0]

@@ -45,3 +45,16 @@ class SiteUser(AbstractUser):
         if len(self.crew_set.all()) > 0:
             return True
         return False
+
+    def setNameNotRetard(self):
+
+        def setFirstCap(string):
+            string = string[:1].upper() + string[1:].lower()
+            return string
+        
+        print self.first_name + " " + self.last_name
+        self.first_name = " ".join(map(setFirstCap, self.first_name.split(" ")))
+        self.last_name = " ".join(map(setFirstCap, self.last_name.split(" ")))
+        self.save()
+
+        return True

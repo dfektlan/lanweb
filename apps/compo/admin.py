@@ -18,7 +18,7 @@ class TeamAdmin(admin.ModelAdmin):
     pass
 
 
-admin.site.register(Game,GameAdmin)
-admin.site.register(Tournament,TournamentAdmin)
-admin.site.register(Participant,ParticipantAdmin)
-admin.site.register(Team,TeamAdmin)
+admin.site.register(Game, GameAdmin)
+admin.site.register(Tournament, TournamentAdmin)
+admin.site.register(Participant, ParticipantAdmin)
+admin.site.register(Team, TeamAdmin)

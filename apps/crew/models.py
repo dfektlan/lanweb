@@ -21,7 +21,7 @@ class CrewMember(models.Model):
     event = models.ForeignKey(LanEvent, null=False)
 
     def __unicode__(self):
-        return "Crew: " + self.user.first_name + " " + self.user.last_name
+        return self.user.first_name + " " + self.user.last_name
 
     def add_credit(self, cred):
         self.credit += cred

@@ -20,8 +20,8 @@ class Game(models.Model):
 
 class Tournament(models.Model):
     stat = (
-        (0, u'CLOSED'),
-        (1, u'OPEN'),
+        (0, u'OPEN'),
+        (1, u'CLOSED'),
         (2, u'ABOUT_TO_START'),
         (3, u'IN_PROGRESS'),
         (4, u'FINISHED')
@@ -52,6 +52,9 @@ class Tournament(models.Model):
         orig = Tournament.objects.get(pk=self.pk)
         if orig.use_teams != self.use_teams and orig.get_participants():
             raise ValidationError(u'Cannot change to/from team. This tournament already has participants')
+
+    class Meta:
+        ordering = ['status']
 
     def set_status(self):
         now = timezone.localtime(timezone.now())

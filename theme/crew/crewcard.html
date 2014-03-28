@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block title%}
-dfekt LAN - Gi Gatepoeng
+dfekt LAN - Crewkort
 {% endblock title %}
 
 
@@ -19,7 +19,7 @@ dfekt LAN - Gi Gatepoeng
         <form action="" method="post">
             {% csrf_token %}
             {{ form|crispy }}
-            <button class="btn btn-primary" type="submit">Send</button>
+            <button class="btn btn-primary" type="submit">Generer</button>
         </form>
     </div>
 
@@ -28,14 +28,11 @@ dfekt LAN - Gi Gatepoeng
         $(document).ready(function(){
             var all = $("input[name='all']");
             var members = $("select[name='crewmember']");
-            var crews = $("select[name='crew']");
             all.on("click", function(){
                 if (all.is(":checked")) {
                     members.prop("disabled", true)
-                    crews.prop("disabled", true)
                 } else {
                     members.prop("disabled", false)
-                    crews.prop("disabled", false)
                 }
             })
 
