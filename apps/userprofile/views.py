@@ -6,10 +6,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 @login_required
 def profile(request, user_id=None):
-    if user_id == None:
-        raise Http404
-    else:
-        user = SiteUser.objects.get(id=user_id)
+    user = SiteUser.objects.get_or_404(id=user_id)
     apps = user.application_set.all()
     attended = get_all_attended_events(user)
 
