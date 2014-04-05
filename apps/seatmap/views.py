@@ -14,7 +14,7 @@ from apps.seatmap.models import Seatmap, Row, Seat
 def edit_seatmap(request, seatmap_id=None):
     seatmap = get_object_or_404(Seatmap, pk=seatmap_id)
     rows = Row.objects.filter(seatmap=seatmap)
-    dict = {"pk": seatmap_id, "rows": {}}
+    dict = {"pk": seatmap_id, "height": seatmap.height, "width": seatmap.width, "rows": {}}
     for r in rows:
         dict["rows"][r.row] = {
             "position_x": r.position_x,
