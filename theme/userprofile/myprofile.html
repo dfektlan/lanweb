@@ -3,13 +3,13 @@
 
 
 {% block title %}
-dfektLAN - {{ profile.nickname }}'s profil
+dfektLAN - {{ user.nickname }}'s profil
 {% endblock title %}
 
 {% block content %}
 {% csrf_token %}
     <div class="col-md-9">
-        <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+        <h2>{{ user.first_name }} {{ user.last_name }}</h2>
         <div class="col-md-7">
             <div class="row">
 
@@ -18,47 +18,47 @@ dfektLAN - {{ profile.nickname }}'s profil
                 <a href="/guide/gravatar">Hvordan legge inn gravatar?</a>
             </div>
             <div class="row">
-                {% get_gravatar_url profile 287 as gravatar_url %}
+                {% get_gravatar_url user 287 as gravatar_url %}
                 <img class="img-thumbnail" src="{{ gravatar_url }}" width="287">
             </div>
-            <div class="row">
+            <div class="row">    
                 <div class="col-xs-6 col-sm-4">
                     <strong>Nickname</strong>
-                    <p>{{ profile.nickname }}</p>
+                    <p>{{ user.nickname }}</p>
                 </div>
                 <div class="col-xs-6 col-sm-4">
                     <strong>Fødselsdag</strong>
-                    <p>{{ profile.date_of_birth|date:'d.m.Y' }}</p>
+                    <p>{{ user.date_of_birth|date:'d.m.Y' }}</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-6 col-sm-4">
                     <strong>Addresse</strong>
-                    <p>{{ profile.address }}<br> {{ profile.zip_code }} {{ profile.town }} <br> {{ profile.country }}</p>
+                    <p>{{ user.address }}<br> {{ user.zip_code }} {{ user.town }} <br> {{ user.country }}</p>
                 </div>
                 <div class="col-xs-6 col-sm-4">
                     <strong>Telefon</strong>
-                    <p>{{ profile.phone }}</p>
+                    <p>{{ user.phone }}</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-6 col-sm-4">
                     <strong>Skype</strong>
-                    <p>{{ profile.skype }}</p>
+                    <p>{{ user.skype }}</p>
                 </div>
                 <div class="col-xs-6 col-sm-4">
                     <strong>Steam</strong>
-                    <p>{{ profile.steam }}</p>
+                    <p>{{ user.steam }}</p>
                 </div>
             </div>
             <div class="row">
-                {% if profile.position %}
+                {% if user.position %}
                 <div class="col-xs-6 col-sm-4">
                     <strong>Posisjon</strong>
-                    <p>{{ profile.position }}</p>
+                    <p>{{ user.position }}</p>
                 </div>
                 {% endif %}
-                {% if profile.cheif %}
+                {% if user.cheif %}
                 <div class="col-xs-6 col-sm-4">
                     <strong>Chief</strong>
                     <p>Ja</p>
@@ -67,7 +67,6 @@ dfektLAN - {{ profile.nickname }}'s profil
             </div>
         </div>
         <div class="col-md-4">
-            {% if user == profile %}
             <a href="{% url 'user_overview' %}"><h4>Crew søknader</h4></a>
             <table data-provides="rowlink" class="table table-striped table-bordered">
                 <tr><th>Crew</th><th>Status</th><th>#</th></tr>
@@ -81,7 +80,6 @@ dfektLAN - {{ profile.nickname }}'s profil
                 {% endfor %}
             </table>
             <a href="{% url 'new_application' %}"><button class="btn btn-primary">Ny søknad</button></a>
-            {% endif %}
             <h4>Deltatt</h4>
             <table class="table table-striped table-bordered">
                 <tr><th>Arrangement</th><th>Som</th></tr>
