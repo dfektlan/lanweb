@@ -9,7 +9,7 @@ dfektLAN - Crew
 {% block content %}
 {% csrf_token %}
     <div class="col-md-9">
-        {% include "crew/crewnav.html" %}
+        {% include "crew/nav.html" %}
         <a href="{%  url 'crewteam' crewteam.id %}">
             <h2>{{ crewteam.name }}</h2>
         </a>
