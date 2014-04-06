@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block include %}
+    <script src="{{ STATIC_URL }}js/seatmap/raphael-min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.djangocsrf.js"></script>
+    <script language="javascript">
+        $.djangocsrf( "enable" );
+        var current_seatmap = {{ json_seatmap|safe }};
+    </script>
+    <script src="{{ STATIC_URL }}js/seatmap/edit.js"></script>
+{% endblock %}
+
+{% block title%}
+dfekt LAN - Sete oversikt
+{% endblock title %}
+
+
+{% block content %}
+    <div class="col-md-9">
+        <h1>Sete oversikt</h1>
+        <table class="table table-responsive table-bordered">
+                <tr>
+                    <th>Sete</th>
+                    <th>Status</th>
+                </tr>
+            {% for row in seatmap.row_set.all %}
+                {% for seat in row.seat_set.all %}
+                <tr>
+                    <td>Rad: {{ row.row }} Sete: {{ seat.number }}</td>
+                    <td>{{ seat.get_status_display }}</td>
+                </tr>
+                {% endfor %}
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock content %}

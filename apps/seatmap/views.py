@@ -79,3 +79,10 @@ def save_seatmap(request):
 
 
     return HttpResponse("OK")
+
+
+@login_required
+@user_passes_test(lambda u: u.is_chief())
+def seat_overview(request, seatmap_id=None):
+    seatmap = get_object_or_404(Seatmap, pk=seatmap_id)
+    return render(request, "seatmap/admin/overview.html", {"seatmap": seatmap})
