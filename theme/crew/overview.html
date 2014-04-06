@@ -7,6 +7,7 @@ dfektLAN - Søknader
 {% block content %}
 {% csrf_token %}
     <div class="col-md-9">
+        {% include "crew/crewnav.html" %}
         <h4>Pending</h4>
         <table data-provides="rowlink" class="table table-striped table-bordered">
         <tr><th>Navn</th><th>Crew</th><th>Sendt</th></tr>

@@ -10,6 +10,7 @@ dfektLAN - Registrer RFID kort
 {% block content %}
 {% csrf_token %}
     <div class="col-md-9">
+        {% include "crew/crewnav.html" %}
         <form action="" method="post" name="rfidform">
             {% csrf_token %}
             {{ form|crispy }}
