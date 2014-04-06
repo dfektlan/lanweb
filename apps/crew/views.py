@@ -40,7 +40,7 @@ def overview(request):
             approved.append(j)
         elif j.status == 2:
             declined.append(j)
-    return render(request, 'crew/overview.html', {'pending':pending, 'approved':approved,'declined':declined})
+    return render(request, 'crew/application/overview.html', {'pending':pending, 'approved':approved,'declined':declined})
 
 
 @login_required
@@ -61,13 +61,13 @@ def look(request, application_id=None):
     else:
         form = ApplicationAdminForm(instance=application)
 
-    return render(request, 'crew/look.html', {"app": application, "form": form })
+    return render(request, 'crew/application/look.html', {"app": application, "form": form })
 
 
 @login_required
 def user_overview(request):
     apps = request.user.application_set.all().order_by('-date') 
-    return render(request, 'crew/user_overview.html', {'apps': apps})
+    return render(request, 'crew/application/user_overview.html', {'apps': apps})
 
 
 @login_required
@@ -87,7 +87,7 @@ def new_application(request, application_id=None):
         return redirect(user_overview)
     else:
         form = ApplicationForm(instance=application)
-    return render(request, 'crew/new_application.html', {'form': form, })
+    return render(request, 'crew/application/new_application.html', {'form': form, })
 
 
 def del_application(request, application_id=None):
@@ -135,7 +135,7 @@ def register_rfid(request):
     else:
         form = RegisterRFIDForm()
 
-    return render(request, 'crew/register_rfid.html', {'form': form, })
+    return render(request, 'crew/admin/register_rfid.html', {'form': form, })
 
 
 @login_required
@@ -163,7 +163,7 @@ def credit(request):
     else:
         form = CreditToCrewForm()
 
-    return render(request, 'crew/credit.html', {'form': form})
+    return render(request, 'crew/admin/credit.html', {'form': form})
 
 
 @login_required
@@ -208,7 +208,7 @@ def crewcard(request):
     else:
         form = CrewCardForm()
 
-    return render(request, 'crew/crewcard.html', {'form': form})
+    return render(request, 'crew/admin/crewcard.html', {'form': form})
 
 
 @login_required
@@ -225,7 +225,7 @@ def addcrewmember(request):
     else:
         form = AddCrewMemberForm()
 
-    return render(request, "crew/addcrewmember.html", {'form': form })
+    return render(request, "crew/admin/addcrewmember.html", {'form': form })
 
 
 def add_to_crewteam(aid):
