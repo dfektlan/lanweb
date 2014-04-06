@@ -32,7 +32,7 @@ def edit_seatmap(request, seatmap_id=None):
     json_seatmap = json.dumps(dict)
     print json_seatmap
 
-    return render(request, "seatmap/edit.html", {'seatmap': seatmap, "json_seatmap": json_seatmap})
+    return render(request, "seatmap/admin/edit.html", {'seatmap': seatmap, "json_seatmap": json_seatmap})
 
 
 @login_required
@@ -41,7 +41,6 @@ def save_seatmap(request):
     if request.is_ajax():
         data = json.loads(request.body)
         seatmap = Seatmap.objects.get(pk=data["pk"])
-        del data["pk"]
 
         #Adding and updateing
         for r in data["rows"]:
