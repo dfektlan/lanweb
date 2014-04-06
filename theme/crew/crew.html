@@ -10,14 +10,7 @@ dfektLAN - Crew
 {% csrf_token %}
 
     <div class="col-md-9">
-        <div class="row">
-            <ul class="nav nav-tabs">
-                 <li><a href="{% url 'credit_overview' %}">Gatepoeng</a></li>
-                 <li><a href="{% url 'application_overview' %}"><span class="badge pull-right">{{ count }}</span>Søknader  </a></li>
-                 <li><a href="{% url 'crewcard' %}">Crewkort</a></li>
-                 <li><a href="{% url 'addcrewmember' %}">Legg til crew</a></li>
-            </ul>
-        </div>
+        {% include "crew/crewnav.html" %}
         <div class="row">
             {% for team in crewteams %}
             <a href="{%  url 'crewteam' team.id %}">

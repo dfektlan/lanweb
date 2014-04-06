@@ -8,7 +8,7 @@ PROJECT_ROOT_DIRECTORY = os.path.join(PROJECT_SETTINGS_DIRECTORY, '..', '..')
 #print PROJECT_SETTINGS_DIRECTORY
 #print PROJECT_ROOT_DIRECTORY
 ADMINS = (
-    ('Kristoffer Dalby', 'kradalby@kradalby.no'),
+    ('Utvikling', 'utvikling@dfektlan.no'),
 )
 
 MANAGERS = ADMINS
@@ -128,10 +128,10 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     
     #dfektLAN apps
-    'apps.authentication',
     'apps.userprofile',
-    'apps.crew',
     'apps.event',
+    'apps.authentication',
+    'apps.crew',
     'apps.sponsor',
     'apps.news',
     'apps.pos',
@@ -187,8 +187,8 @@ for settings_module in ['local']:  # local last
         sys.stderr.write("Could not find settings module '%s'.\n" % settings_module)
         if settings_module == 'local':
             sys.stderr.write("You need to copy the settings file "
-                             "'onlineweb4/settings/example-local.py' to "
-                             "'onlineweb4/settings/local.py'.\n")
+                             "'dfektlan/settings/example-local.py' to "
+                             "'dfektlan/settings/local.py'.\n")
         sys.exit(1)
     try:
         exec('from %s import *' % settings_module)
