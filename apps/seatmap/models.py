@@ -56,4 +56,3 @@ class Seatmap(models.Model):
 
     def __unicode__(self):
         return self.event.name
-

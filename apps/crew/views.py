@@ -67,7 +67,7 @@ def look(request, application_id=None):
 @login_required
 def user_overview(request):
     apps = request.user.application_set.all().order_by('-date') 
-    return render(request, 'crew/application/user_overview.html', {'apps': apps})
+    return render(request, 'crew/application/participant_overview.html', {'apps': apps})
 
 
 @login_required

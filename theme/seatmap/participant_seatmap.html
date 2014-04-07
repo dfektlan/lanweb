@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block include %}
+    <script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js"></script>
+    <script src="{{ STATIC_URL }}js/seatmap/raphael-min.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.djangocsrf.js"></script>
+    <script language="javascript">
+        $.djangocsrf( "enable" );
+        var current_seatmap = {{ json_seatmap|safe }};
+    </script>
+    <script src="{{ STATIC_URL }}js/seatmap/participant.js"></script>
+{% endblock %}
+
+{% block title %}
+dfekt LAN - Rediger seatmap
+{% endblock title %}
+
+
+{% block content %}
+    <div class="col-md-9">
+        <h1>Seatmap</h1>
+        <div id="seatmap"></div>
+    </div>
+
+{% endblock content %}

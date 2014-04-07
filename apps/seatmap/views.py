@@ -13,25 +13,7 @@ from apps.seatmap.models import Seatmap, Row, Seat
 @user_passes_test(lambda u: u.is_chief())
 def edit_seatmap(request, seatmap_id=None):
     seatmap = get_object_or_404(Seatmap, pk=seatmap_id)
-    rows = Row.objects.filter(seatmap=seatmap)
-    dict = {"pk": seatmap_id, "height": seatmap.height, "width": seatmap.width, "rows": {}}
-    for r in rows:
-        dict["rows"][r.row] = {
-            "position_x": r.position_x,
-            "position_y": r.position_y,
-            "orientation": r.orientation,
-            "seats": {}
-        }
-        seats = Seat.objects.filter(row=r)
-
-        for s in seats:
-            dict["rows"][r.row]["seats"][s.number] = {
-                "status": s.status
-            }
-
-    json_seatmap = json.dumps(dict)
-    print json_seatmap
-
+    json_seatmap = json.dumps(get_seatmap_as_dict(seatmap))
     return render(request, "seatmap/admin/edit.html", {'seatmap': seatmap, "json_seatmap": json_seatmap})
 
 
@@ -76,9 +58,7 @@ def save_seatmap(request):
                     if str(s.number) not in data["rows"][str(r.row)]["seats"]:
                         s.delete()
 
-
-
-    return HttpResponse("OK")
+    return HttpResponse(200)
 
 
 @login_required
@@ -86,3 +66,29 @@ def save_seatmap(request):
 def seat_overview(request, seatmap_id=None):
     seatmap = get_object_or_404(Seatmap, pk=seatmap_id)
     return render(request, "seatmap/admin/overview.html", {"seatmap": seatmap})
+
+
+@login_required
+def participant_seatmap(request, seatmap_id=None):
+    seatmap = get_object_or_404(Seatmap, pk=seatmap_id)
+    json_seatmap = json.dumps(get_seatmap_as_dict(seatmap))
+    return render(request, "seatmap/participant_seatmap.html", {'seatmap': seatmap, "json_seatmap": json_seatmap})
+
+
+def get_seatmap_as_dict(seatmap):
+    rows = Row.objects.filter(seatmap=seatmap)
+    dict = {"pk": seatmap.pk, "height": seatmap.height, "width": seatmap.width, "rows": {}}
+    for r in rows:
+        dict["rows"][r.row] = {
+            "position_x": r.position_x,
+            "position_y": r.position_y,
+            "orientation": r.orientation,
+            "seats": {}
+        }
+        seats = Seat.objects.filter(row=r)
+
+        for s in seats:
+            dict["rows"][r.row]["seats"][s.number] = {
+                "status": s.status
+            }
+    return dict
