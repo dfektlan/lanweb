@@ -11,9 +11,10 @@
     <div class="col-md-9">
         <div class="row">
             <h1> {{ flatpage.title }} </h1>
-                <!--{% if user.is_superuser %}
-                    <p><a href="">Rediger</a></p>
-                {% endif %}-->
+                {% if user.is_superuser %}
+                    <p><a href="{% url 'admin:flatpages_flatpage_change' flatpage.id %}">Rediger</a></p>
+
+                {% endif %}
                 <p>{{ flatpage.content|dfekt_markdown }}</p>
         </div>
     </div>
