@@ -9,7 +9,7 @@ dfektLAN - {{ user.nickname }}'s profil
 {% block content %}
 {% csrf_token %}
     <div class="col-md-9">
-        <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+        <h2>{{ user.first_name }} {{ user.last_name }}</h2><a class="pull-left" href="{% url 'edit_profile' %}">Rediger</a>
         <div class="col-md-7">
             <div class="row">
 
