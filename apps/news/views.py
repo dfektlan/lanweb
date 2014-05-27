@@ -3,8 +3,9 @@ from django.shortcuts import render, get_object_or_404
 from apps.news.models import Post
 from apps.event.models import LanEvent
  
-def overview(request):
+def overview(request, event=None):
 # This view displays the posts related to the current event. It will display featured posts on top, else the latest post.
+    print event
 
     current_event = LanEvent.objects.get(current=True)
 #check if there are featured posts (to current event), if not; get the latest post
