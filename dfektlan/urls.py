@@ -10,6 +10,9 @@ admin.autodiscover()
 # dfekt LAN
 dpatterns = [
     url(r'^$', 'apps.news.views.overview', name='root'),
+    url(r'^auth/',  include('apps.authentication.urls')),
+    url(r'^userprofile/',   include('apps.userprofile.urls')),
+    url(r'^logistic/',    include('apps.logi.urls')),
     url(r'^crew/',   include('apps.crew.urls')),
     url(r'^news/',  include('apps.news.urls')),
     url(r'^sponsor/',  include('apps.sponsor.urls')),
@@ -25,9 +28,6 @@ urlpatterns = patterns('',
 
     url(r'^(?P<event>(v14))/', include(dpatterns)),
 
-    url(r'^auth/',  include('apps.authentication.urls')),
-    url(r'^userprofile/',   include('apps.userprofile.urls')),
-    url(r'^logistic/',    include('apps.logi.urls')),
     url(r'^api/',    include('apps.api.urls')),
 )
 
