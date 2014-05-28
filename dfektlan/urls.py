@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.http import HttpResponseRedirect
+from django.views.generic import RedirectView
 
 
 
@@ -34,7 +34,8 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     #url(r'^pages/', include('django.contrib.flatpages.urls')),
 
-    url(r'^$', lambda x: HttpResponseRedirect('/v14')).
+    # Update this to latest event!
+    url(r'^$', RedirectView.as_view(url='v14/')),
     url(r'^api/',    include('apps.api.urls')),
 )
 
