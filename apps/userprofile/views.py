@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 
 @login_required
-def profile(request, user_id=None):
+def profile(request, event=None, user_id=None):
     user = get_object_or_404(SiteUser, id=user_id)
     apps = user.application_set.all()
     attended = get_all_attended_events(user)
@@ -15,7 +15,7 @@ def profile(request, user_id=None):
 
 
 @login_required
-def myprofile(request):
+def myprofile(request, event=None):
     user = request.user
     apps = user.application_set.all()
     attended = get_all_attended_events(user)
@@ -24,7 +24,7 @@ def myprofile(request):
 
 
 @login_required
-def edit_profile(request):
+def edit_profile(request, event=None):
     user = request.user
     if request.POST:
         form = EditProfileForm(request.POST)

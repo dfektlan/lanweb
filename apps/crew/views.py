@@ -21,7 +21,7 @@ LATEST_EVENT = LanEvent.objects.filter(current=True)[0]
 
 @login_required
 @user_passes_test(lambda u: u.is_chief())
-def overview(request):
+def overview(request, event=None):
     #users_in_group = Group.objects.get(name="Core").siteuser_set.all()
     #groups = request.user.groups.all()
     #user = request.user
@@ -45,7 +45,7 @@ def overview(request):
 
 @login_required
 @user_passes_test(lambda u: u.is_chief())
-def look(request, application_id=None):
+def look(request, event=None, application_id=None):
     application = get_object_or_404(Application, pk=application_id)
     if request.method == "POST":
         form = ApplicationAdminForm(request.POST, instance=application)
@@ -65,13 +65,13 @@ def look(request, application_id=None):
 
 
 @login_required
-def user_overview(request):
+def user_overview(request, event=None):
     apps = request.user.application_set.all().order_by('-date') 
     return render(request, 'crew/user_overview.html', {'apps': apps})
 
 
 @login_required
-def new_application(request, application_id=None):
+def new_application(request, event=None, application_id=None):
     if application_id is None:
         application = Application()
     else:
@@ -90,7 +90,7 @@ def new_application(request, application_id=None):
     return render(request, 'crew/new_application.html', {'form': form, })
 
 
-def del_application(request, application_id=None):
+def del_application(request, event=None, application_id=None):
     app = get_object_or_404(Application, pk=application_id)
 
     if app.user == request.user:
@@ -102,13 +102,13 @@ def del_application(request, application_id=None):
 
 
 @login_required
-def crew(request):
+def crew(request, event=None):
     crewteams = CrewTeam.objects.all()
     application_count = Application.objects.filter(event=LATEST_EVENT).filter(status=0).count()
     return render(request, 'crew/crew.html', {'crewteams': crewteams, 'count': application_count})
 
 @login_required
-def crewteam(request, crewteam_id):
+def crewteam(request, event=None, crewteam_id):
     crewteam = CrewTeam.objects.get(pk=crewteam_id)
     members = crewteam.members.all()
     return render(request, 'crew/crewteam.html', {'members': members, 'crewteam': crewteam})
@@ -116,7 +116,7 @@ def crewteam(request, crewteam_id):
 
 @login_required
 @user_passes_test(lambda u: u.is_chief())
-def register_rfid(request):
+def register_rfid(request, event=None):
     if request.POST:
         form = RegisterRFIDForm(request.POST)
         if form.is_valid():
@@ -140,7 +140,7 @@ def register_rfid(request):
 
 @login_required
 @user_passes_test(lambda u: u.is_chief())
-def credit(request):
+def credit(request, event=None):
     if request.POST:
         form = CreditToCrewForm(request.POST)
         if form.is_valid():
@@ -168,14 +168,14 @@ def credit(request):
 
 @login_required
 @user_passes_test(lambda u: u.is_chief())
-def credit_overview(request):
+def credit_overview(request, event=None):
     crewteams = CrewTeam.objects.all()
     return render(request, 'crew/credit_overview.html', {'crewteams': crewteams})
 
 
 @login_required
 @user_passes_test(lambda u: u.is_chief())
-def crewcard(request):
+def crewcard(request, event=None):
     if request.POST:
         form = CrewCardForm(request.POST)
         if form.is_valid():
@@ -213,7 +213,7 @@ def crewcard(request):
 
 @login_required
 @user_passes_test(lambda u: u.is_chief())
-def addcrewmember(request):
+def addcrewmember(request, event=None):
     if request.POST:
         form = AddCrewMemberForm(request.POST)
         if form.is_valid():

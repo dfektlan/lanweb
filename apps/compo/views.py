@@ -13,7 +13,7 @@ challonge.set_credentials(settings.CHALLONGE_APIUSER, settings.CHALLONGE_APIKEY)
 LATEST_EVENT = LanEvent.objects.filter(current=True)[0]
 
 
-def overview(request):
+def overview(request, event=None):
     all_games = Game.objects.all()
     all_tournaments = Tournament.objects.filter(event=LATEST_EVENT)
     all_tournaments.order_by('status')
@@ -25,7 +25,7 @@ def overview(request):
     return render(request, 'compo/overview.html', {'tournaments':tournament_dict, 'all_games':all_games})
 
 
-def tournament(request, tournament_id=None):
+def tournament(request, event=None, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     tour.set_status()
     try:
@@ -52,7 +52,7 @@ def tournament(request, tournament_id=None):
                                                      'challonge_form': challonge_form,})
 
 
-def add_team(request, tournament_id=None):
+def add_team(request, event=None, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     if request.POST:
         team_form = RegisterTeamForm(request.POST, tour=tour, request=request)
@@ -63,7 +63,7 @@ def add_team(request, tournament_id=None):
     return redirect('tournament', tournament_id)
 
 
-def register_to_tournament(request, tournament_id=None):
+def register_to_tournament(request, event=None, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     if not request.user.is_authenticated():
         messages.error(request, u'You must log in to register for a tournament')
@@ -96,7 +96,7 @@ def make_participant(user, tour):
     p.save()
 
 
-def make_team_participant(request, form, tour):
+def make_team_participant(request, event=None, form, tour):
     team = Team()
     participant = Participant()
     # Unike teamtitle? not working.. -_- required for Challonge!
@@ -114,13 +114,13 @@ def make_team_participant(request, form, tour):
     messages.success(request, u'You have successfully registered your team for this tournament')
 
 
-def check_user(request, tournament_id=None):
+def check_user(request, event=None, tournament_id=None):
     if not request.user.is_authenticated():
         messages.error(request, u'You must log in to register for a tournament')
     return redirect('tournament', tournament_id)
 
 
-def remove_participant(request, tournament_id=None):
+def remove_participant(request, event=None, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     participants = tour.get_participants()
     if tour.use_teams:
@@ -141,7 +141,7 @@ def remove_participant(request, tournament_id=None):
     return redirect('tournament', tournament_id)
 
 
-def create_tournament(request, tournament_id=None):
+def create_tournament(request, event=None, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     if request.POST:
         form = ChallongeForm(request.POST)
@@ -159,7 +159,7 @@ def create_tournament(request, tournament_id=None):
     return redirect('tournament', tournament_id)
 
 
-def start_tournament(request, tournament_id=None):
+def start_tournament(request, event=None, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     try:
         challonge.tournaments.start(tour.challonge_id)
@@ -171,7 +171,7 @@ def start_tournament(request, tournament_id=None):
     return redirect('tournament', tournament_id)
 
 
-def destroy_tournament(request, tournament_id=None):
+def destroy_tournament(request, event=None, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     try:
         challonge.tournaments.destroy(tour.challonge_id)
@@ -184,7 +184,7 @@ def destroy_tournament(request, tournament_id=None):
     return redirect('tournament', tournament_id)
 
 
-def finalize_tournament(request, tournament_id=None):
+def finalize_tournament(request, event=None, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     # add som sort of confirmation from user
     tour.status = 4 # "FINISHED"

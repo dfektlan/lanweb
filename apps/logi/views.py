@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 
 @login_required
 @user_passes_test(lambda u: u.is_crew())
-def item_overview(request):
+def item_overview(request, event=None):
     items = Item.objects.all()
     crews = Crew.objects.all()
 
@@ -20,7 +20,7 @@ def item_overview(request):
     return render(request, "logi/overview.html", {'items': i,})
 
 
-def new_item(request, item_id=None):
+def new_item(request, event=None, item_id=None):
     if item_id is None:
         item = Item()
     else:

@@ -10,7 +10,7 @@ import pprint
 #}
 
 
-def stream(request, stream_id=None):
+def stream(request, event=None, stream_id=None):
     channels = Channel.objects.all()
     if stream_id is None:
         stream_id = 1
