@@ -29,7 +29,7 @@ def login(request, event=None):
     else:
         form = LoginForm()
 
-    response_dict = { 'form' : form, 'next' : redirect_url}
+    response_dict = { 'form' : form, 'next' : redirect_url, 'event': event}
     return render(request, 'auth/login.html', response_dict)
 
 
@@ -98,7 +98,7 @@ Aktiveringslinken er kun aktiv i 24 timer, etter dette vil du måtte bruke Reset
         else:
             form = RegisterForm()
 
-        return render(request, 'auth/register.html', {'form': form, })
+        return render(request, 'auth/register.html', {'form': form, 'event': event, })
 
 
 def verify(request, token):
@@ -170,13 +170,13 @@ recovery option again to get your account verified.
         else:
             form = RecoveryForm()
 
-        return render(request, 'auth/recover.html', {'form': form})
+        return render(request, 'auth/recover.html', {'form': form, 'event': event})
 
 
 def users(request, event=None):
     u = SiteUser.objects.all()
 
-    return render(request, 'auth/users.html', {'u': u})
+    return render(request, 'auth/users.html', {'u': u, 'event': event})
 
 
 def set_password(request, token=None): 
@@ -206,7 +206,7 @@ def set_password(request, token=None):
 
                 messages.success(request, "Token accepted. Please insert your new password.")
 
-            return render(request, 'auth/set_password.html', {'form': form, 'token': token})
+            return render(request, 'auth/set_password.html', {'form': form, 'token': token, 'event': event})
 
         else:
             messages.error(request, "The token has expired. Please use the password recovery to get a new token.")

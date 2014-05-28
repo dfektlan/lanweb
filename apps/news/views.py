@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from apps.news.models import Post
 from apps.event.models import LanEvent
  
-def overview(request, event=None, event=None):
+def overview(request, event=None):
 # This view displays the posts related to the current event. It will display featured posts on top, else the latest post.
     print event
 
@@ -30,11 +30,11 @@ def overview(request, event=None, event=None):
 #            elements = []
 #    posts.append(elements) 
     posts = Post.objects.filter(featured=False).filter(event=current_event)
-    return render(request, 'news/overview.html', {'posts': posts, 'featured': featured})
+    return render(request, 'news/overview.html', {'posts': posts, 'featured': featured, 'event': event})
  
-def detail(request, event=None, news_id):
+def detail(request, news_id, event=None):
     post = get_object_or_404(Post, pk=news_id)
-    return render(request, 'news/detail.html', {'post': post})
+    return render(request, 'news/detail.html', {'post': post, 'event': event})
 
  
 def archive(request, event=None, event_id=None):
@@ -52,5 +52,5 @@ def archive(request, event=None, event_id=None):
             elements = []
     posts.append(elements) 
     print(posts)
-    return render(request, 'news/archive.html', {'posts': posts, 'events': events})
+    return render(request, 'news/archive.html', {'posts': posts, 'events': events, 'event': event})
     

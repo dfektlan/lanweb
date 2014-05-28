@@ -6,4 +6,4 @@ def index(request, event=None):
     current_event = LanEvent.objects.get(current=True)
     sponsors = Sponsor.objects.filter(event=current_event)
     
-    return render(request, 'sponsor/index.html', {'sponsors' : sponsors})
+    return render(request, 'sponsor/index.html', {'sponsors' : sponsors, 'event': event})

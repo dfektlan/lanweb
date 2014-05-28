@@ -40,7 +40,7 @@ def overview(request, event=None):
             approved.append(j)
         elif j.status == 2:
             declined.append(j)
-    return render(request, 'crew/overview.html', {'pending':pending, 'approved':approved,'declined':declined})
+    return render(request, 'crew/overview.html', {'pending':pending, 'approved':approved,'declined':declined, 'event': event})
 
 
 @login_required
@@ -61,13 +61,13 @@ def look(request, event=None, application_id=None):
     else:
         form = ApplicationAdminForm(instance=application)
 
-    return render(request, 'crew/look.html', {"app": application, "form": form })
+    return render(request, 'crew/look.html', {"app": application, "form": form, 'event': event })
 
 
 @login_required
 def user_overview(request, event=None):
     apps = request.user.application_set.all().order_by('-date') 
-    return render(request, 'crew/user_overview.html', {'apps': apps})
+    return render(request, 'crew/user_overview.html', {'apps': apps, 'event': event})
 
 
 @login_required
@@ -87,7 +87,7 @@ def new_application(request, event=None, application_id=None):
         return redirect(user_overview)
     else:
         form = ApplicationForm(instance=application)
-    return render(request, 'crew/new_application.html', {'form': form, })
+    return render(request, 'crew/new_application.html', {'form': form, 'event': event, })
 
 
 def del_application(request, event=None, application_id=None):
@@ -105,13 +105,13 @@ def del_application(request, event=None, application_id=None):
 def crew(request, event=None):
     crewteams = CrewTeam.objects.all()
     application_count = Application.objects.filter(event=LATEST_EVENT).filter(status=0).count()
-    return render(request, 'crew/crew.html', {'crewteams': crewteams, 'count': application_count})
+    return render(request, 'crew/crew.html', {'crewteams': crewteams, 'count': application_count, 'event': event})
 
 @login_required
-def crewteam(request, event=None, crewteam_id):
+def crewteam(request, event=None, crewteam_id=None):
     crewteam = CrewTeam.objects.get(pk=crewteam_id)
     members = crewteam.members.all()
-    return render(request, 'crew/crewteam.html', {'members': members, 'crewteam': crewteam})
+    return render(request, 'crew/crewteam.html', {'members': members, 'crewteam': crewteam, 'event': event})
 
 
 @login_required
@@ -135,7 +135,7 @@ def register_rfid(request, event=None):
     else:
         form = RegisterRFIDForm()
 
-    return render(request, 'crew/register_rfid.html', {'form': form, })
+    return render(request, 'crew/register_rfid.html', {'form': form, 'event': event, })
 
 
 @login_required
@@ -163,14 +163,14 @@ def credit(request, event=None):
     else:
         form = CreditToCrewForm()
 
-    return render(request, 'crew/credit.html', {'form': form})
+    return render(request, 'crew/credit.html', {'form': form, 'event': event})
 
 
 @login_required
 @user_passes_test(lambda u: u.is_chief())
 def credit_overview(request, event=None):
     crewteams = CrewTeam.objects.all()
-    return render(request, 'crew/credit_overview.html', {'crewteams': crewteams})
+    return render(request, 'crew/credit_overview.html', {'crewteams': crewteams, 'event': event})
 
 
 @login_required
@@ -208,7 +208,7 @@ def crewcard(request, event=None):
     else:
         form = CrewCardForm()
 
-    return render(request, 'crew/crewcard.html', {'form': form})
+    return render(request, 'crew/crewcard.html', {'form': form, 'event': event})
 
 
 @login_required
@@ -225,7 +225,7 @@ def addcrewmember(request, event=None):
     else:
         form = AddCrewMemberForm()
 
-    return render(request, "crew/addcrewmember.html", {'form': form })
+    return render(request, "crew/addcrewmember.html", {'form': form, 'event': event })
 
 
 def add_to_crewteam(aid):

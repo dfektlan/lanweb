@@ -22,7 +22,7 @@ def overview(request, event=None):
         tournament_dict[g] = all_tournaments.filter(game=g)
         for t in tournament_dict[g]:
             t.set_status()
-    return render(request, 'compo/overview.html', {'tournaments':tournament_dict, 'all_games':all_games})
+    return render(request, 'compo/overview.html', {'tournaments':tournament_dict, 'all_games':all_games, 'event': event})
 
 
 def tournament(request, event=None, tournament_id=None):
@@ -49,7 +49,8 @@ def tournament(request, event=None, tournament_id=None):
                                                      'is_teamleader': is_teamleader,
                                                      'challonge_image': challonge_image,
                                                      'challonge_url': challonge_url,
-                                                     'challonge_form': challonge_form,})
+                                                     'challonge_form': challonge_form, 
+                                                     'event': event})
 
 
 def add_team(request, event=None, tournament_id=None):
@@ -96,7 +97,7 @@ def make_participant(user, tour):
     p.save()
 
 
-def make_team_participant(request, event=None, form, tour):
+def make_team_participant(request, event=None, form=None, tour=None):
     team = Team()
     participant = Participant()
     # Unike teamtitle? not working.. -_- required for Challonge!

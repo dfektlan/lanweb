@@ -44,7 +44,7 @@ def stream(request, event=None, stream_id=None):
     for channel in channels:
         links.append((channel.pk, channel.displayName))
 
-    return render(request, 'tv/index.html', {'stream': stream, 'link': links})
+    return render(request, 'tv/index.html', {'stream': stream, 'link': links, 'event': event})
 
 
 def get_stream_as_dict(channel):

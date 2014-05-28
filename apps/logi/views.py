@@ -17,7 +17,7 @@ def item_overview(request, event=None):
     for crew in crews:
         i[crew] = filter(lambda x: x.owner == crew, items)
 
-    return render(request, "logi/overview.html", {'items': i,})
+    return render(request, "logi/overview.html", {'items': i, 'event': event,})
 
 
 def new_item(request, event=None, item_id=None):
@@ -37,4 +37,4 @@ def new_item(request, event=None, item_id=None):
     else:
         form = ItemForm()
 
-    return render(request, "logi/form.html", {'form': form})
+    return render(request, "logi/form.html", {'form': form, 'event': event})

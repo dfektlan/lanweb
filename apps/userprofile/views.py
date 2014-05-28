@@ -11,7 +11,7 @@ def profile(request, event=None, user_id=None):
     apps = user.application_set.all()
     attended = get_all_attended_events(user)
 
-    return render(request, 'userprofile/profile.html', {'profile': user, 'apps': apps, 'attended': attended})
+    return render(request, 'userprofile/profile.html', {'profile': user, 'apps': apps, 'attended': attended, 'event': event})
 
 
 @login_required
@@ -20,7 +20,7 @@ def myprofile(request, event=None):
     apps = user.application_set.all()
     attended = get_all_attended_events(user)
 
-    return render(request, 'userprofile/myprofile.html', {'user': user, 'apps': apps, 'attended': attended})
+    return render(request, 'userprofile/myprofile.html', {'user': user, 'apps': apps, 'attended': attended, 'event': event})
 
 
 @login_required
@@ -56,7 +56,7 @@ def edit_profile(request, event=None):
             "skype": user.skype,
             "steam": user.steam
         })
-    return render(request, 'userprofile/editprofile.html', {'form': form, 'user': user})
+    return render(request, 'userprofile/editprofile.html', {'form': form, 'user': user, 'event': event})
 
 
 
