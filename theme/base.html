@@ -44,14 +44,14 @@
                 <ul class="nav nav-pills nav-stacked">
                     {% if user.is_superuser %}
                         <li><a href="{% url 'admin:index' %}">Admin</a></li>
-                        <li><a href="{% url 'users' %}">Brukere</a></li>
+                        <li><a href="{% url 'users' event %}">Brukere</a></li>
                         <hr>
                     {% endif %}
                     {% if user.is_crew %}
                         {% for crew in user.crewmember_set.all.0.crewteam_set.all %}
-                            <li><a href="{% url 'crewteam' crew.id %}">{{ crew.name }}</a></li>
+                            <li><a href="{% url 'crewteam' event crew.id %}">{{ crew.name }}</a></li>
                         {% endfor %}
-                        <li><a href="{% url 'crew' %}">Crews</a></li>
+                        <li><a href="{% url 'crew' event %}">Crews</a></li>
                         <li class="disabled"><a href="#">Kreditt: {{ user.crewmember_set.all.0.credit }}</a></li>
                     {% endif %}
                     {% block sidebar_specific %}
@@ -60,7 +60,7 @@
             {% endif %}
             <hr>
             <div>
-                <h4><a href="{% url "sponsor_index" %}">Sponsorer:</a></h4>
+                <h4><a href="{% url "sponsor_index" event %}">Sponsorer:</a></h4>
                 {% show_sponsor_list %}
             </div>
             <hr>
