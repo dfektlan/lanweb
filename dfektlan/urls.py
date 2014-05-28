@@ -25,6 +25,7 @@ dpatterns = [
 ]
 
 eventpatterns = [
+    url(r'^(?P<event>(s14))/', include(dpatterns)),
     url(r'^(?P<event>(v14))/', include(dpatterns)),
 
 ]
@@ -32,19 +33,19 @@ eventpatterns = [
 urlpatterns = patterns('',
     # Django
     url(r'^admin/', include(admin.site.urls)),
-    #url(r'^pages/', include('django.contrib.flatpages.urls')),
+    url(r'^pages(?P<url>.*)$', 'django.contrib.flatpages.views.flatpage', name='flatpage'),
 
     # Update this to latest event!
-    url(r'^$', RedirectView.as_view(url='v14/')),
+    url(r'^$', RedirectView.as_view(url='s14/')),
     url(r'^api/',    include('apps.api.urls')),
 )
 
 urlpatterns += eventpatterns
 
 #Fix for flatpages urls
-urlpatterns += patterns('django.contrib.flatpages.views',
-    (r'^(?P<url>.*/)$', 'flatpage'),
-    )
+#urlpatterns += patterns('django.contrib.flatpages.views',
+#    (r'^(?P<url>.*/)$', 'flatpage'),
+#    )
 
  
 

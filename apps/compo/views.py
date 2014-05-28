@@ -10,12 +10,12 @@ from datetime import date
 from django.conf import settings
 
 challonge.set_credentials(settings.CHALLONGE_APIUSER, settings.CHALLONGE_APIKEY)
-LATEST_EVENT = LanEvent.objects.filter(current=True)[0]
 
 
 def overview(request, event=None):
+    eventObj = LanEvent.objects.get(shortname=event)
     all_games = Game.objects.all()
-    all_tournaments = Tournament.objects.filter(event=LATEST_EVENT)
+    all_tournaments = Tournament.objects.filter(event=eventObj)
     all_tournaments.order_by('status')
     tournament_dict = {}
     for g in all_games:

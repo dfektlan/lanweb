@@ -17,7 +17,6 @@ from StringIO import StringIO
 import zipfile
 import os
 
-LATEST_EVENT = LanEvent.objects.filter(current=True)[0]
 
 @login_required
 @user_passes_test(lambda u: u.is_chief())
@@ -53,7 +52,7 @@ def look(request, event=None, application_id=None):
             form.save()
             form.user = request.user
             if form.has_changed and form.cleaned_data['status'] == 1:
-                add_to_crewteam(application_id)
+                add_to_crewteam(application_id, application.event)
             messages.success(request, u'The application was successfully saved')
             return redirect(overview)
         else:
@@ -72,6 +71,7 @@ def user_overview(request, event=None):
 
 @login_required
 def new_application(request, event=None, application_id=None):
+    eventObj = LanEvent.objects.get(shortname=event)
     if application_id is None:
         application = Application()
     else:
@@ -81,7 +81,7 @@ def new_application(request, event=None, application_id=None):
         form = ApplicationForm(request.POST, instance=application)
         if form.is_valid():
             application.user_id = request.user.id
-            application.event = LATEST_EVENT
+            application.event = eventObj
             form.save()
             messages.success(request, u'Your application was succesfully submitted')
         return redirect(user_overview)
@@ -103,8 +103,9 @@ def del_application(request, event=None, application_id=None):
 
 @login_required
 def crew(request, event=None):
+    eventObj = LanEvent.objects.get(shortname=event)
     crewteams = CrewTeam.objects.all()
-    application_count = Application.objects.filter(event=LATEST_EVENT).filter(status=0).count()
+    application_count = Application.objects.filter(event=eventObj).filter(status=0).count()
     return render(request, 'crew/crew.html', {'crewteams': crewteams, 'count': application_count, 'event': event})
 
 @login_required
@@ -141,24 +142,25 @@ def register_rfid(request, event=None):
 @login_required
 @user_passes_test(lambda u: u.is_chief())
 def credit(request, event=None):
+    eventObj = LanEvent.objects.get(shortname=event)
     if request.POST:
         form = CreditToCrewForm(request.POST)
         if form.is_valid():
             if form.cleaned_data['all']:
-                crewmembers = CrewMember.objects.filter(event=LATEST_EVENT)
+                crewmembers = CrewMember.objects.filter(event=eventObj)
                 for member in crewmembers:
                     member.add_credit(form.cleaned_data['credit'])
-                messages.success(request, "The amount %s was added to every user for event %s" % (form.cleaned_data['credit'], LATEST_EVENT.name))
+                messages.success(request, "The amount %s was added to every user for event %s" % (form.cleaned_data['credit'], eventObj.name))
             elif form.cleaned_data['crewmember']:
                 for member in form.cleaned_data['crewmember']:
                     member.add_credit(form.cleaned_data['credit'])
 
-                messages.success(request, "The amount %s was added to %s for event %s" % (form.cleaned_data['credit'], "selected users", LATEST_EVENT.name))
+                messages.success(request, "The amount %s was added to %s for event %s" % (form.cleaned_data['credit'], "selected users", eventObj.name))
             elif form.cleaned_data['crew']:
                 for c in form.cleaned_data['crew']:
                     for member in c.members.all():
                         member.add_credit(form.cleaned_data['credit'])
-                messages.success(request, "The amount %s was added to %s for event %s" % (form.cleaned_data['credit'], "selected users", LATEST_EVENT.name))
+                messages.success(request, "The amount %s was added to %s for event %s" % (form.cleaned_data['credit'], "selected users", eventObj.name))
 
     else:
         form = CreditToCrewForm()
@@ -176,13 +178,14 @@ def credit_overview(request, event=None):
 @login_required
 @user_passes_test(lambda u: u.is_chief())
 def crewcard(request, event=None):
+    eventObj = LanEvent.objects.get(shortname=event)
     if request.POST:
         form = CrewCardForm(request.POST)
         if form.is_valid():
             s = StringIO()
             zipp = zipfile.ZipFile(s, 'w')
             if form.cleaned_data['all']:
-                crewmembers = CrewMember.objects.filter(event=LATEST_EVENT)
+                crewmembers = CrewMember.objects.filter(event=eventObj)
                 for member in crewmembers:
                     card = generate_crew_card(member.user)
                     zipp.writestr("%s_%s.jpg" % (member.user.first_name, member.user.last_name), card.getvalue())
@@ -214,11 +217,12 @@ def crewcard(request, event=None):
 @login_required
 @user_passes_test(lambda u: u.is_chief())
 def addcrewmember(request, event=None):
+    eventObj = LanEvent.objects.get(shortname=event)
     if request.POST:
         form = AddCrewMemberForm(request.POST)
         if form.is_valid():
             for u in form.cleaned_data["users"]:
-                crewmember = CrewMember(user=u, event=LATEST_EVENT)
+                crewmember = CrewMember(user=u, event=eventObj)
                 crewmember.save()
                 form.cleaned_data["crewteam"].members.add(crewmember)
         return redirect(addcrewmember)
@@ -228,10 +232,10 @@ def addcrewmember(request, event=None):
     return render(request, "crew/addcrewmember.html", {'form': form, 'event': event })
 
 
-def add_to_crewteam(aid):
+def add_to_crewteam(aid, eventObj):
     user = Application.objects.get(pk=aid).user
     crew = Application.objects.get(pk=aid).crew
-    crewmember = CrewMember.objects.get_or_create(user=user, event=LATEST_EVENT)
+    crewmember = CrewMember.objects.get_or_create(user=user, event=eventObj)
     print(crewmember)
     if Application.objects.get(pk=aid).status == 1:
         crew.members.add(crewmember[0])

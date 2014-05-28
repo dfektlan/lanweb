@@ -36,7 +36,7 @@
 
         <div class="col-md-3 bs-sidebar">
             <div>
-                {% get_latest_lanevent %}
+                {% get_latest_lanevent event %}
             </div>
             {% if user.is_authenticated %}
                 <hr>
@@ -61,7 +61,7 @@
             <hr>
             <div>
                 <h4><a href="{% url "sponsor_index" event %}">Sponsorer:</a></h4>
-                {% show_sponsor_list %}
+                {% show_sponsor_list event %}
             </div>
             <hr>
         </div>

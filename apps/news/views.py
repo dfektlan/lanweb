@@ -4,21 +4,19 @@ from apps.news.models import Post
 from apps.event.models import LanEvent
  
 def overview(request, event=None):
-# This view displays the posts related to the current event. It will display featured posts on top, else the latest post.
-    print event
+    eventObj = LanEvent.objects.get(shortname=event)
 
-    current_event = LanEvent.objects.get(current=True)
 #check if there are featured posts (to current event), if not; get the latest post
     try:
-        featured = Post.objects.filter(event=current_event).filter(featured=True).latest()
+        featured = Post.objects.filter(event=eventObj).filter(featured=True).latest()
     except Post.DoesNotExist:
 #check if there are posts at all (to current event)
         try:
-            featured = Post.objects.filter(event=current_event).latest()
+            featured = Post.objects.filter(event=eventObj).latest()
         except Post.DoesNotExist:
             featured = None
     
-#    non_featured = Post.objects.filter(featured=False).filter(event=current_event)
+#    non_featured = Post.objects.filter(featured=False).filter(event=eventObj)
 #    posts = []
 #    elements = []
 #
@@ -29,7 +27,7 @@ def overview(request, event=None):
 #            posts.append(elements)
 #            elements = []
 #    posts.append(elements) 
-    posts = Post.objects.filter(featured=False).filter(event=current_event)
+    posts = Post.objects.filter(featured=False).filter(event=eventObj)
     return render(request, 'news/overview.html', {'posts': posts, 'featured': featured, 'event': event})
  
 def detail(request, news_id, event=None):
