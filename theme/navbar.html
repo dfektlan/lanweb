@@ -1,7 +1,7 @@
-{% load flatpages %}
-{% get_flatpages '/about/' as about_pages %}
-{% get_flatpages '/event/' as event_pages %}
-{% get_flatpages '/info/' as info_pages %}
+{% load page_tags %}
+{% get_pages event '/om/' as about_pages %}
+{% get_pages event '/event/' as event_pages %}
+{% get_pages event '/info/' as info_pages %}
 
 {% block navbar %}
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -13,7 +13,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/"><img src="{{ MEDIA_URL }}/dfektlogo.svg" height="25px"></a>
+          <a class="navbar-brand" href="{% url 'root' event %}"><img src="{{ MEDIA_URL }}/dfektlogo.svg" height="25px"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -43,7 +43,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Event</a>
                 <ul class="dropdown-menu">
                     {% for page in event_pages %}
-                        <li><a href="{% url 'flatpage' url=page.url %}">{{ page.title }}</a></li>
+                        <li><a href="{% url 'page' event page.url %}">{{ page.title }}</a></li>
                     {% endfor %}
                     <li><a href="{% url 'stream' event 1 %}">Stream</a></li>
                     <li><a href="{% url 'tournament_overview' event %}">Turneringer</a></li>
@@ -53,7 +53,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Om</a>
                 <ul class="dropdown-menu">
                     {% for page in about_pages %}
-                        <li><a href="{% url 'flatpage' url=page.url %}">{{ page.title }}</a></li>
+                        <li><a href="{% url 'page' event page.url %}">{{ page.title }}</a></li>
                     {% endfor %}
                 </ul>
               </li>
