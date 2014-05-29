@@ -28,8 +28,8 @@ class SiteUser(AbstractUser):
     def get_email(self):
         return self.email
 
-    def is_crew(self):
-        current_event = LanEvent.objects.filter(current=True)[0]
+    def is_crew(self, event):
+        eventObj = LanEvent.objects.get(shortname=event)
 
         #check if the user is in a crew team
         if len(self.crewmember_set.all()) == 0:
@@ -37,7 +37,7 @@ class SiteUser(AbstractUser):
 
         # if in crew team, is it for the current event?
         for member in self.crewmember_set.all():
-            if member.event == current_event:
+            if member.event == eventObj:
                 return True
         return False
 

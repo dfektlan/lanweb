@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 # Create your views here.
 
 @login_required
-@user_passes_test(lambda u: u.is_crew())
+@user_passes_test(lambda u: u.is_chief())
 def item_overview(request, event=None):
     items = Item.objects.all()
     crews = Crew.objects.all()
