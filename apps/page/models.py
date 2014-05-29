@@ -7,7 +7,7 @@ from apps.event.models import LanEvent
 
 class Page(models.Model):
     
-    url = models.CharField(_(u'URL'), max_length=20, unique=True)
+    url = models.CharField(_(u'URL'), max_length=60, unique=True)
     title = models.CharField(_(u'Tittel'), max_length=20)
     content = models.TextField(_(u'Innhold'))
     events = models.ManyToManyField(LanEvent)
