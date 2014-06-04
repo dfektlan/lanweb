@@ -21,6 +21,7 @@ import os
 @login_required
 @user_passes_test(lambda u: u.is_chief())
 def overview(request, event=None):
+    eventObj = LanEvent.objects.get(shortname=event)
     #users_in_group = Group.objects.get(name="Core").siteuser_set.all()
     #groups = request.user.groups.all()
     #user = request.user
@@ -32,7 +33,7 @@ def overview(request, event=None):
     pending = []
     approved = []
     declined = []
-    for j in Application.objects.all().order_by('-date'):
+    for j in Application.objects.filter(event=eventObj).order_by('-date'):
         if j.status == 0:
             pending.append(j)
         elif j.status == 1:
@@ -105,13 +106,18 @@ def del_application(request, event=None, application_id=None):
 def crew(request, event=None):
     eventObj = LanEvent.objects.get(shortname=event)
     crewteams = CrewTeam.objects.all()
+    currentCrewTeams = {}
+    for team in crewteams:
+        currentCrewTeams[team] = team.members.filter(event=eventObj)
+
     application_count = Application.objects.filter(event=eventObj).filter(status=0).count()
-    return render(request, 'crew/crew.html', {'crewteams': crewteams, 'count': application_count, 'event': event})
+    return render(request, 'crew/crew.html', {'crewteams': currentCrewTeams, 'count': application_count, 'event': event})
 
 @login_required
 def crewteam(request, event=None, crewteam_id=None):
+    eventObj = LanEvent.objects.get(shortname=event)
     crewteam = CrewTeam.objects.get(pk=crewteam_id)
-    members = crewteam.members.all()
+    members = crewteam.members.filter(event=eventObj)
     return render(request, 'crew/crewteam.html', {'members': members, 'crewteam': crewteam, 'event': event})
 
 
@@ -144,7 +150,7 @@ def register_rfid(request, event=None):
 def credit(request, event=None):
     eventObj = LanEvent.objects.get(shortname=event)
     if request.POST:
-        form = CreditToCrewForm(request.POST)
+        form = CreditToCrewForm(request.POST, event=eventObj)
         if form.is_valid():
             if form.cleaned_data['all']:
                 crewmembers = CrewMember.objects.filter(event=eventObj)
@@ -159,11 +165,12 @@ def credit(request, event=None):
             elif form.cleaned_data['crew']:
                 for c in form.cleaned_data['crew']:
                     for member in c.members.all():
-                        member.add_credit(form.cleaned_data['credit'])
+                        if member.event is eventObj:
+                            member.add_credit(form.cleaned_data['credit'])
                 messages.success(request, "The amount %s was added to %s for event %s" % (form.cleaned_data['credit'], "selected users", eventObj.name))
 
     else:
-        form = CreditToCrewForm()
+        form = CreditToCrewForm(event=eventObj)
 
     return render(request, 'crew/credit.html', {'form': form, 'event': event})
 
@@ -171,8 +178,12 @@ def credit(request, event=None):
 @login_required
 @user_passes_test(lambda u: u.is_chief())
 def credit_overview(request, event=None):
+    eventObj = LanEvent.objects.get(shortname=event)
     crewteams = CrewTeam.objects.all()
-    return render(request, 'crew/credit_overview.html', {'crewteams': crewteams, 'event': event})
+    currentCrewTeams = {}
+    for team in crewteams:
+        currentCrewTeams[team] = team.members.filter(event=eventObj)
+    return render(request, 'crew/credit_overview.html', {'crewteams': currentCrewTeams, 'event': event})
 
 
 @login_required
@@ -180,7 +191,7 @@ def credit_overview(request, event=None):
 def crewcard(request, event=None):
     eventObj = LanEvent.objects.get(shortname=event)
     if request.POST:
-        form = CrewCardForm(request.POST)
+        form = CrewCardForm(request.POST, event=eventObj)
         if form.is_valid():
             s = StringIO()
             zipp = zipfile.ZipFile(s, 'w')
@@ -209,7 +220,7 @@ def crewcard(request, event=None):
 
             return response
     else:
-        form = CrewCardForm()
+        form = CrewCardForm(event=eventObj)
 
     return render(request, 'crew/crewcard.html', {'form': form, 'event': event})
 
@@ -225,7 +236,8 @@ def addcrewmember(request, event=None):
                 crewmember = CrewMember(user=u, event=eventObj)
                 crewmember.save()
                 form.cleaned_data["crewteam"].members.add(crewmember)
-        return redirect(addcrewmember)
+        return redirect('addcrewmember', event=eventObj.shortname)
+
     else:
         form = AddCrewMemberForm()
 

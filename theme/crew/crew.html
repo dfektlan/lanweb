@@ -12,7 +12,7 @@ dfektLAN - Crew
     <div class="col-md-9">
         {% include "crew/crewnav.html" %}
         <div class="row">
-            {% for team in crewteams %}
+            {% for team, members in crewteams.items %}
             <a href="{%  url 'crewteam' event team.id %}">
                 <h2>{{ team.name }}</h2>
             </a>
@@ -24,7 +24,7 @@ dfektLAN - Crew
                                 <th>Telefon</th>
                             </tr>
                         </thead>
-                        {% for member in team.members.all %}
+                        {% for member in members %}
                         {% get_gravatar_url member.user 40 as gravatar_url %}
                             <tr onclick="document.location = '{% url 'profile' event member.user.id %}'">
                                 <td><span><img class="" src="{{ gravatar_url }}" width="40"></span></td>
