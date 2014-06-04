@@ -1,5 +1,8 @@
 {% load sponsor_tags %}
 {% load event_tags %}
+{% load crew_tags %}
+
+{% getCrewMemberData user event as crewMember %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,12 +50,12 @@
                         <li><a href="{% url 'users' event %}">Brukere</a></li>
                         <hr>
                     {% endif %}
-                    {% if user.is_crew %}
-                        {% for crew in user.crewmember_set.all.0.crewteam_set.all %}
+                    {% if crewMember %}
+                        {% for crew in crewMember.crewteam_set.all %}
                             <li><a href="{% url 'crewteam' event crew.id %}">{{ crew.name }}</a></li>
                         {% endfor %}
                         <li><a href="{% url 'crew' event %}">Crews</a></li>
-                        <li class="disabled"><a href="#">Kreditt: {{ user.crewmember_set.all.0.credit }}</a></li>
+                        <li class="disabled"><a href="#">Kreditt: {{ crewMember.credit }}</a></li>
                     {% endif %}
                     {% block sidebar_specific %}
                     {% endblock sidebar_specific %}
