@@ -60,8 +60,8 @@ def add_team(request, event=None, tournament_id=None):
         if team_form.is_valid():
             #intention is to just say form.save() here and remove make_team_participant()
             make_team_participant(request, team_form, tour)
-            return redirect('tournament', tournament_id)
-    return redirect('tournament', tournament_id)
+            return redirect('tournament', event=event, tournament_id=tournament_id)
+    return redirect('tournament', event=event, tournament_id=tournament_id)
 
 
 def register_to_tournament(request, event=None, tournament_id=None):
@@ -74,7 +74,7 @@ def register_to_tournament(request, event=None, tournament_id=None):
         make_participant(request.user, tour)
         messages.success(request, u'You have successfully register for this tournament')
 
-    return redirect('tournament', tournament_id)
+    return redirect('tournament', event=event, tournament_id=tournament_id)
 
 
 def has_participant(tour, user):
@@ -118,7 +118,7 @@ def make_team_participant(request, event=None, form=None, tour=None):
 def check_user(request, event=None, tournament_id=None):
     if not request.user.is_authenticated():
         messages.error(request, u'You must log in to register for a tournament')
-    return redirect('tournament', tournament_id)
+    return redirect('tournament', event=event, tournament_id=tournament_id)
 
 
 def remove_participant(request, event=None, tournament_id=None):
@@ -139,7 +139,7 @@ def remove_participant(request, event=None, tournament_id=None):
         participant = Participant.objects.get(user=request.user, tournament=tournament_id)
         participant.delete()
         messages.success(request, u'You were unregistered from this tournament')
-    return redirect('tournament', tournament_id)
+    return redirect('tournament', event=event, tournament_id=tournament_id)
 
 
 def create_tournament(request, event=None, tournament_id=None):
@@ -157,7 +157,7 @@ def create_tournament(request, event=None, tournament_id=None):
             challonge.participants.create(tour.challonge_id, p)
     except:
         messages.error(request, u'OPS! Challonge!-tournament was not created..')
-    return redirect('tournament', tournament_id)
+    return redirect('tournament', event=event, tournament_id=tournament_id)
 
 
 def start_tournament(request, event=None, tournament_id=None):
@@ -169,7 +169,7 @@ def start_tournament(request, event=None, tournament_id=None):
         messages.success(request, u'Challonge!-tournament successfully started')
     except:
         messages.error(request, u'OPS! Have you created the Challonge!-tournament?')
-    return redirect('tournament', tournament_id)
+    return redirect('tournament', event=event, tournament_id=tournament_id)
 
 
 def destroy_tournament(request, event=None, tournament_id=None):
@@ -182,7 +182,7 @@ def destroy_tournament(request, event=None, tournament_id=None):
         messages.success(request, u'Challonge!-tournament successfully destroyed')
     except:
         messages.error(request, u'OPS! Have you created the Challonge!-tournament?')
-    return redirect('tournament', tournament_id)
+    return redirect('tournament', event=event, tournament_id=tournament_id)
 
 
 def finalize_tournament(request, event=None, tournament_id=None):
@@ -197,5 +197,5 @@ def finalize_tournament(request, event=None, tournament_id=None):
     #    messages.success(request, u'Challonge!-tournament successfully published')
     #except:
     #    messages.error(request, u'OPS! Have you created the Challonge!-tournament?')
-    return redirect('tournament', tournament_id)
+    return redirect('tournament', event=event, tournament_id=tournament_id)
 

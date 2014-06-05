@@ -17,7 +17,7 @@ dfekt LAN - Tournament
     <div class="col-md-9">
         <h1>{{ tournament.title }}</h1>
         {% if tournament.get_status_display == "ABOUT_TO_START" or tournament.get_status_display == "IN_PROGRESS" %}
-            {% if user.is_crew %}
+            {% if crewMember %}
                     <h4>Administrer Challonge!-turnering</h4>
                     <p>Herfra kan du opprette, starte og slette Challonge!-turneringen. Score kan settes i vinduet nedenfor etter at turneringen er startet.
                         OBS! Det kan ta litt tid å lage turneringen. Når alle matcher er ferdig kan du gjøre nødvendige endringer før du trykker "End tournament".
@@ -40,7 +40,7 @@ dfekt LAN - Tournament
                 {% endif %}
             {% endif %}
         {% endif %}
-        {% if user.is_crew and tournament.get_status_display == "FINISHED" %}
+        {% if crewMember and tournament.get_status_display == "FINISHED" %}
             <a class="btn btn-danger btn-sm pull-right" href="{% url 'start_tournament' event tournament.id %}">Tilbakestill</a> {# this is kind of a HACK #}
         {% endif %}
         {% if tournament.get_status_display == "FINISHED" or tournament.get_status_display == "IN_PROGRESS" %}
