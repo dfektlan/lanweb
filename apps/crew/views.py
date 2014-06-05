@@ -55,7 +55,7 @@ def look(request, event=None, application_id=None):
             if form.has_changed and form.cleaned_data['status'] == 1:
                 add_to_crewteam(application_id, application.event)
             messages.success(request, u'The application was successfully saved')
-            return redirect(overview)
+            return redirect(overview, event=event)
         else:
             return HttpResponse('Invalid input')
     else:
@@ -66,6 +66,10 @@ def look(request, event=None, application_id=None):
 
 @login_required
 def user_overview(request, event=None):
+
+    if not request.user.is_crew(event):
+        return redirect("root", event=event)
+
     apps = request.user.application_set.all().order_by('-date') 
     return render(request, 'crew/user_overview.html', {'apps': apps, 'event': event})
 
@@ -85,7 +89,7 @@ def new_application(request, event=None, application_id=None):
             application.event = eventObj
             form.save()
             messages.success(request, u'Your application was succesfully submitted')
-        return redirect(user_overview)
+        return redirect(user_overview, event=event)
     else:
         form = ApplicationForm(instance=application)
     return render(request, 'crew/new_application.html', {'form': form, 'event': event, })
@@ -99,11 +103,15 @@ def del_application(request, event=None, application_id=None):
         messages.success(request, u'The application has been deleted')
     else:
         messages.error(request, u'This is not your application, you cannot delete it')
-    return redirect(profile)
+    return redirect(profile, event=event)
 
 
 @login_required
 def crew(request, event=None):
+
+    if not request.user.is_crew(event):
+        return redirect("root", event=event)
+
     eventObj = LanEvent.objects.get(shortname=event)
     crewteams = CrewTeam.objects.all()
     currentCrewTeams = {}
@@ -115,6 +123,10 @@ def crew(request, event=None):
 
 @login_required
 def crewteam(request, event=None, crewteam_id=None):
+
+    if not request.user.is_crew(event):
+        return redirect("root", event=event)
+
     eventObj = LanEvent.objects.get(shortname=event)
     crewteam = CrewTeam.objects.get(pk=crewteam_id)
     members = crewteam.members.filter(event=eventObj)
@@ -135,10 +147,10 @@ def register_rfid(request, event=None):
                 messages.success(request, "RFID successfully updated")
             else:
                 messages.error(request, "RFID unsuccessfully updated, %s does not exist." % user)
-            return redirect(register_rfid)
+            return redirect(register_rfid, event=event)
         else:
             messages.error(request, "RFID unsuccessfully updated")
-            return redirect(register_rfid)
+            return redirect(register_rfid, event=event)
     else:
         form = RegisterRFIDForm()
 
