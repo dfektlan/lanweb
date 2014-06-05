@@ -31,7 +31,7 @@ def new_item(request, event=None, item_id=None):
         if form.is_valid():
             form.save()
             messages.success(request, u'Item successfully added')
-            return redirect(item_overview)
+            return redirect(item_overview, event=event)
         else:
             messages.error(request, u'Item unsuccessfully added')
     else:

@@ -42,7 +42,7 @@ def edit_profile(request, event=None):
             user.steam = cleaned["steam"]
             user.save()
             user.setNameNotRetard()
-            return redirect(myprofile)
+            return redirect(myprofile, event=event)
     else:
         form = EditProfileForm(initial={
             "first_name": user.first_name,
