@@ -5,7 +5,6 @@ from tastypie import fields
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie.authorization import DjangoAuthorization
 from tastypie.serializers import Serializer
-from apps.event.models import LanEvent
 from apps.crew.models import CrewMember
 from apps.api.v1.userprofile import UserResource
 

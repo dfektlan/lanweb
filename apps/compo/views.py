@@ -22,7 +22,7 @@ def overview(request, event=None):
         tournament_dict[g] = all_tournaments.filter(game=g)
         for t in tournament_dict[g]:
             t.set_status()
-    return render(request, 'compo/overview.html', {'tournaments':tournament_dict, 'all_games':all_games, 'event': event})
+    return render(request, 'compo/overview.html', {'tournaments': tournament_dict, 'all_games': all_games, 'event': event})
 
 
 def tournament(request, event=None, tournament_id=None):
@@ -36,7 +36,7 @@ def tournament(request, event=None, tournament_id=None):
         challonge_url = ""
     participants = tour.get_participants()
     is_participant = has_participant(tour, request.user)
-    #should move is_teamleader to SiteUser PS. verdens styggeste if-setning?
+    # should move is_teamleader to SiteUser PS. verdens styggeste if-setning?
     is_teamleader = False
     if request.user.is_authenticated() and not request.user.is_anonymous() and tour.use_teams:
                 is_teamleader = request.user.is_teamleader.filter(participant__tournament=tour)
@@ -49,7 +49,7 @@ def tournament(request, event=None, tournament_id=None):
                                                      'is_teamleader': is_teamleader,
                                                      'challonge_image': challonge_image,
                                                      'challonge_url': challonge_url,
-                                                     'challonge_form': challonge_form, 
+                                                     'challonge_form': challonge_form,
                                                      'event': event})
 
 
@@ -58,7 +58,7 @@ def add_team(request, event=None, tournament_id=None):
     if request.POST:
         team_form = RegisterTeamForm(request.POST, tour=tour, request=request)
         if team_form.is_valid():
-            #intention is to just say form.save() here and remove make_team_participant()
+            # intention is to just say form.save() here and remove make_team_participant()
             make_team_participant(request, team_form, tour)
             return redirect('tournament', event=event, tournament_id=tournament_id)
     return redirect('tournament', event=event, tournament_id=tournament_id)
@@ -101,7 +101,7 @@ def make_team_participant(request, event=None, form=None, tour=None):
     team = Team()
     participant = Participant()
     # Unike teamtitle? not working.. -_- required for Challonge!
-    #if form.cleaned_data['title'] in Participant.objects.filter(tournament=tour):
+    # if form.cleaned_data['title'] in Participant.objects.filter(tournament=tour):
     #    messages.error(request, u'This teamname is already taken')
     team.title = form.cleaned_data['title']
     team.teamleader = request.user
@@ -128,10 +128,10 @@ def remove_participant(request, event=None, tournament_id=None):
         for team in participants:
             if request.user in team.members.all():
                 team.members.remove(request.user)
-                messages.success(request, u'You were removed from the team "' + team.title +'"')
+                messages.success(request, u'You were removed from the team "' + team.title + '"')
         if request.user.is_teamleader.filter(participant__tournament=tour):
             for team in request.user.is_teamleader.filter(participant__tournament=tour):
-                #promt "are you sure you want to delete the team..?"
+                # promt "are you sure you want to delete the team..?"
                 team.delete()
                 messages.success(request, u'You have deleted the team "' + team.title + '"')
 
@@ -164,7 +164,7 @@ def start_tournament(request, event=None, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     try:
         challonge.tournaments.start(tour.challonge_id)
-        tour.status = 3 # "IN_PROGRESS"
+        tour.status = 3  # "IN_PROGRESS"
         tour.save()
         messages.success(request, u'Challonge!-tournament successfully started')
     except:
@@ -177,7 +177,7 @@ def destroy_tournament(request, event=None, tournament_id=None):
     try:
         challonge.tournaments.destroy(tour.challonge_id)
         tour.challonge_id = ""
-        tour.status = 2 # "ABOUT_TO_START"
+        tour.status = 2  # "ABOUT_TO_START"
         tour.save()
         messages.success(request, u'Challonge!-tournament successfully destroyed')
     except:
@@ -188,14 +188,14 @@ def destroy_tournament(request, event=None, tournament_id=None):
 def finalize_tournament(request, event=None, tournament_id=None):
     tour = get_object_or_404(Tournament, pk=tournament_id)
     # add som sort of confirmation from user
-    tour.status = 4 # "FINISHED"
+    tour.status = 4  # "FINISHED"
     tour.save()
     messages.success(request, u'Turneringen er avsluttet')
     # couldn't find anywhere in the API to end/finalize the tournament and get the winners/scores
-    #try:
+    # try:
     #    challonge.tournaments.publish(tour.challonge_id, include_participants=1)
     #    messages.success(request, u'Challonge!-tournament successfully published')
-    #except:
+    # except:
     #    messages.error(request, u'OPS! Have you created the Challonge!-tournament?')
     return redirect('tournament', event=event, tournament_id=tournament_id)
 

@@ -10,7 +10,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 
 
-from apps.authentication.forms import (LoginForm, RegisterForm, 
+from apps.authentication.forms import (LoginForm, RegisterForm,
                             RecoveryForm, ChangePasswordForm)
 from apps.authentication.models import RegisterToken
 from django.conf import settings
@@ -25,11 +25,12 @@ def login(request, event=None):
             if redirect_url:
                 return HttpResponseRedirect(redirect_url)
             return redirect('root', event=event)
-        else: form = LoginForm(request.POST, auto_id=True)
+        else: 
+            form = LoginForm(request.POST, auto_id=True)
     else:
         form = LoginForm()
 
-    response_dict = { 'form' : form, 'next' : redirect_url, 'event': event}
+    response_dict = {'form': form, 'next': redirect_url, 'event': event}
     return render(request, 'auth/login.html', response_dict)
 
 
@@ -48,12 +49,12 @@ def register(request, event=None):
             form = RegisterForm(request.POST)
             if form.is_valid():
                 cleaned = form.cleaned_data
-                
+
                 # Create user
                 user = SiteUser(
                     username=cleaned['username'].lower(),
                     nickname=cleaned['username'].lower(),
-                    first_name=cleaned['first_name'], 
+                    first_name=cleaned['first_name'],
                     last_name=cleaned['last_name'],
                     email=cleaned['email'].lower(),
                     date_of_birth=cleaned['date_of_birth'],
@@ -64,13 +65,12 @@ def register(request, event=None):
                     steam=cleaned['steam'],
                     town=cleaned['town'],
                     country=cleaned['country'],
-                    #image=cleaned['image'],
+                    # image=cleaned['image'],
                 )
                 user.set_password(cleaned['password'])
                 user.is_active = False
                 user.save()
                 user.setNameNotRetard()
-
 
                 # Create the registration token
                 token = uuid.uuid4().hex
@@ -86,9 +86,9 @@ http://%s/%s/auth/verify/%s/
 
 Aktiveringslinken er kun aktiv i 24 timer, etter dette vil du måtte bruke Reset Password for
 å få en ny link.
-""" %    (request.META['HTTP_HOST'], event, token)
+""" % (request.META['HTTP_HOST'], event, token)
 
-                send_mail('Verify your account', email_message, settings.REGISTER_FROM_MAIL, [user.email,])
+                send_mail('Verify your account', email_message, settings.REGISTER_FROM_MAIL, [user.email, ])
 
                 messages.success(request, 'Registration successful. Check your email for verification instructions.')
 
@@ -179,12 +179,12 @@ def users(request, event=None):
     return render(request, 'auth/users.html', {'u': u, 'event': event})
 
 
-def set_password(request, token=None, event=None): 
+def set_password(request, token=None, event=None):
     if request.user.is_authenticated():
         return redirect('root', event=event)
     else:
         rt = get_object_or_404(RegisterToken, token=token)
-       
+
         if rt.is_valid:
             if request.method == 'POST':
                 form = ChangePasswordForm(request.POST, auto_id=True)
@@ -194,14 +194,14 @@ def set_password(request, token=None, event=None):
                     user.is_active = True
                     user.set_password(form.cleaned_data['new_password'])
                     user.save()
-                    
+
                     rt.delete()
 
                     messages.success(request, "User %s successfully had it's password changed. You can now log in." % user)
-                    
+
                     return redirect('root', event=event)
             else:
-                
+
                 form = ChangePasswordForm()
 
                 messages.success(request, "Token accepted. Please insert your new password.")

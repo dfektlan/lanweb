@@ -1,11 +1,9 @@
 __author__ = 'kradalby'
 
 from tastypie.resources import ModelResource
-from tastypie import fields
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie.authorization import DjangoAuthorization
 from tastypie.serializers import Serializer
-from apps.event.models import LanEvent
 from apps.userprofile.models import SiteUser
 
 
@@ -22,3 +20,4 @@ class UserResource(ModelResource):
                     'steam', 'address', 'town', 'zip_code', 'country',
                     'image', 'email', 'date_joined', 'is_true',
                     'is_staff', 'is_superuser', 'password']
+
