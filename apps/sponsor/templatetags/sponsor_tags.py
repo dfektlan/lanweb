@@ -7,8 +7,8 @@ register = template.Library()
 
 @register.inclusion_tag('sponsor/sponsor_list.html')
 
-def show_sponsor_list():
-    current_event = LanEvent.objects.get(current=True)
-    sponsors = Sponsor.objects.filter(event=current_event)
+def show_sponsor_list(event):
+    eventObj = LanEvent.objects.get(shortname=event)
+    sponsors = Sponsor.objects.filter(event=eventObj)
 
     return {'sponsors' : sponsors}

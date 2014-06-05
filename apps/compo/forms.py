@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.forms import ModelForm
-from apps.compo.models import Participant
 from apps.userprofile.models import SiteUser
 from apps.compo.models import Team
 
@@ -9,9 +8,9 @@ dummy = []
 
 
 class RegisterTeamForm(ModelForm):
-    #teamname = forms.CharField(label='Lagnavn', max_length=30)
-    #username = forms.ModelMultipleChoiceField(dummy)
-    #action_url = 'add_team'
+    # teamname = forms.CharField(label='Lagnavn', max_length=30)
+    # username = forms.ModelMultipleChoiceField(dummy)
+    # action_url = 'add_team'
     class Meta:
         model = Team
         exclude = ('teamleader',)
@@ -37,3 +36,4 @@ class ChallongeForm(forms.Form):
         (u'swiss', u'swiss'),
     )
     type = forms.ChoiceField(choices=CHOICES, label="Challonge-type")
+

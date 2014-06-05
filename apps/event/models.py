@@ -12,6 +12,7 @@ class LanEvent(models.Model):
     location = models.CharField(_(u'Lokasjon'), max_length=200)
     price = models.IntegerField(_(u'Pris'))
     numberOfSeats = models.IntegerField(_(u'Antall plasser'), max_length=200)
+    shortname = models.CharField(_(u'Shortname'), max_length=20, unique=True)
     
 
     def __unicode__(self):

@@ -7,6 +7,6 @@ register = template.Library()
 @register.inclusion_tag('eventinfo.html')
 #@register.assignment_tag(takes_context=True)
 
-def get_latest_lanevent():
-    lanevent = LanEvent.objects.get(current=True)
-    return {'lanevent' : lanevent}
+def get_latest_lanevent(event):
+    eventObj = LanEvent.objects.get(shortname=event)
+    return {'lanevent' : eventObj}

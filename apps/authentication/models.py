@@ -2,7 +2,6 @@
 
 import datetime
 
-#from django.contrib.auth.models import User
 from django.db import models
 from apps.userprofile.models import SiteUser
 from django.utils import timezone
@@ -18,3 +17,4 @@ class RegisterToken(models.Model):
         valid_period = datetime.timedelta(days=1)
         now = timezone.make_aware(datetime.datetime.now(), timezone.get_default_timezone())
         return now < self.created + valid_period
+

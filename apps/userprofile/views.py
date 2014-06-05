@@ -6,25 +6,25 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 
 @login_required
-def profile(request, user_id=None):
+def profile(request, event=None, user_id=None):
     user = get_object_or_404(SiteUser, id=user_id)
     apps = user.application_set.all()
     attended = get_all_attended_events(user)
 
-    return render(request, 'userprofile/profile.html', {'profile': user, 'apps': apps, 'attended': attended})
+    return render(request, 'userprofile/profile.html', {'profile': user, 'apps': apps, 'attended': attended, 'event': event})
 
 
 @login_required
-def myprofile(request):
+def myprofile(request, event=None):
     user = request.user
     apps = user.application_set.all()
     attended = get_all_attended_events(user)
 
-    return render(request, 'userprofile/myprofile.html', {'user': user, 'apps': apps, 'attended': attended})
+    return render(request, 'userprofile/myprofile.html', {'user': user, 'apps': apps, 'attended': attended, 'event': event})
 
 
 @login_required
-def edit_profile(request):
+def edit_profile(request, event=None):
     user = request.user
     if request.POST:
         form = EditProfileForm(request.POST)
@@ -42,7 +42,7 @@ def edit_profile(request):
             user.steam = cleaned["steam"]
             user.save()
             user.setNameNotRetard()
-            return redirect(myprofile)
+            return redirect(myprofile, event=event)
     else:
         form = EditProfileForm(initial={
             "first_name": user.first_name,
@@ -56,7 +56,7 @@ def edit_profile(request):
             "skype": user.skype,
             "steam": user.steam
         })
-    return render(request, 'userprofile/editprofile.html', {'form': form, 'user': user})
+    return render(request, 'userprofile/editprofile.html', {'form': form, 'user': user, 'event': event})
 
 
 

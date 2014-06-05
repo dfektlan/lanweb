@@ -4,7 +4,7 @@ from models import Application, CrewMember, CrewTeam
 from apps.event.models import LanEvent
 from apps.userprofile.models import SiteUser
 
-LATEST_EVENT = LanEvent.objects.filter(current=True)[0]
+#LATEST_EVENT = LanEvent.objects.filter(current=True)[0]
 
 
 class ApplicationAdminForm(ModelForm):
@@ -37,15 +37,24 @@ class RegisterRFIDForm(forms.Form):
 
 class CreditToCrewForm(forms.Form):
     #crewmember = forms.ModelChoiceField(CrewMember.objects.all(), label="Crewmedlem", required=False)
-    crewmember = forms.ModelMultipleChoiceField(CrewMember.objects.filter(event=LATEST_EVENT), label="Crewmedlem", required=False)
-    crew = forms.ModelMultipleChoiceField(CrewTeam.objects.all(), label="Crew", required=False)
+    #crewmember = forms.ModelMultipleChoiceField(CrewMember.objects.filter(event=event), label="Crewmedlem", required=False)
     all = forms.BooleanField(label="Alle crew medlemmer?", required=False)
     credit = forms.IntegerField(label="Gatepoeng")
 
+    def __init__(self,*args,**kwargs):
+        event = kwargs.pop("event")
+        super(CreditToCrewForm, self).__init__(*args,**kwargs)
+        self.fields['crewmember'] = forms.ModelMultipleChoiceField(CrewMember.objects.filter(event=event), label="Crewmedlem", required=False)
+        self.fields['crew'] = forms.ModelMultipleChoiceField(CrewTeam.objects.all(), label="Crew", required=False)
+
 
 class CrewCardForm(forms.Form):
-    crewmember = forms.ModelMultipleChoiceField(CrewMember.objects.filter(event=LATEST_EVENT), label="Crewmedlem", required=False)
     all = forms.BooleanField(label="Alle crew medlemmer?", required=False)
+
+    def __init__(self,*args,**kwargs):
+        event = kwargs.pop("event")
+        super(CrewCardForm, self).__init__(*args,**kwargs)
+        self.fields['crewmember'] = forms.ModelMultipleChoiceField(CrewMember.objects.filter(event=event), label="Crewmedlem", required=False)
 
 
 class AddCrewMemberForm(forms.Form):

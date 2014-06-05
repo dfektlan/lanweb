@@ -9,7 +9,7 @@ class Sponsor(models.Model):
 
     name = models.CharField(_(u'Navn'), max_length=200)
     description = models.TextField(_(u'Beskrivelse'), )
-    event = models.ForeignKey(LanEvent, null=False, verbose_name="Event", related_name="Event", editable=True)
+    event = models.ManyToManyField(LanEvent)
     logo_img = models.ImageField(_(u'Logo Bilde'), upload_to='sponsor', max_length=150, blank=True, null=True)
     logo_svg = models.FileField(_(u'Logo SVG'), upload_to='sponsor', max_length=150, blank=True, null=True)
     url = models.URLField(_(u'URL'), max_length=200, blank=True)

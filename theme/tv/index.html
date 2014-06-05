@@ -20,7 +20,7 @@ dfektLAN - Stream: {{ stream.name }}
         <div class="row">
             <ul class="nav nav-tabs">
                 {% for id, displayName in link %}
-                    <li><a href="{% url 'stream' id %}">{{ displayName }}</a></li>
+                    <li><a href="{% url 'stream' event id %}">{{ displayName }}</a></li>
                 {%  endfor %}
             </ul>
         </div>

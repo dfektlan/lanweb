@@ -24,7 +24,7 @@
                 </p>
                 <p> {{post.summary}} </p>
                 <p> {{post.content|dfekt_markdown }} </p>
-                <a href="{% url 'news_overview' %}"<button class="btn btn-primary" type="button">Tilbake</button> </a>
+                <a href="{% url 'news_overview' event %}"<button class="btn btn-primary" type="button">Tilbake</button> </a>
             </div>
             <div class="col-md-4">
                 {% if post.image %}

@@ -10,7 +10,7 @@ import pprint
 #}
 
 
-def stream(request, stream_id=None):
+def stream(request, event=None, stream_id=None):
     channels = Channel.objects.all()
     if stream_id is None:
         stream_id = 1
@@ -44,7 +44,7 @@ def stream(request, stream_id=None):
     for channel in channels:
         links.append((channel.pk, channel.displayName))
 
-    return render(request, 'tv/index.html', {'stream': stream, 'link': links})
+    return render(request, 'tv/index.html', {'stream': stream, 'link': links, 'event': event})
 
 
 def get_stream_as_dict(channel):

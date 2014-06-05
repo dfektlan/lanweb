@@ -12,14 +12,14 @@ News overview
 <div class="row jumbotron">
 {% if featured %}
 <div class="col-md-12">
-<h1> <a href="{% url 'news_detail' featured.id %}"> {{featured.title}} </a> </h1>
+<h1> <a href="{% url 'news_detail' event featured.id %}"> {{featured.title}} </a> </h1>
 <p> {{featured.summary}} </p>
 <p> {{featured.content|dfekt_markdown}} </p>
 <p>
 Publisert den {{featured.created|date:'d.m.Y H:i'}}
 av <a href="#"> {{featured.author}} </a>
 </p>
-<p> <a href="{% url 'news_detail' featured.id %}" class="btn btn-primary btn-lg"> Les mer &raquo;</a></p>
+<p> <a href="{% url 'news_detail' event featured.id %}" class="btn btn-primary btn-lg"> Les mer &raquo;</a></p>
 </div>
 {% endif %}
 </div>
@@ -28,7 +28,7 @@ av <a href="#"> {{featured.author}} </a>
 <div class="row">
 {% for post in posts %}
 <div class="col-sm-4 col-lg-4 col-md-4">
-<h2> <a href="{% url 'news_detail' post.id %}"> {{post.title}} </a> </h2>
+<h2> <a href="{% url 'news_detail' event post.id %}"> {{post.title}} </a> </h2>
 <p>{{post.summary}}</p>
 <p>
 Posted on
@@ -38,7 +38,7 @@ Posted on
 by <a href="#"> {{post.author}} </a>
 </p>
 <!-- kult om den kunne expanda istedet for å linke. typ; onClick show content -->
-<p> <a class="btn" href="{% url 'news_detail' post.id %}">Vis mer &raquo;</a> </p>
+<p> <a class="btn" href="{% url 'news_detail' event post.id %}">Vis mer &raquo;</a> </p>
 </div>
 {% endfor %}
 </div>

@@ -16,7 +16,7 @@ class LoginForm(forms.Form):
     def clean(self):
         if self._errors:
             return
-    
+
         user = auth.authenticate(username=self.cleaned_data['username'].lower(), password=self.cleaned_data['password'])
 
         if user:
@@ -66,7 +66,7 @@ class RegisterForm(forms.Form):
         super(RegisterForm, self).clean()
         if self.is_valid():
             cleaned_data = self.cleaned_data
-            
+
             # Check date of birth
             # currently only checks that it is not after today
             date = cleaned_data['date_of_birth']

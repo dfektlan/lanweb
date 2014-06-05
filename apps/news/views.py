@@ -3,21 +3,20 @@ from django.shortcuts import render, get_object_or_404
 from apps.news.models import Post
 from apps.event.models import LanEvent
  
-def overview(request):
-# This view displays the posts related to the current event. It will display featured posts on top, else the latest post.
+def overview(request, event=None):
+    eventObj = LanEvent.objects.get(shortname=event)
 
-    current_event = LanEvent.objects.get(current=True)
 #check if there are featured posts (to current event), if not; get the latest post
     try:
-        featured = Post.objects.filter(event=current_event).filter(featured=True).latest()
+        featured = Post.objects.filter(event=eventObj).filter(featured=True).latest()
     except Post.DoesNotExist:
 #check if there are posts at all (to current event)
         try:
-            featured = Post.objects.filter(event=current_event).latest()
+            featured = Post.objects.filter(event=eventObj).latest()
         except Post.DoesNotExist:
             featured = None
     
-#    non_featured = Post.objects.filter(featured=False).filter(event=current_event)
+#    non_featured = Post.objects.filter(featured=False).filter(event=eventObj)
 #    posts = []
 #    elements = []
 #
@@ -28,15 +27,15 @@ def overview(request):
 #            posts.append(elements)
 #            elements = []
 #    posts.append(elements) 
-    posts = Post.objects.filter(featured=False).filter(event=current_event)
-    return render(request, 'news/overview.html', {'posts': posts, 'featured': featured})
+    posts = Post.objects.filter(featured=False).filter(event=eventObj)
+    return render(request, 'news/overview.html', {'posts': posts, 'featured': featured, 'event': event})
  
-def detail(request, news_id):
+def detail(request, news_id, event=None):
     post = get_object_or_404(Post, pk=news_id)
-    return render(request, 'news/detail.html', {'post': post})
+    return render(request, 'news/detail.html', {'post': post, 'event': event})
 
  
-def archive(request, event_id=None):
+def archive(request, event=None, event_id=None):
 #    event = get_object_or_404(LanEvent, pk=event_id)
 #    filtered_posts = Post.objects.filter(event=event)
     events = LanEvent.objects.all()
@@ -51,5 +50,5 @@ def archive(request, event_id=None):
             elements = []
     posts.append(elements) 
     print(posts)
-    return render(request, 'news/archive.html', {'posts': posts, 'events': events})
+    return render(request, 'news/archive.html', {'posts': posts, 'events': events, 'event': event})
     
