@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load markup_tags %}
+
+ 
+{% block title %}
+{{ page.title }}
+{% endblock %}
+ 
+
+{% block content %}
+    <div class="col-md-9">
+        <div class="row">
+            <h1> {{ page.title }} </h1>
+                {% if user.is_superuser %}
+                    <p><a href="{% url 'admin:page_page_change' page.pk %}">Rediger</a></p>
+
+                {% endif %}
+                <p>{{ page.content|dfekt_markdown }}</p>
+        </div>
+    </div>
+{% endblock %}
+

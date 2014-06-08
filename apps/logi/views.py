@@ -8,8 +8,8 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 # Create your views here.
 
 @login_required
-@user_passes_test(lambda u: u.is_crew())
-def item_overview(request):
+@user_passes_test(lambda u: u.is_chief())
+def item_overview(request, event=None):
     items = Item.objects.all()
     crews = Crew.objects.all()
 
@@ -17,10 +17,10 @@ def item_overview(request):
     for crew in crews:
         i[crew] = filter(lambda x: x.owner == crew, items)
 
-    return render(request, "logi/overview.html", {'items': i,})
+    return render(request, "logi/overview.html", {'items': i, 'event': event,})
 
 
-def new_item(request, item_id=None):
+def new_item(request, event=None, item_id=None):
     if item_id is None:
         item = Item()
     else:
@@ -31,10 +31,10 @@ def new_item(request, item_id=None):
         if form.is_valid():
             form.save()
             messages.success(request, u'Item successfully added')
-            return redirect(item_overview)
+            return redirect(item_overview, event=event)
         else:
             messages.error(request, u'Item unsuccessfully added')
     else:
         form = ItemForm()
 
-    return render(request, "logi/form.html", {'form': form})
+    return render(request, "logi/form.html", {'form': form, 'event': event})

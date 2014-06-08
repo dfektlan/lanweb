@@ -110,6 +110,9 @@ TEMPLATE_DIRS = (
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
+CHALLONGE_APIUSER = 'dfektlan'
+CHALLONGE_APIKEY = 'EmOkMBJWRbH1Ouf2dwvY5rm6MJMuIkTubWQfDK6f'
+
 INSTALLED_APPS = (
 
     #Thirdparty apps
@@ -138,6 +141,7 @@ INSTALLED_APPS = (
     'apps.compo',
     'apps.tv',
     'apps.logi',
+    'apps.page',
 
 )
 

@@ -14,7 +14,7 @@ dfekt LAN - Register
 {% block content %}
     <div class="col-md-9">
         {{ form.non_field_errors }}
-        <form id="register-form"class="form-horizontal" method="post" action="{% url "auth_register" %}">{% csrf_token %}
+        <form id="register-form"class="form-horizontal" method="post" action="{% url "auth_register" event %}">{% csrf_token %}
             <fieldset>
                 <legend>Register new user</legend>
                     {{ form|crispy }}

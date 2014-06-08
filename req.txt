@@ -9,3 +9,4 @@ python-mimeparse==0.1.4
 six==1.4.1
 requests==2.2.1
 simplejson==3.3.2
+-e git+http://github.com/russ-/pychallonge@617bfa3e949e028a8d5c11bbe2770b713015d844#egg=pychallonge-dev

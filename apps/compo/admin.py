@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Game,Tournament,Participant,Team
+from models import Game, Tournament, Participant, Team
 
 
 class GameAdmin(admin.ModelAdmin):
@@ -7,7 +7,7 @@ class GameAdmin(admin.ModelAdmin):
 
 
 class TournamentAdmin(admin.ModelAdmin):
-    exclude = ['status', 'open', 'max_participants']
+    exclude = ['status', 'challonge_id', 'challonge_type']
 
 
 class ParticipantAdmin(admin.ModelAdmin):

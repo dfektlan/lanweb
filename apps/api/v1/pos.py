@@ -29,7 +29,6 @@ class ItemResource(ModelResource):
         allowed_methods = ['get']
 
 
-
 class ItemPackResource(ModelResource):
     group = fields.ForeignKey(ItemGroupResource, 'group')
 
@@ -53,13 +52,12 @@ class ItemQuantityResource(ModelResource):
         serializer = Serializer(formats=['json', 'jsonp'])
 
 
-
 class OrderResource(ModelResource):
     items = fields.ManyToManyField(ItemQuantityResource,
                                    attribute=lambda bundle: bundle.obj.items.through.objects.filter(
                                        order=bundle.obj) or bundle.obj.items, full=True, null=True, readonly=True)
 
-    #workaround to allow ItemQuantityResource to point at OrderResource through a foreignkey
+    # workaround to allow ItemQuantityResource to point at OrderResource through a foreignkey
     itemquantity = fields.ForeignKey(ItemQuantityResource, 'itemquantity', null=True)
 
     class Meta:
@@ -74,9 +72,5 @@ class OrderResource(ModelResource):
 
     def hydrate(self, bundle):
         bundle.obj.event = LanEvent.objects.filter(current=True)[0]
-        #bundle.data['event'] = LanEvent.objects.filter(current=True)[0]
         return bundle
-
-
-
 

@@ -8,13 +8,13 @@ dfekt LAN - Login
 {% block content %}
     <div class="col-md-9">
         {{ form.non_field_errors }}
-        <form class="form-horizontal" method="post" action="{% url "auth_login" %}">{% csrf_token %}
+        <form class="form-horizontal" method="post" action="{% url "auth_login" event %}">{% csrf_token %}
             <fieldset>
                 <legend>Login</legend>
                 {{ form|crispy }}
                 <div class="form-actions">
                     <input type="submit" class="btn btn-primary" value="Login" />
-                    <a href="{% url "auth_recover" %}" class="btn btn-info">Recover password</a>
+                    <a href="{% url "auth_recover" event %}" class="btn btn-info">Recover password</a>
                 </div>
             </fieldset>
             <input type="hidden" name="next" value="{% if next %}{{ next }}{% endif %}"/>
