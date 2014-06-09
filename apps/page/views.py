@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import Http404
+
+
 
 
 from apps.page.models import Page
@@ -7,7 +9,7 @@ from apps.event.models import LanEvent
 # Create your views here.
 
 def page(request, event=None, url=None):
-    p = Page.objects.get(url=url)
+    p = get_object_or_404(Page, url=url)
     events = p.events.all()
     eventObj = LanEvent.objects.get(shortname=event)
 
