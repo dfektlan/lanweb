@@ -2,6 +2,9 @@
 {% load event_tags %}
 {% load crew_tags %}
 
+
+{% setEventIfNone event as event %}
+
 {% if user.is_authenticated %}
     {% getCrewMemberData user event as crewMember %}
 {% endif %}
@@ -41,7 +44,7 @@
 
         <div class="col-md-3 bs-sidebar">
             <div>
-                {% get_latest_lanevent event %}
+                {% getEventInformation event %}
             </div>
             {% if user.is_authenticated %}
                 <hr>
