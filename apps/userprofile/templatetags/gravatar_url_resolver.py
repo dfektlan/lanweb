@@ -10,10 +10,9 @@ register = template.Library()
 def get_gravatar_url(context, user, size):
     email = user.get_email()
 
-    #laters
-    #prefix = "https://" if context['request'].is_secure() else "http://"
-    default = "https://kradalby.no/placeatle.jpg"
+    default = "https://dfektlan.no/media/nophoto.jpg"
     hash = hashlib.md5(email.lower()).hexdigest()
+    print dir(context)
 
     gravatar_url = "https://www.gravatar.com/avatar/" + hash + "?"    
     gravatar_url += urllib.urlencode({'d': default, 's':str(size)})    
