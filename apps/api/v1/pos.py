@@ -3,8 +3,10 @@ from tastypie import fields
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie.authorization import DjangoAuthorization
 from tastypie.serializers import Serializer
+from tastypie.constants import ALL_WITH_RELATIONS
 from apps.pos.models import Item, ItemGroup, ItemPack, ItemQuantity, Order
 from apps.event.models import LanEvent
+from apps.api.v1.event import LanEventResource
 
 
 class ItemGroupResource(ModelResource):
@@ -69,8 +71,15 @@ class OrderResource(ModelResource):
         always_return_data = True
         max_limit = 0
         limit = 0
+        filtering = {
+            "event": ALL_WITH_RELATIONS,
+        }
 
     def hydrate(self, bundle):
         bundle.obj.event = LanEvent.objects.get(shortname=bundle.data["event"])
         return bundle
 
+    def dehydrate(self, bundle):
+        bundle.data['event'] = LanEvent.objects.get(shortname=bundle.obj.event.shortname).shortname
+
+        return bundle
