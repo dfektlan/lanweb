@@ -71,6 +71,6 @@ class OrderResource(ModelResource):
         limit = 0
 
     def hydrate(self, bundle):
-        bundle.obj.event = LanEvent.objects.filter(current=True)[0]
+        bundle.obj.event = LanEvent.objects.get(shortname=bundle.data["event"])
         return bundle
 
