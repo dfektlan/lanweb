@@ -1,5 +1,7 @@
 # lanweb - dfekt LAN web project
 
+# This webpage should be rewritten before the next dfekt LAN
+
 ## Setting up a dev enviroment
 
 If you are using a *nix computer either virtualenv or Vagrant is good. If you are using Windows, Vagrant is the way to go.
