@@ -1,6 +1,7 @@
 # lanweb - dfekt LAN web project
 
-# This webpage should be rewritten before the next dfekt LAN
+## This webpage will probably not be used for any other dfekt LANs.
+## Checkout StudLAN (https://github.com/casualgaming/studlan)
 
 ## Setting up a dev enviroment
 
